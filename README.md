@@ -1,5 +1,7 @@
 # Arabic Sentence Segmentation — AraSeg 2026 Shared Task
 
+[![fixture-smoke-test](https://github.com/omarsaqr12/arabic-sentence-segmentation/actions/workflows/smoke.yml/badge.svg)](https://github.com/omarsaqr12/arabic-sentence-segmentation/actions/workflows/smoke.yml)
+
 A complete system for **Arabic sentence-boundary detection**, built for the
 [AraSeg 2026 Shared Task](https://www.araseg.aramlab.ai/) at **ArabicNLP 2026
 (@ EMNLP 2026, Budapest)**. The task: given an Arabic document, predict for every
@@ -227,6 +229,12 @@ starter repo alongside this one:
 ```bash
 git clone https://github.com/mbzuai-nlp/araseg-shared-task-2026
 ```
+
+## Citing
+
+See [CITATION.cff](CITATION.cff); the system paper is
+[paper/araseg_system.pdf](paper/araseg_system.pdf) (ACL-format version in
+[paper/acl/](paper/acl/)).
 
 ## License
 
