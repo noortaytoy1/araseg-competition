@@ -27,8 +27,7 @@ and the Data Ceiling in Arabic Sentence Segmentation}
   Team \texttt{omar\_saqr} --- The American University in Cairo \\
   \texttt{omarganna@aucegypt.edu}}
 
-\begin{document}
-; move \bibitem entries to a .bib. Arabic is romanized so pdflatex
+\begin{document}; move \bibitem entries to a .bib. Arabic is romanized so pdflatex
 % works; restore Arabic script under XeLaTeX+polyglossia for the camera-ready.
 \documentclass[10pt,twocolumn]{article}
 \usepackage[a4paper,margin=0.82in]{geometry}
@@ -257,11 +256,12 @@ SaT-12L (0-shot)   & dev & 68.9 & 68.5 & 68.9 & 68.5 \\
 \textbf{Ours}      & dev & \textbf{95.2} & \textbf{87.2} & \textbf{93.4} & \textbf{84.5} \\
 \midrule
 Organiser baseline & test & 92.8 & 82.8 & 89.7 & 77.8 \\
-\textbf{Ours}      & test & \textbf{94.4} & \textbf{87.2} & \textbf{92.7} & \textbf{85.0} \\
+\textbf{Ours}      & test & \textbf{94.4} & \textbf{87.2} & \textbf{92.7} & \textbf{85.0}\,/\,\textbf{85.2}$^{\dagger}$ \\
 \bottomrule
 \end{tabular}
 \caption{External comparison (macro-\fone{}). Off-the-shelf SaT is far below an
-in-domain system; we exceed the organiser baseline by $1.3$--$7.2$ across tasks.}
+in-domain system; we exceed the organiser baseline by $1.3$--$7.4$ across tasks.
+$^{\dagger}$closed\,/\,open track (open adds the SaT-ft voter, \S\ref{sec:open}).}
 \label{tab:baselines}
 \end{table}
 
@@ -498,11 +498,28 @@ on development with no in-domain training. But a \emph{single} external voter is
 to negative when added to the closed ensemble---external text supplies structure, not
 AraSeg's annotation conventions. The operative lever is \emph{diversity}: two external
 voters from \emph{different} corpora (OPUS subtitles, Ashaar verse) stack to beat the
-closed ceiling on NoPnx-NP (dev $84.59{>}84.53$; test $85.08{>}84.97$), exactly the
-decorrelation the $0.74$ voter correlation said was missing. A third external voter
-(Wikipedia) does not help---diversity saturates at two---and external data never helps
-NoPnx-PA. The gain is real but bounded, and confined to the data-limited task, closing
-the loop with the scaling curve.
+closed ceiling on NoPnx-NP (test $85.08{>}84.97$), exactly the decorrelation the
+$0.74$ voter correlation said was missing.
+
+\paragraph{Data diversity saturates; architecture diversity does not.} Pushing the
+\emph{data} axis further fails on every front: a third same-recipe voter (Wikipedia)
+plateaus; a classical-register voter (500k Tashkeela sentences, matched to the
+corpus's hardest genres) and a $1$M-sentence scale-up voter are individually solid
+($83.0$/$82.6$ dev) yet \emph{dilute} the pool ($84.55$--$84.58<84.59$); and
+classical data actively hurts NoPnx-PA, showing its immunity to external data is
+structural, not a register mismatch. What does work is changing the
+\emph{architecture}: a fine-tuned SaT-12L \citep{frohmann2024sat} voter---character-aware,
+multilingually pretrained for exactly this task---is the \emph{weakest} candidate
+solo ($79.9$ dev after fine-tuning, from $68.5$ zero-shot) yet the \emph{only} one
+that improves the pool, the Krogh--Vedelsby prediction in its purest form. Greedy
+selection then lands on a \emph{four}-voter pool (one AraBERTv02 seed, AraELECTRA,
+the OPUS voter, and SaT-ft): dev $85.06$ ($+0.47$ over the eight-voter pool, paired
+bootstrap CI $[+0.15,+0.80]$, so the development evidence passes our
+\S\ref{sec:boot} adoption rule) and test $85.17{>}85.08$. Without SaT-ft the same
+search dev-overfits (dev $+0.13$, test $-0.09$)---our selection rule rejects it,
+validating the methodology out of sample. The final open system is thus
+\emph{smaller} than the closed one: decorrelation, not accumulation, is what the
+data-limited task buys with external resources.
 
 \section{Related Work}
 Sentence segmentation has moved from rule and statistical models to neural sequence

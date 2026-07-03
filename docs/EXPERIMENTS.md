@@ -130,6 +130,30 @@ diversity, and only on the hardest (no-punct, no-paragraph) task.
 - Disk note: training writes runs/*/ckpts (optimizer states) — DISPOSABLE; deleting freed 291GB.
   Final models = runs/*/model.safetensors (KEEP). `find runs open_runs -type d -name ckpts -exec rm -rf {} +`
 
+## OPEN ROUND 2 (2026-07-03) — attack the open ceiling: 5 new voter types
+
+Candidates (NoPnx-NP unless noted), solo dev F1 w/ adaptive decode:
+- clasft (Tashkeela classical, 500k sents boundary-recovery pretrain → FT): 83.02
+- scaleft (1M-sent mixed pretrain, 40k docs — tests SCALE axis): 82.56
+- satft (SaT-12L-sm fine-tuned, train_sat_ft.py in venv27; 68.5 zero-shot → 79.38 micro/79.88 doc): 79.88
+- xlmrl: download failed AGAIN (never actually trained — paper "proxy" wording correct)
+- clasft-pa (NoPnx-PA): HURTS (dev 83.67→83.42, test 83.87→83.79 like-for-like) →
+  external immunity of NoPnx-PA is structural, not register mismatch.
+
+Selection (open_eval2.py, pre-registered: adopt iff dev AND test beat frozen 84.59/85.08):
+- Adding clasft/scaleft/wiki to frozen-8: ALL dilute (84.55–84.58 < 84.59).
+- satft is the ONLY voter that adds (+0.15 → 84.74; +wiki 84.82) — weakest solo,
+  most decorrelated (architecture axis). Krogh–Vedelsby validated.
+- Greedy-from-scratch WITHOUT satft: dev 84.72 / test 84.99 → dev-overfit, REJECTED.
+- Greedy-from-scratch WITH satft: 4-voter {voter-s2, satft, voter-araelectra, open}
+  dev 85.06 / test 85.17. Paired bootstrap (5000×): dev +0.47 CI [+0.15,+0.80]
+  P=99.8% (CI excludes 0 → rule says adopt); test +0.09 CI [−0.32,+0.48] P=67%.
+- **ADOPTED: open NoPnx-NP re-frozen to the 4-voter satft pool (test 85.17, was 85.08).**
+  Simpler too (4 voters < 8). predict_blind.py --satft-npz + satft_blind.py (venv27);
+  end-to-end verified: satft blind-vs-cache diff 0.0, deterministic, F1 85.17.
+  USER: re-upload subs/upload_open/NoPnx-NP/prediction.zip to 16613.
+- Everything else unchanged; closed track untouched.
+
 ## RESIDUAL-ERROR ANALYSIS (2026-06-13, residual_errors.py, dev)
 
 Decides irreducible vs systematic error → whether more pushing is possible.

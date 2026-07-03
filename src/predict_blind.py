@@ -46,8 +46,12 @@ CONFIG = {
     # NoPnx-NP: mega + adaptive length prior (closed); + 2 external voters (open)
     ("closed", "NoPnx-NP"): dict(models=M("nopnx-np"), method="adaptive",
                                  lam1=0.4, bias=0.75, lam2=0.6, blend=1.0),
-    ("open",   "NoPnx-NP"): dict(models=M("nopnx-np", ("open_runs/nopnx-np-ft",
-                                 "open_runs/nopnx-np-mixft")),
+    # open NoPnx-NP (re-frozen 2026-07-03, bootstrap dev CI [+0.15,+0.80]):
+    # 4 voters = AraBERTv02-s2 + AraELECTRA + OPUS-ft + SaT-ft (satft probs come
+    # from an npz dumped by satft_blind.py in the venv27 env; pass --satft-npz).
+    ("open",   "NoPnx-NP"): dict(models=["runs/nopnx-np-s2", "runs/nopnx-np-araelectra",
+                                         "open_runs/nopnx-np-ft"],
+                                 satft=True,
                                  method="adaptive", lam1=0.4, bias=0.75, lam2=0.6, blend=1.0),
 }
 
@@ -96,15 +100,23 @@ def decode_one_dp(d, p, glp, lam, bias):
     return decode_doc(d["tokens"], p, glp, lam, bias)
 
 
-def run_task(track, task, jsonl, out, device):
+def run_task(track, task, jsonl, out, device, satft_npz=None):
     cfg = CONFIG[(track, task)]
     docs = load_jsonl(jsonl)
     probs = ensemble_probs(docs, cfg["models"], device)
+    n_vote = len(cfg["models"])
+    if cfg.get("satft"):
+        if not satft_npz:
+            raise SystemExit(f"[{track}/{task}] config includes the SaT-ft voter: "
+                             "dump its probs with satft_blind.py (venv27) and pass --satft-npz")
+        sat = np.load(satft_npz)
+        probs = [(p * n_vote + sat[d["doc_id"]]) / (n_vote + 1) for d, p in zip(docs, probs)]
+        n_vote += 1
     preds = decode_one(task, cfg, docs, probs)
     write_submission(docs, preds, out)
     rate = sum(map(sum, preds)) / max(sum(map(len, preds)), 1)
     print(f"[{track}/{task}] {len(docs)} docs, {cfg['method']}, "
-          f"{len(cfg['models'])} models, rate={rate:.3f} -> {out}")
+          f"{n_vote} voters, rate={rate:.3f} -> {out}")
 
 
 def main():
@@ -116,6 +128,8 @@ def main():
     ap.add_argument("--all", action="store_true", help="run all 4 tasks")
     ap.add_argument("--blind-dir", help="dir with {task}_test.jsonl (for --all)")
     ap.add_argument("--out-dir", help="output dir (for --all)")
+    ap.add_argument("--satft-npz", help="SaT-ft voter probs npz (open NoPnx-NP; "
+                    "dump with satft_blind.py in venv27)")
     args = ap.parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -123,9 +137,10 @@ def main():
         os.makedirs(args.out_dir, exist_ok=True)
         for t in ["PA", "NoPnx-PA", "NP", "NoPnx-NP"]:
             run_task(args.track, t, f"{args.blind_dir}/{t}_test.jsonl",
-                     f"{args.out_dir}/{t}.csv", device)
+                     f"{args.out_dir}/{t}.csv", device, satft_npz=args.satft_npz)
     else:
-        run_task(args.track, args.task, args.jsonl, args.out, device)
+        run_task(args.track, args.task, args.jsonl, args.out, device,
+                 satft_npz=args.satft_npz)
 
 
 if __name__ == "__main__":

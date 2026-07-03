@@ -10,8 +10,8 @@ token whether a sentence boundary follows it — across four variants that cross
 
 > **Ranked #1 on all four closed-track subtasks** (development-phase leaderboards,
 > CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.2 · NP 92.7 · NoPnx-NP 85.0**
-> (open track 85.1) — ahead of the organizer baseline on every board
-> (PA +1.6 … NoPnx-NP +7.2 F1).
+> (open track 85.2) — ahead of the organizer baseline on every board
+> (PA +1.6 … NoPnx-NP +7.4 F1).
 
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**
 (AraBERT / AraELECTRA / ARBERT) decoded with a **semi-Markov dynamic program**
@@ -37,12 +37,15 @@ model capacity**), and a Krogh–Vedelsby decomposition (voter diversity is only
 | PA       | Punctuation + paragraphs                 | **94.4** | 94.4 | 92.8             | +1.6   |
 | NoPnx-PA | Paragraphs, **no punctuation**           | **87.2** | 87.2 | 82.8             | +4.4   |
 | NP       | Punctuation, **no paragraphs**           | **92.7** | 92.7 | 89.7             | +3.0   |
-| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.1** | 77.8      | +7.3   |
+| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.2** | 77.8      | +7.4   |
 
-Open = closed on three tasks (external data never beat the closed ensemble there);
-on NoPnx-NP two decorrelated external voters (OPUS / Ashaar boundary-recovery
-pretraining) add the only open-track gain — exactly where the diagnostics below
-predict head-room.
+Open = closed on three tasks (external data never beat the closed ensemble there).
+On NoPnx-NP the open system is a **4-voter pool** (AraBERTv02 seed + AraELECTRA +
+an OPUS boundary-recovery voter + a **fine-tuned SaT-12L**): a second round of
+open-track attacks showed data-diverse voters (classical Tashkeela, a 1M-sentence
+scale-up) all *dilute* the ensemble, while the architecture-diverse SaT voter —
+weakest solo — is the only one that helps (dev +0.47, bootstrap CI [+0.15,+0.80];
+test 85.17). Decorrelation, not accumulation.
 
 Per-document macro-F1 (boundary class). Official CodaBench scores matched the
 offline evaluator (`src/eval_local.py`) exactly, so iteration happened offline and

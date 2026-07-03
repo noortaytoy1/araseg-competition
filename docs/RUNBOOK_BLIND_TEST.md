@@ -22,10 +22,14 @@ Save as: `blind/PA_test.jsonl`, `blind/NoPnx-PA_test.jsonl`,
 "tokens":d["tokens"]} ...]` → write jsonl. If CSV/raw: whitespace-tokenise,
 keep "\n" as its own token for the PA variants.)
 
-## 2. Generate all predictions (two commands)
+## 2. Generate all predictions (three commands)
+The open NoPnx-NP config (re-frozen 2026-07-03) includes the SaT-ft voter, whose
+probs come from the venv27 env first:
 ```
+V27=~/Downloads/COmp-20260611T221353Z-3-001/venv27/bin/python
+$V27 satft_blind.py --jsonl blind/NoPnx-NP_test.jsonl --out probs/blind_satft.npz
 $PY predict_blind.py --track closed --all --blind-dir blind --out-dir blind_closed
-$PY predict_blind.py --track open   --all --blind-dir blind --out-dir blind_open
+$PY predict_blind.py --track open   --all --blind-dir blind --out-dir blind_open --satft-npz probs/blind_satft.npz
 ```
 Sanity: each printed `rate` should be ~0.06–0.10 (boundaries per token). A rate
 near 0 or >0.2 means the input wasn't tokenised as expected — fix before uploading.
@@ -54,6 +58,11 @@ publish to the leaderboard:
 - PA: 6-model mega-ensemble + DP decode (λ=0.2)
 - NoPnx-PA: 3-encoder ensemble, thr 0.50, +or-par  ← bootstrap-selected (simpler)
 - NP: 3-encoder ensemble, thr 0.50                ← bootstrap-selected (simpler)
-- NoPnx-NP: mega + adaptive length prior (closed); +2 external voters (open)
+- NoPnx-NP closed: mega + adaptive length prior
+- NoPnx-NP open (re-frozen 2026-07-03, bootstrap dev CI [+0.15,+0.80]): 4 voters =
+  AraBERTv02-s2 + AraELECTRA + OPUS-ft + SaT-ft, adaptive decode. SaT-ft weights:
+  open_runs/nopnx-np-satft/state.pt (needs venv27 — see step 2).
 
-Expected ≈ open-test F1: PA 94.4 / NoPnx-PA 87.2 / NP 92.7 / NoPnx-NP 85.0(open)/84.97(closed).
+Expected ≈ open-test F1: PA 94.4 / NoPnx-PA 87.2 / NP 92.7 / NoPnx-NP 85.17(open)/84.97(closed).
+NOTE: also re-upload subs/upload_open/NoPnx-NP/prediction.zip to competition 16613
+now (dev phase) to refresh the open leaderboard from 85.08 → 85.17.
