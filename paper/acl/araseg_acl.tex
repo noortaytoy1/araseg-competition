@@ -1,8 +1,34 @@
-% AraSeg 2026 system-description paper (extended, figure-rich version).
-% Compiles standalone with pdflatex (twocolumn article, ACL-like) — no template
-% files needed. Figures are in paper/figs/*.pdf (run make_figures.py + scaling_eval.py).
-% TO PORT TO THE OFFICIAL ACL/ArabicNLP TEMPLATE: replace the preamble down to
-% \begin{document}; move \bibitem entries to a .bib. Arabic is romanized so pdflatex
+% ACL-template version of the AraSeg 2026 system paper.
+% Uses the official ACL style files (acl.sty / acl_natbib.bst) required by
+% ArabicNLP @ EMNLP 2026. Switch [preprint] -> [review] for anonymous review
+% or [final] for camera-ready. Compile: pdflatex, bibtex, pdflatex x2
+% (from this directory; figures resolve to ../figs/).
+% TODO before submission: real author list + affiliations, blind-test numbers.
+\documentclass[11pt]{article}
+\usepackage[preprint]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+
+\newcommand{\fone}{F\textsubscript{1}}
+
+\title{Saturation as a Result: Ensembling, Length-Prior Decoding,\\
+and the Data Ceiling in Arabic Sentence Segmentation}
+
+% TODO: replace with the real author list before submission.
+\author{Omar Ganna \\
+  Team \texttt{omar\_saqr} --- The American University in Cairo \\
+  \texttt{omarganna@aucegypt.edu}}
+
+\begin{document}
+; move \bibitem entries to a .bib. Arabic is romanized so pdflatex
 % works; restore Arabic script under XeLaTeX+polyglossia for the camera-ready.
 \documentclass[10pt,twocolumn]{article}
 \usepackage[a4paper,margin=0.82in]{geometry}
@@ -308,8 +334,8 @@ training---a direct, model-independent measurement of the sparsity the scaling c
 reflects.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.50\columnwidth]{figs/scaling.pdf}\hfill
-\includegraphics[width=0.48\columnwidth]{figs/coverage.pdf}
+\includegraphics[width=0.50\columnwidth]{../figs/scaling.pdf}\hfill
+\includegraphics[width=0.48\columnwidth]{../figs/coverage.pdf}
 \caption{Left: dev \fone{} vs.\ training-set size (3 seeds, mean$\pm$std) with
 power-law fits $\hat C-a\,n^{-\alpha}$ extrapolated to $700$ docs. PA is at its
 asymptote ($\alpha{=}1.37$); NoPnx-NP scales slowly toward a lower, still-unreached
@@ -331,8 +357,8 @@ it pays off only when those probabilities are trustworthy. This closes the loop 
 the saturation study, where the prior was inert over weaker single models.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.46\columnwidth]{figs/voter_corr.pdf}\hfill
-\includegraphics[width=0.52\columnwidth]{figs/calibration.pdf}
+\includegraphics[width=0.46\columnwidth]{../figs/voter_corr.pdf}\hfill
+\includegraphics[width=0.52\columnwidth]{../figs/calibration.pdf}
 \caption{Left: per-token error correlation across the six voters (mean off-diagonal
 $0.74$). Right: reliability diagrams; the ensemble is well calibrated (ECE
 $0.005$/$0.020$).}
@@ -525,25 +551,7 @@ label smoothing / FGM). Inference/decoding: \texttt{predict.py},
 configuration. Environments: \texttt{torch} 2.5.1 / \texttt{transformers} 4.57 for
 \texttt{safetensors} encoders, and \texttt{torch} 2.12 for \texttt{.bin} checkpoints.
 
-\begin{thebibliography}{9}\small
-\bibitem{antoun2020arabert} W.~Antoun, F.~Baly, H.~Hajj. AraBERT: Transformer-based
-Model for Arabic Language Understanding. LREC OSACT, 2020.
-\bibitem{antoun2021araelectra} W.~Antoun, F.~Baly, H.~Hajj. AraELECTRA: Pre-Training
-Text Discriminators for Arabic Language Understanding. WANLP, 2021.
-\bibitem{abdulmageed2021arbert} M.~Abdul-Mageed, A.~Elmadany, E.~M.~B.~Nagoudi.
-ARBERT \& MARBERT: Deep Bidirectional Transformers for Arabic. ACL, 2021.
-\bibitem{inoue2021camelbert} G.~Inoue, B.~Alhafni, N.~Baimukan, H.~Bouamor,
-N.~Habash. The Interplay of Variant, Size, and Task Type in Arabic Pre-trained
-Language Models. WANLP, 2021.
-\bibitem{conneau2020xlmr} A.~Conneau et al. Unsupervised Cross-lingual
-Representation Learning at Scale. ACL, 2020.
-\bibitem{frohmann2024sat} M.~Frohmann, I.~Sterner, I.~Vuli\'c, B.~Minixhofer,
-M.~Schedl. Segment Any Text: A Universal Approach for Robust, Efficient and
-Adaptable Sentence Segmentation. EMNLP, 2024.
-\bibitem{miyato2017adversarial} T.~Miyato, A.~M.~Dai, I.~Goodfellow. Adversarial
-Training Methods for Semi-Supervised Text Classification. ICLR, 2017.
-\bibitem{araseg2026} AraSeg Shared Task Organisers. The AraSeg Corpus for Arabic
-Sentence Segmentation. arXiv:2606.08025, 2026.
-\end{thebibliography}
+
+\bibliography{araseg}
 
 \end{document}

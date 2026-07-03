@@ -7,17 +7,22 @@ token whether a sentence boundary follows it — across four variants that cross
 *paragraph availability* × *punctuation availability*.
 
 > **Ranked #1 on all four closed-track subtasks** (development-phase leaderboards,
-> CodaBench, as `omar_saqr`): **PA 94.1 · NoPnx-PA 86.1 · NP 92.2 · NoPnx-NP 83.8**
-> — ahead of the organizer baseline on every board (e.g. PA +1.3, NoPnx-NP +6.0 F1).
+> CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.2 · NP 92.7 · NoPnx-NP 85.0**
+> (open track 85.1) — ahead of the organizer baseline on every board
+> (PA +1.6 … NoPnx-NP +7.2 F1).
 
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**
 (AraBERT / AraELECTRA / ARBERT) decoded with a **semi-Markov dynamic program**
 that adds a train-fit segment-length prior and forces structurally-certain
 boundaries. Beyond the leaderboard, the headline result is a **negative one**: a
 20-experiment controlled study (encoder scaling, calibration, augmentation,
-external-data pretraining) shows performance **saturates** — the residual error is
-**irreducible punctuation ambiguity and unseen-context sparsity from a
-174-document training set, not model capacity.**
+external-data pretraining) shows performance **saturates** — and the paper
+*quantifies* why: a 3-seed **scaling law** (PA at its 94.8 asymptote, α=1.37;
+NoPnx-NP still rising toward 86.4, α=0.66), a **model-free ambiguity check**
+(gold labels are 99%-consistent for repeated contexts, so the residual is
+**context sparsity from 174 training documents — not irreducible noise, and not
+model capacity**), and a Krogh–Vedelsby decomposition (voter diversity is only
+14% of individual error).
 
 ---
 
@@ -25,12 +30,17 @@ external-data pretraining) shows performance **saturates** — the residual erro
 
 ### Leaderboard (CodaBench dev phase, closed track — official scores)
 
-| Subtask  | Description                              | This system | Organizer baseline | Δ      |
-|----------|------------------------------------------|:-----------:|:------------------:|:------:|
-| PA       | Punctuation + paragraphs                 | **94.1**    | 92.8               | +1.3   |
-| NoPnx-PA | Paragraphs, **no punctuation**           | **86.1**    | 82.8               | +3.3   |
-| NP       | Punctuation, **no paragraphs**           | **92.2**    | 89.7               | +2.5   |
-| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **83.8** | 77.8               | +6.0   |
+| Subtask  | Description                              | Closed | Open | Organizer baseline | Δ      |
+|----------|------------------------------------------|:------:|:----:|:------------------:|:------:|
+| PA       | Punctuation + paragraphs                 | **94.4** | 94.4 | 92.8             | +1.6   |
+| NoPnx-PA | Paragraphs, **no punctuation**           | **87.2** | 87.2 | 82.8             | +4.4   |
+| NP       | Punctuation, **no paragraphs**           | **92.7** | 92.7 | 89.7             | +3.0   |
+| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.1** | 77.8      | +7.3   |
+
+Open = closed on three tasks (external data never beat the closed ensemble there);
+on NoPnx-NP two decorrelated external voters (OPUS / Ashaar boundary-recovery
+pretraining) add the only open-track gain — exactly where the diagnostics below
+predict head-room.
 
 Per-document macro-F1 (boundary class). Official CodaBench scores matched the
 offline evaluator (`src/eval_local.py`) exactly, so iteration happened offline and
@@ -91,12 +101,17 @@ tried and measured on held-out test; **none beat the ensemble**:
   ensemble, validated on held-out test.
 
 A boundary-level **error analysis** then localizes the ceiling: on punctuated
-tasks errors concentrate on the genuinely-ambiguous comma (a boundary only
-~5–10% of the time, in hadith chains); on no-punctuation tasks 88–89% of misses
-fall on token bigrams *never seen* in the 174 training documents. The bottleneck
-is data, and the remaining head-room is quantified. The full write-up is the
-system-description paper draft in **[paper/araseg_system.md](paper/araseg_system.md)**
-([PDF](paper/araseg_system.pdf)).
+tasks errors concentrate on the comma — hard not because it is random (its label
+is near-deterministic given ±2 tokens of context) but because each comma context
+is *rare*; on no-punctuation tasks 88–89% of misses fall on token bigrams *never
+seen* in the 174 training documents, and only 5% of dev boundary contexts are
+covered by training at all. The bottleneck is data, and the head-room is
+quantified (power-law asymptotes with bootstrap CIs, a calibration-grounded
+Bayes floor, SaT-12L zero-shot ≈69 as the external reference point).
+
+**The full write-up:** [paper/araseg_system.pdf](paper/araseg_system.pdf)
+(6 pp, 5 figures, 8 tables). An [ACL-template version](paper/acl/) with a
+proper `.bib` is ready for the ArabicNLP 2026 submission (~Aug 8).
 
 ---
 
@@ -138,8 +153,9 @@ system-description paper draft in **[paper/araseg_system.md](paper/araseg_system
 │   ├── PLAYBOOK.md            end-to-end guide: setup → submission → paper
 │   └── RUNBOOK_BLIND_TEST.md  mechanical blind-test procedure (reproducible)
 │
-├── paper/                     ← system-description paper (.md, .tex, .pdf)
-└── fixtures/PA_mini.jsonl     ← tiny schema-exact fixture for smoke tests
+├── paper/                     ← system-description paper (.tex → .pdf, figs/)
+│   └── acl/                   ← ACL-template port (acl.sty, .bib) for ArabicNLP 2026
+└── fixtures/PA_mini.jsonl     ← tiny schema-exact fixture for smoke tests (also run in CI)
 ```
 
 > Heavy, regenerable artifacts (`data/`, `probs/`, `ext/`, `subs/`, `runs/`,

@@ -159,7 +159,7 @@ def token_f1_metrics(eval_pred):
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--task", required=True, choices=sorted(TASKS))
-    ap.add_argument("--model-name", default="CAMeL-Lab/bert-base-arabic-camelbert-msa")
+    ap.add_argument("--model-name", default="aubmindlab/bert-base-arabertv02")
     ap.add_argument("--train-jsonl", default=None)
     ap.add_argument("--dev-jsonl", default=None)
     ap.add_argument("--out-dir", required=True)

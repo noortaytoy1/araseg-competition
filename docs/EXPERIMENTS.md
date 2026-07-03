@@ -3,7 +3,7 @@
 All scores = macro (per-document) P/R/F1 on **dev**, via `eval_local.py` (correct label order).
 Submission CSVs in `subs/`, models in `runs/`, training logs in `logs/`.
 
-Environment: RTX 4080 16 GB, torch 2.5.1+cu121, transformers 4.57.3.
+Environment: RTX 4080 16 GB, torch 2.5.1+cu121, transformers 4.57.3 (venv: `~/Downloads/work/venv`).
 Data cached in `data/` (train 174 / dev 222 / test 262 docs per task).
 
 | # | Date | Task | Track | System | Window/Stride | LR | Epochs | Seed | Threshold | P | R | F1 | Notes |
@@ -100,6 +100,35 @@ diversity, and only on the hardest (no-punct, no-paragraph) task.
   raw text supplies structure, not conventions. Genre-matched data (OpenITI/
   Bible/poetry) is the only remaining bet, uncertain. Open-track submission can
   just be the closed frozen system (legal) → 4 free leaderboards regardless.
+
+## A-LEVEL PAPER DIAGNOSTICS (2026-06-13) — paper/araseg_system.tex (5pp, 5 figs)
+
+- **Scaling curve** (3 seeds {42,1,2}, scaling_bands.py, single AraBERTv02 on n={22,44,87,130,174}):
+  PA 88.72/92.59/93.52/94.28/94.54 (std≤0.41); NoPnx-NP 76.00/79.92/82.02/83.16/83.77 (std≤0.29).
+  Power-law F1(n)=Ĉ−a·n^−α fit on seed means: PA Ĉ=94.8 α=1.37 (AT asymptote);
+  NoPnx-NP Ĉ=86.4 α=0.66 (~1.9 below asymptote, slow → STILL data-limited). Tight bands → signal not noise.
+- **A* ceiling quantification** (analysis_astar.py): calibration-grounded Bayes per-token
+  error floor PA 0.85% / NP 1.20% / NoPnx-PA 2.42% / NoPnx-NP 3.10%; ambiguous-positive
+  share (p∈[.3,.7]) 2.6→6.6%. Ensemble decomp NoPnx-NP: single 83.08 → ens 84.18, corr 0.74.
+- **A* round 2** (analysis_astar2.py, addresses reviewer objections):
+  * MODEL-FREE ambiguity: repeated ±2-tok gold contexts are 99.9%(PA)/99.3%(NoPnx-NP)
+    label-consistent → true gold inconsistency only 0.05%/0.21% vs model-perceived 0.85-3.10%
+    → residual is SPARSITY not noise (corrects the "irreducible" overclaim, strengthens data-limit thesis).
+  * Scaling exponent 95% CIs (2000 parametric-bootstrap fits): PA α=1.37[1.01,1.74] Ĉ=94.8[94.4,95.3];
+    NoPnx-NP α=0.66[0.46,0.83] Ĉ=86.4[85.4,88.4] (whole CI above current 84.5 → headroom confirmed).
+  * Krogh-Vedelsby: NoPnx-NP ens MSE 0.026 = mean-voter 0.030 − diversity 0.0044 (14%); +2 external → 0.0045.
+  * Decode leave-one-out (from 84.53): −length-prior 83.41(−1.12), −bias 84.05(−0.48), −adaptive 84.37(−0.16).
+  * SaT-12L zero-shot baseline (dev): PA/NP 68.93, NoPnx-PA/NoPnx-NP 68.48 (punct-sensitive, par-insensitive).
+- **Context coverage** (make_figures.py): only 5.1% of NoPnx-NP dev boundary-contexts
+  (prev,cur bigrams) seen in 174 train docs; 12.6% for PA. Model-independent sparsity measure.
+- **Voter error-correlation**: mean off-diag 0.74 across 6 voters → explains saturation
+  (same-data voters err together); motivates open-track decorrelated voters.
+- **Calibration**: ECE 0.005 (PA) / 0.020 (NoPnx-NP) — well-calibrated → why length prior earns weight.
+- **Significance** (significance.py, paired bootstrap 5000×, system vs single encoder):
+  PA +0.34 (p=.008**), NoPnx-PA +0.63 (p=.004**), NP +0.24 (p=.137 n.s.), NoPnx-NP +1.46 (p<.001***).
+  NP n.s. independently supports the bootstrap switch to 3-encoder.
+- Disk note: training writes runs/*/ckpts (optimizer states) — DISPOSABLE; deleting freed 291GB.
+  Final models = runs/*/model.safetensors (KEEP). `find runs open_runs -type d -name ckpts -exec rm -rf {} +`
 
 ## RESIDUAL-ERROR ANALYSIS (2026-06-13, residual_errors.py, dev)
 

@@ -1,7 +1,17 @@
+# Tested versions (RTX 4080, CUDA 12.1) — see EXPERIMENTS.md.
+# WeightedTrainer overrides (compute_loss(..., **kwargs), training_step(num_items_in_batch))
+# track the recent Trainer API; keep transformers pinned (or >=4.49).
 pandas
 numpy
 scikit-learn
+scipy
+matplotlib
 datasets
-torch
-transformers>=4.41
+torch==2.5.1
+transformers==4.57.3
 accelerate
+safetensors
+# Optional: SaT baseline (sat_eval.py) — runs in a separate torch>=2.6 env
+# wtpsplit
+# Optional: faster HF downloads (train_battery2.sh sets HF_HUB_ENABLE_HF_TRANSFER=1)
+# hf_transfer

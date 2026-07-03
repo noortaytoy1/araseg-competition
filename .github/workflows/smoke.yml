@@ -1,0 +1,16 @@
+name: fixture-smoke-test
+on: [push, pull_request]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.10"}
+      - run: pip install pandas numpy scikit-learn
+      - name: rule baseline + offline eval on the fixture
+        run: |
+          python src/baselines.py --task PA --jsonl fixtures/PA_mini.jsonl --rules punct verse par --out /tmp/fix.csv
+          python src/eval_local.py --task PA --gold-jsonl fixtures/PA_mini.jsonl --predictions /tmp/fix.csv --show-worst 2
+      - name: all modules compile
+        run: python -m py_compile src/*.py

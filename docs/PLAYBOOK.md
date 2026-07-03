@@ -75,10 +75,10 @@ Works the same on Windows (PowerShell), Linux, and macOS unless noted.
    and everything else in this playbook is CPU-friendly.
 5. **Download the data once** (then everything runs offline):
    ```bash
-   python src/data.py --task PA --out-dir data
-   python src/data.py --task NoPnx-PA --out-dir data
-   python src/data.py --task NP --out-dir data
-   python src/data.py --task NoPnx-NP --out-dir data
+   python data.py --task PA --out-dir data
+   python data.py --task NoPnx-PA --out-dir data
+   python data.py --task NP --out-dir data
+   python data.py --task NoPnx-NP --out-dir data
    ```
 
 ---
@@ -88,14 +88,14 @@ Works the same on Windows (PowerShell), Linux, and macOS unless noted.
 1. **Generate rule-baseline predictions** (no training data used → legal in
    both tracks):
    ```bash
-   python src/baselines.py --task PA       --split dev --rules punct verse par --out subs/PA_dev.csv
-   python src/baselines.py --task NP       --split dev --rules punct verse     --out subs/NP_dev.csv
-   python src/baselines.py --task NoPnx-PA --split dev --rules par             --out subs/NoPnx-PA_dev.csv
-   python src/baselines.py --task NoPnx-NP --split dev --rules every-k         --out subs/NoPnx-NP_dev.csv
+   python baselines.py --task PA       --split dev --rules punct verse par --out subs/PA_dev.csv
+   python baselines.py --task NP       --split dev --rules punct verse     --out subs/NP_dev.csv
+   python baselines.py --task NoPnx-PA --split dev --rules par             --out subs/NoPnx-PA_dev.csv
+   python baselines.py --task NoPnx-NP --split dev --rules every-k         --out subs/NoPnx-NP_dev.csv
    ```
 2. **Score locally before uploading:**
    ```bash
-   python src/eval_local.py --task PA --split dev --predictions subs/PA_dev.csv --show-worst 5
+   python eval_local.py --task PA --split dev --predictions subs/PA_dev.csv --show-worst 5
    ```
    (You can cross-check with the official `scripts/eval.py`; remember its
    Precision/Recall lines are printed swapped — F1 is correct.)
@@ -124,7 +124,7 @@ haven't started).
   ```
   !pip -q install transformers datasets accelerate scikit-learn pandas
   # upload the starter-kit .py files via the Files sidebar
-  !python src/train_encoder.py --task PA --out-dir runs/pa
+  !python train_encoder.py --task PA --out-dir runs/pa
   !zip -rq pa_model.zip runs/pa   # download, or predict right in Colab
   ```
   Kaggle Notebooks (free weekly GPU quota) works identically.
@@ -133,25 +133,25 @@ haven't started).
 
 **Train (one model per task):**
 ```bash
-python src/train_encoder.py --task PA       --out-dir runs/pa
-python src/train_encoder.py --task NoPnx-PA --out-dir runs/nopnx-pa
-python src/train_encoder.py --task NP       --out-dir runs/np
-python src/train_encoder.py --task NoPnx-NP --out-dir runs/nopnx-np
+python train_encoder.py --task PA       --out-dir runs/pa
+python train_encoder.py --task NoPnx-PA --out-dir runs/nopnx-pa
+python train_encoder.py --task NP       --out-dir runs/np
+python train_encoder.py --task NoPnx-NP --out-dir runs/nopnx-np
 ```
 
 **Predict on dev with format validation, then evaluate:**
 ```bash
-python src/predict.py --model runs/pa --task PA --split dev \
+python predict.py --model runs/pa --task PA --split dev \
     --out subs/PA_dev_model.csv \
     --check-ids ../araseg-shared-task-2026/examples/PA_dev.csv
-python src/eval_local.py --task PA --split dev --predictions subs/PA_dev_model.csv
+python eval_local.py --task PA --split dev --predictions subs/PA_dev_model.csv
 ```
 
 **Tune the threshold on dev** (this is model selection — allowed):
 ```bash
 for t in 0.30 0.40 0.50 0.60 0.70; do
-  python src/predict.py --model runs/pa --task PA --split dev --threshold $t --out /tmp/t$t.csv
-  echo "threshold $t"; python src/eval_local.py --task PA --split dev --predictions /tmp/t$t.csv
+  python predict.py --model runs/pa --task PA --split dev --threshold $t --out /tmp/t$t.csv
+  echo "threshold $t"; python eval_local.py --task PA --split dev --predictions /tmp/t$t.csv
 done
 ```
 (PowerShell: `foreach ($t in 0.3,0.4,0.5,0.6,0.7) { ... }`.) Record the best
@@ -217,7 +217,7 @@ Open track (same four subtasks, separate competitions):
 2. Whatever format it arrives in, convert each document to one JSON line
    `{"doc_id": "...", "tokens": ["...", ...]}` and run:
    ```bash
-   python src/predict.py --model runs/pa --task PA --split test \
+   python predict.py --model runs/pa --task PA --split test \
        --jsonl blind/PA_test.jsonl --threshold <your-frozen-t> --out subs/PA_test.csv
    ```
    (Labels aren't needed for prediction; the loader doesn't require them.)

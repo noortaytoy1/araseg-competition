@@ -11,9 +11,6 @@ subs/
 runs/
 # Training logs
 logs/
-# Redundant local backup of data/ + logs/
-hiboss.zip
-
 # ---- Official starter repo (clone separately; see README "Reproduce") ----
 araseg-shared-task-2026/
 
@@ -24,6 +21,11 @@ paper/*.out
 paper/*.bbl
 paper/*.blg
 paper/*.synctex.gz
+paper/acl/*.aux
+paper/acl/*.log
+paper/acl/*.out
+paper/acl/*.bbl
+paper/acl/*.blg
 
 # ---- Python ----
 __pycache__/

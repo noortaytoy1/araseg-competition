@@ -6,9 +6,9 @@ byte-for-byte on the open test. On the day, this is mechanical — no config cho
 ## 0. Once, before Jul 20 (dry run)
 Confirm the env still works and models are intact:
 ```
-cd /path/to/arabic-sentence-segmentation
-PY="${PY:-python}"
-$PY src/predict_blind.py --track closed --all --blind-dir data --out-dir /tmp/dry/closed
+cd ~/Downloads/COmp-20260611T221353Z-3-001/COmp
+PY=~/Downloads/work/venv/bin/python
+$PY predict_blind.py --track closed --all --blind-dir data --out-dir /tmp/dry/closed
 ```
 Should print 4 lines ending in `-> ...`. If yes, you're ready.
 
@@ -24,8 +24,8 @@ keep "\n" as its own token for the PA variants.)
 
 ## 2. Generate all predictions (two commands)
 ```
-$PY src/predict_blind.py --track closed --all --blind-dir blind --out-dir blind_closed
-$PY src/predict_blind.py --track open   --all --blind-dir blind --out-dir blind_open
+$PY predict_blind.py --track closed --all --blind-dir blind --out-dir blind_closed
+$PY predict_blind.py --track open   --all --blind-dir blind --out-dir blind_open
 ```
 Sanity: each printed `rate` should be ~0.06–0.10 (boundaries per token). A rate
 near 0 or >0.2 means the input wasn't tokenised as expected — fix before uploading.

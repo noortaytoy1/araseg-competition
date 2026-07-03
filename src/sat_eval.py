@@ -2,7 +2,9 @@
 boundary probabilities to whitespace-token boundaries, sweep a threshold,
 and (optionally) cache token-level probs for ensembling. Open-track tool.
 
-  venv27/bin/python sat_eval.py --task NoPnx-NP --split dev \
+Requires `wtpsplit` (torch>=2.6) — run in a separate env from the training one:
+
+  python sat_eval.py --task NoPnx-NP --split dev \
       --model sat-12l-sm --out probs/NoPnx-NP_dev_sat.npz
 """
 from __future__ import annotations
