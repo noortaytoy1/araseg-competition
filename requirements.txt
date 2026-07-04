@@ -13,5 +13,11 @@ accelerate
 safetensors
 # Optional: SaT baseline (sat_eval.py) — runs in a separate torch>=2.6 env
 # wtpsplit
-# Optional: faster HF downloads (train_battery2.sh sets HF_HUB_ENABLE_HF_TRANSFER=1)
+# Optional: faster HF downloads — strongly recommended; multi-GB shard downloads
+# can stall without it (train_battery2.sh sets HF_HUB_ENABLE_HF_TRANSFER=1)
 # hf_transfer
+# Optional: LLM-voter experiment (train_qwen_lora.py, torch>=2.6 env)
+# peft
+# Optional: mdeberta training needs (torch>=2.6 env, .bin-only hub repo)
+# sentencepiece
+# protobuf

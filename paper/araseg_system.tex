@@ -71,7 +71,9 @@ carry equal weight.
 A natural strategy---fine-tune a strong encoder, ensemble, and decode---reaches a
 high score quickly. The interesting scientific question is what happens next: why do
 twenty subsequent, individually reasonable improvements fail to move the held-out
-number? We answer this directly and treat the answer as the paper's main result.
+number---and what, eventually, does? We answer this directly and treat the answer
+(data sparsity caps every conventional axis; only \emph{bidirectional} architecture
+diversity buys measurable room) as the paper's main result.
 
 \paragraph{Contributions.}
 (1) A strong, reproducible closed-track system (encoder ensemble plus semi-Markov
@@ -122,9 +124,10 @@ Figure~\ref{fig:pipeline} summarises the pipeline.
 \node[below=0.5mm of enc,font=\tiny,text=gray] {AraBERTv02$\times$4,};
 \node[below=3.2mm of enc,font=\tiny,text=gray] {ARBERTv2, AraELECTRA};
 \end{tikzpicture}
-\caption{System pipeline: $K{=}6$ fine-tuned encoders, per-token probability
-averaging, then semi-Markov dynamic-programming decoding with a train-fit length
-prior and forced (pre-newline / document-final) boundaries.}
+\caption{System pipeline: $K$ fine-tuned encoders ($K{=}3$--$6$ per task after
+selection, \S\ref{sec:boot},~\ref{sec:open}), per-token probability averaging, then
+semi-Markov dynamic-programming decoding with a train-fit length prior and forced
+(pre-newline / document-final) boundaries.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -165,7 +168,8 @@ ARBERTv2   & 94.34 & 84.94 & 91.95 & 82.11 \\
 
 \subsection{Ensemble and decoding}
 We average per-token boundary probabilities over six voters (four AraBERTv02 seeds,
-ARBERT\-v2, AraELECTRA). Rather than thresholding independently, we choose the
+ARBERT\-v2, AraELECTRA); the per-task pools submitted are later refined by the
+selection procedures of \S\ref{sec:boot} and \S\ref{sec:open} to $3$--$6$ voters. Rather than thresholding independently, we choose the
 boundary set $B$ maximising
 \begin{equation}\small
 \sum_{i\in B}\!\log p_i + \sum_{i\notin B}\!\log(1{-}p_i)
@@ -544,8 +548,9 @@ where the diagnostics predict head-room remains.
 Conclusions concern one corpus and language and may not transfer to larger Arabic
 segmentation datasets. The open-test split, though held out for selection, is public,
 so our verification is weaker than the blind test. Per-genre buckets are heuristic
-with small non-prose counts. External-data experiments cover three corpora and one
-recipe; LoRA-adapting a pretrained segmenter might transfer differently. The scaling
+with small non-prose counts. External-data experiments cover five corpora (subtitles, verse, Wikipedia,
+classical Tashkeela, and a $1$M-sentence mix) under one boundary-recovery recipe;
+other pretraining objectives might transfer differently. The scaling
 curve uses a single encoder over three seeds; the power-law extrapolation assumes the
 fitted functional form holds beyond $174$ documents, which only new data could verify.
 
@@ -557,8 +562,12 @@ label smoothing / FGM). Inference/decoding: \texttt{predict.py},
 \texttt{sweep\_threshold.py}, \texttt{ensemble\_sweep.py}. Analysis:
 \texttt{bootstrap\_stability.py}, \texttt{residual\_errors.py},
 \texttt{genre\_buckets.py}, \texttt{significance.py}, \texttt{make\_figures.py},
-\texttt{scaling\_eval.py}. Open track: \texttt{build\_pretrain.py},
-\texttt{open\_pipeline.sh}. A single label-free entry point,
+\texttt{scaling\_eval.py}, \texttt{scaling\_bands.py},
+\texttt{analysis\_astar.py}, \texttt{analysis\_astar2.py}. Open track and
+post-freeze rounds: \texttt{build\_pretrain.py}, \texttt{open\_pipeline.sh},
+\texttt{build\_open2\_data.py}, \texttt{train\_sat\_ft.py},
+\texttt{train\_qwen\_lora.py}, \texttt{open\_eval2.py}, \texttt{round3\_eval.py},
+\texttt{round4\_eval.py}, \texttt{open\_sweep4.py}. A single label-free entry point,
 \texttt{predict\_blind.py}, reproduces every submission from the frozen per-task
 configuration. Environments: \texttt{torch} 2.5.1 / \texttt{transformers} 4.57 for
 \texttt{safetensors} encoders, and \texttt{torch} 2.12 for \texttt{.bin} checkpoints.

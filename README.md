@@ -96,7 +96,7 @@ variant re-estimates each document's length distribution and re-decodes, which
 helps on the short, regular sentences of the no-punctuation tasks.
 
 **The negative result (the interesting part).** ~20 controlled additions were
-tried and measured on held-out test; **none beat the ensemble**:
+tried and measured on held-out test; **none beat the ensemble on any conventional axis** (the two eventual exceptions, found in later rounds, are both *bidirectional architecture* changes — see below):
 
 - More/different voters (window-240, CAMeLBERT-MSA/CA, mmBERT, SaT, augmentation,
   weight-soups): saturated — too correlated with existing voters.
@@ -151,11 +151,18 @@ proper `.bib` is ready for the ArabicNLP 2026 submission (~Aug 8).
 │   ├── genre_buckets.py       per-genre score breakdown
 │   ├── sat_eval.py            SaT / wtpsplit zero-shot baseline (open track)
 │   ├── predict_blind.py       one-command reproduction of all 8 frozen submissions
+│   ├── significance.py  make_figures.py  scaling_eval.py  scaling_bands.py
+│   ├── analysis_astar.py  analysis_astar2.py   (paper diagnostics: scaling law,
+│   │                        Bayes floor, Krogh–Vedelsby, model-free ambiguity)
+│   ├── train_sat_ft.py  satft_blind.py          SaT-12L voter (torch>=2.6 env)
+│   ├── train_qwen_lora.py                       causal-LLM voter (negative result)
+│   ├── build_open2_data.py  open_eval2.py  round3_eval.py  round4_eval.py  open_sweep4.py
 │   └── gen_test_*.py          test-split submission builders
 │
 ├── scripts/                   ← shell training batteries (encoder/seed/window sweeps)
 │   ├── train_all.sh  train_battery*.sh  train_matrix.sh
-│   └── open_pipeline.sh  open_wiki.sh   (open-track pretraining)
+│   ├── train_scaling.sh  train_scaling_seeds.sh   (scaling-law experiments)
+│   └── open_pipeline.sh  open_wiki.sh  open_round2.sh  round3.sh   (open-track rounds)
 │
 ├── docs/
 │   ├── EXPERIMENTS.md         full experiment log (20+ runs, dev + test F1)
