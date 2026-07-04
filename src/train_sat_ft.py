@@ -21,9 +21,16 @@ from transformers import AutoModelForTokenClassification, XLMRobertaTokenizerFas
 
 from data import load_jsonl
 
-TASK = "NoPnx-NP"
+import argparse
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--task", default="NoPnx-NP")
+_ap.add_argument("--epochs", type=int, default=6)
+_ap.add_argument("--suffix", default="satft", help="probs/{task}_{split}_{suffix}.npz + open_runs dir name part")
+_ARGS, _ = _ap.parse_known_args()
+
+TASK = _ARGS.task
 MODEL = "segment-any-text/sat-12l-sm"
-WIN, STRIDE, EPOCHS, LR, BATCH = 180, 90, 6, 1e-5, 8
+WIN, STRIDE, EPOCHS, LR, BATCH = 180, 90, _ARGS.epochs, 1e-5, 8
 DEV = torch.device("cuda")
 
 
@@ -120,14 +127,15 @@ def main() -> None:
 
     model.load_state_dict(best_state)
     model.eval()
-    os.makedirs("open_runs/nopnx-np-satft", exist_ok=True)
-    torch.save(best_state, "open_runs/nopnx-np-satft/state.pt")
+    outdir = f"open_runs/{TASK.lower()}-{_ARGS.suffix}"
+    os.makedirs(outdir, exist_ok=True)
+    torch.save(best_state, f"{outdir}/state.pt")
     for split in ["dev", "test"]:
         docs = load_jsonl(f"data/{TASK}_{split}.jsonl")
-        np.savez(f"probs/{TASK}_{split}_satft.npz",
+        np.savez(f"probs/{TASK}_{split}_{_ARGS.suffix}.npz",
                  **{d["doc_id"]: doc_probs(model, tok, d["tokens"]) for d in docs})
         print("cached", split, flush=True)
-    print(f"SATFT DONE best-dev-F1(0.5)={best:.2f}")
+    print(f"SATFT DONE task={TASK} suffix={_ARGS.suffix} best-dev-F1(0.5)={best:.2f}")
 
 
 if __name__ == "__main__":

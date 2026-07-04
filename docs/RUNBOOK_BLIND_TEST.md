@@ -56,13 +56,16 @@ publish to the leaderboard:
 
 ## Frozen system (what each submission is)
 - PA: 6-model mega-ensemble + DP decode (λ=0.2)
-- NoPnx-PA: 3-encoder ensemble, thr 0.50, +or-par  ← bootstrap-selected (simpler)
+- NoPnx-PA (re-frozen 2026-07-04, both tracks): 3 encoders + mDeBERTa-v3
+  (runs/nopnx-pa-mdeberta, closed-legal), thr 0.50, +or-par
 - NP: 3-encoder ensemble, thr 0.50                ← bootstrap-selected (simpler)
 - NoPnx-NP closed: mega + adaptive length prior
 - NoPnx-NP open (re-frozen 2026-07-03, bootstrap dev CI [+0.15,+0.80]): 4 voters =
   AraBERTv02-s2 + AraELECTRA + OPUS-ft + SaT-ft, adaptive decode. SaT-ft weights:
   open_runs/nopnx-np-satft/state.pt (needs venv27 — see step 2).
 
-Expected ≈ open-test F1: PA 94.4 / NoPnx-PA 87.2 / NP 92.7 / NoPnx-NP 85.17(open)/84.97(closed).
-NOTE: also re-upload subs/upload_open/NoPnx-NP/prediction.zip to competition 16613
-now (dev phase) to refresh the open leaderboard from 85.08 → 85.17.
+Expected ≈ open-test F1: PA 94.4 / NoPnx-PA 87.27 / NP 92.7 / NoPnx-NP 85.17(open)/84.97(closed).
+NOTE: re-upload THREE zips now (dev phase) to refresh leaderboards:
+  subs/upload/NoPnx-PA/prediction.zip      → 16608 (87.19 → 87.27)
+  subs/upload_open/NoPnx-PA/prediction.zip → 16609 (87.19 → 87.27)
+  subs/upload_open/NoPnx-NP/prediction.zip → 16613 (85.08 → 85.17)

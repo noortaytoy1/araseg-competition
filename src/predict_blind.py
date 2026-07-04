@@ -38,9 +38,13 @@ CONFIG = {
     # PA: 6-model mega + DP (lam .2, bias 0); forces doc-end + pre-\n
     ("closed", "PA"): dict(models=M("pa"), method="dp", lam=0.2, bias=0.0),
     ("open",   "PA"): dict(models=M("pa"), method="dp", lam=0.2, bias=0.0),
-    # NoPnx-PA & NP: 3-encoder ensemble + threshold (bootstrap-selected, simpler)
-    ("closed", "NoPnx-PA"): dict(models=ENC3("nopnx-pa"), method="thresh", thr=0.50, or_par=True),
-    ("open",   "NoPnx-PA"): dict(models=ENC3("nopnx-pa"), method="thresh", thr=0.50, or_par=True),
+    # NoPnx-PA (re-frozen 2026-07-04): 3 encoders + mDeBERTa-v3 (closed-legal
+    # pretrained encoder, AraSeg-train-only FT; dev +0.54 CI[+0.20,+0.87], test 87.27)
+    ("closed", "NoPnx-PA"): dict(models=ENC3("nopnx-pa") + ["runs/nopnx-pa-mdeberta"],
+                                 method="thresh", thr=0.50, or_par=True),
+    ("open",   "NoPnx-PA"): dict(models=ENC3("nopnx-pa") + ["runs/nopnx-pa-mdeberta"],
+                                 method="thresh", thr=0.50, or_par=True),
+    # NP: 3-encoder ensemble + threshold (bootstrap-selected, simpler)
     ("closed", "NP"): dict(models=ENC3("np"), method="thresh", thr=0.50, or_par=False),
     ("open",   "NP"): dict(models=ENC3("np"), method="thresh", thr=0.50, or_par=False),
     # NoPnx-NP: mega + adaptive length prior (closed); + 2 external voters (open)

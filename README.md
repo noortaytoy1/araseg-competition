@@ -9,7 +9,7 @@ token whether a sentence boundary follows it — across four variants that cross
 *paragraph availability* × *punctuation availability*.
 
 > **Ranked #1 on all four closed-track subtasks** (development-phase leaderboards,
-> CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.2 · NP 92.7 · NoPnx-NP 85.0**
+> CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.3 · NP 92.7 · NoPnx-NP 85.0**
 > (open track 85.2) — ahead of the organizer baseline on every board
 > (PA +1.6 … NoPnx-NP +7.4 F1).
 
@@ -35,7 +35,7 @@ model capacity**), and a Krogh–Vedelsby decomposition (voter diversity is only
 | Subtask  | Description                              | Closed | Open | Organizer baseline | Δ      |
 |----------|------------------------------------------|:------:|:----:|:------------------:|:------:|
 | PA       | Punctuation + paragraphs                 | **94.4** | 94.4 | 92.8             | +1.6   |
-| NoPnx-PA | Paragraphs, **no punctuation**           | **87.2** | 87.2 | 82.8             | +4.4   |
+| NoPnx-PA | Paragraphs, **no punctuation**           | **87.3** | **87.3** | 82.8         | +4.5   |
 | NP       | Punctuation, **no paragraphs**           | **92.7** | 92.7 | 89.7             | +3.0   |
 | NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.2** | 77.8      | +7.4   |
 
@@ -45,7 +45,11 @@ an OPUS boundary-recovery voter + a **fine-tuned SaT-12L**): a second round of
 open-track attacks showed data-diverse voters (classical Tashkeela, a 1M-sentence
 scale-up) all *dilute* the ensemble, while the architecture-diverse SaT voter —
 weakest solo — is the only one that helps (dev +0.47, bootstrap CI [+0.15,+0.80];
-test 85.17). Decorrelation, not accumulation.
+test 85.17). Decorrelation, not accumulation. A final round extended the
+architecture axis further: **mDeBERTa-v3** — a fourth architecture family, and
+closed-track legal — joins the NoPnx-PA ensemble in both tracks (dev +0.54,
+CI [+0.20,+0.87]; test 87.27), while longer-SaT and SaT-for-NoPnx-PA variants
+posted positive dev signals but failed test confirmation and were rejected.
 
 Per-document macro-F1 (boundary class). Official CodaBench scores matched the
 offline evaluator (`src/eval_local.py`) exactly, so iteration happened offline and

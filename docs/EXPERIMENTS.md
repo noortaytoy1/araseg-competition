@@ -154,6 +154,26 @@ Selection (open_eval2.py, pre-registered: adopt iff dev AND test beat frozen 84.
   USER: re-upload subs/upload_open/NoPnx-NP/prediction.zip to 16613.
 - Everything else unchanged; closed track untouched.
 
+## ROUND 3 (2026-07-04) — exploit the architecture-diversity lever + free knobs
+
+- Decode/weight sweep for new 4-voter open N-NP pool (open_sweep4.py, 36 cfgs):
+  frozen params already optimal (best +0.02 dev, CI spans 0) → KEEP. Robust.
+- satft2 (14ep SaT, solo 81.46 vs v1 79.38): swap→ dev +0.04 (CI spans 0) test 85.26;
+  add→ dev +0.03, test 85.30. Both REJECTED (dev rule) despite test gains — no test-peeking.
+- satftpa (SaT for NoPnx-PA, solo 81.79): dev +0.43 CI[+0.13,+0.75] PASSES dev but
+  test 87.16 < 87.19 → REJECTED (AND-rule). Arch-diversity transfers per dev; or_par
+  likely already captures SaT's paragraph signal.
+- xlmr-base: dilutes everywhere (open N-NP dev −0.35 CI[−0.58,−0.13]). xlmr-LARGE
+  download failed 3rd time (never trained).
+- **mdeberta-v3-base (venv27 train — .bin-only repo like CAMeLBERT; needs
+  sentencepiece+protobuf): N-NP open +0.09 (n.s.) reject; N-NP closed +0.22
+  CI[−0.00,+0.44] near-miss reject; NoPnx-PA dev +0.54 CI[+0.20,+0.87] AND
+  test 87.27>87.19 → ADOPTED.**
+- **NoPnx-PA RE-FROZEN (both tracks): enc3 + runs/nopnx-pa-mdeberta, thr .5, or_par
+  = dev 87.60 / test 87.27.** mDeBERTa is closed-legal (pretrained encoder, AraSeg-only FT).
+  Dry run: all 8 byte-identical. New sig row vs single: +1.17 CI[+0.72,+1.64] p<1e-4.
+- USER: re-upload 3 zips (16608/16609: 87.27; 16613: 85.17).
+
 ## RESIDUAL-ERROR ANALYSIS (2026-06-13, residual_errors.py, dev)
 
 Decides irreducible vs systematic error → whether more pushing is possible.
