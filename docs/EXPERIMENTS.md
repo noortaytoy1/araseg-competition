@@ -174,6 +174,19 @@ Selection (open_eval2.py, pre-registered: adopt iff dev AND test beat frozen 84.
   Dry run: all 8 byte-identical. New sig row vs single: +1.17 CI[+0.72,+1.64] p<1e-4.
 - USER: re-upload 3 zips (16608/16609: 87.27; 16613: 85.17).
 
+## ROUND 4 (2026-07-05) — the LLM voter (architecture family #5): NEGATIVE
+
+- Qwen2.5-3B + LoRA (r16 all-proj, ~30M trainable, bf16, train_qwen_lora.py in
+  venv27; HF download needed hf_transfer — plain downloads stall on multi-GB shards).
+- Solo dev F1 = 56.04 (train loss fits fine 127→11). Diagnosis: CAUSAL attention —
+  boundary detection needs the NEXT token; no right-context ⇒ collapse. 3B params
+  don't compensate. Decoder-only ≠ viable segmenter voter at this scale.
+- Pool: add→ open −0.13/test 84.38, closed −0.11/test 84.81; swap satft→qwen −0.79***.
+  ALL REJECTED. Architecture diversity helps only when the architecture can see
+  right-context (SaT bidirectional ✓, mDeBERTa ✓, causal LM ✗).
+- Candidate pipeline now EXHAUSTED: data-diversity, data-scale, decode knobs,
+  5 architecture families, LLM. Final frozen: 94.42/87.27/92.69/84.97c-85.17o.
+
 ## RESIDUAL-ERROR ANALYSIS (2026-06-13, residual_errors.py, dev)
 
 Decides irreducible vs systematic error → whether more pushing is possible.

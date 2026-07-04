@@ -508,9 +508,13 @@ candidate passes both gates: adding mDeBERTa-v3
 family we try---to the NoPnx-PA ensemble (dev $+0.54$, CI $[+0.20,+0.87]$; test
 $87.27{>}87.19$). Being an off-the-shelf pretrained encoder fine-tuned only on
 AraSeg training data, it is closed-track legal, so both NoPnx-PA submissions
-become four-encoder ensembles. Across $\sim$$25$ post-freeze attempts, the only
-two survivors are architecture changes---consistent with every diagnostic in
-\S\ref{sec:why}.
+become four-encoder ensembles. The axis has a sharp boundary condition, however: a
+\emph{causal} LLM voter (Qwen2.5-3B, LoRA token classifier) collapses to $56$
+\fone{} solo and only harms every pool---boundary detection hinges on the token
+\emph{after} the candidate position, and no amount of decoder-side pretraining
+substitutes for right-context. Across $\sim$$26$ post-freeze attempts, the only
+two survivors are \emph{bidirectional} architecture changes---consistent with
+every diagnostic in \S\ref{sec:why}.
 
 \section{Related Work}
 Sentence segmentation has moved from rule and statistical models to neural sequence
