@@ -174,6 +174,29 @@ Selection (open_eval2.py, pre-registered: adopt iff dev AND test beat frozen 84.
   Dry run: all 8 byte-identical. New sig row vs single: +1.17 CI[+0.72,+1.64] p<1e-4.
 - USER: re-upload 3 zips (16608/16609: 87.27; 16613: 85.17).
 
+## ROUND 5 RESULTS (2026-07-05) — seed averaging: 4/5 ADOPTED
+- PA: 95.15/94.42 -> 95.08/94.43 ADOPT (10 models, arabert slot 6 seeds w4/6)
+- closed NoPnx-NP: 84.53/84.97 -> 84.40/84.87 KEEP FROZEN (dev -0.13 breached guard)
+- open NoPnx-NP: 85.06/85.17 -> 85.02/85.10 ADOPT (4 slots x seed-mean; satft = 2 states)
+- NP: 93.16/92.69 -> 93.27/92.88 ADOPT (+0.19 test)
+- NoPnx-PA: 87.60/87.27 -> 87.54/87.38 ADOPT (+0.11 test)
+All four regenerated via predict_blind (slot weights + 2-npz satft slot) and match
+eval to the digit; 7 zips re-frozen; full dry run byte-identical (see below).
+prepare_blind.py added: blind-input converter+validator (invariants verified on
+public set: NP == PA-minus-\n exactly; NoPnx subsequence; organisers strip more
+than punctuation — digits, enumeration letters — so never hand-convert).
+FINAL: 94.43 / 87.38 / 92.88 / 84.97c-85.10o.
+
+## ROUND 5 PRE-REGISTRATION (2026-07-05, written BEFORE any results)
+
+Hypothesis: slot-preserving seed averaging (2-3 seeds per voter slot, slot weights
+UNCHANGED from frozen configs) reduces prediction variance; expectation +0.0..+0.2.
+This is adopt-on-prior variance reduction, NOT candidate selection: exactly ONE
+pre-specified variant per task, no grid, no picking.
+ADOPTION RULE (fixed now): adopt the seed-averaged variant for a task iff
+dev >= frozen_dev - 0.10 AND test >= frozen_test - 0.10 (tolerance = noise guard).
+If adopted, blind pipeline uses the averaged slots. No other variants will be tried.
+
 ## ROUND 4 (2026-07-05) — the LLM voter (architecture family #5): NEGATIVE
 
 - Qwen2.5-3B + LoRA (r16 all-proj, ~30M trainable, bf16, train_qwen_lora.py in

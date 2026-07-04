@@ -34,43 +34,55 @@ def M(low, extra=()):  # model dir list helper
 
 ENC3 = lambda low: [f"runs/{low}", f"runs/{low}-arbertv2", f"runs/{low}-araelectra"]
 
+# Round-5 re-freeze (2026-07-05): slot-preserving seed averaging (pre-registered
+# rule, EXPERIMENTS.md). Slot weights unchanged from the earlier configs; each
+# slot is now the mean of its seeds. "weights" is parallel to "models".
+PA10 = ["runs/pa", "runs/pa-s1", "runs/pa-s2", "runs/pa-s3", "runs/pa-s4", "runs/pa-s5",
+        "runs/pa-arbertv2", "runs/pa-arbertv2-s1",
+        "runs/pa-araelectra", "runs/pa-araelectra-s1"]
+PA10_W = [4, 4, 4, 4, 4, 4, 3, 3, 3, 3]  # arabert slot 4/6, others 1/6 each
+NPA8 = ["runs/nopnx-pa", "runs/nopnx-pa-s1",
+        "runs/nopnx-pa-arbertv2", "runs/nopnx-pa-arbertv2-s1",
+        "runs/nopnx-pa-araelectra", "runs/nopnx-pa-araelectra-s1",
+        "runs/nopnx-pa-mdeberta", "runs/nopnx-pa-mdeberta-s1"]
+NP6 = ["runs/np", "runs/np-s1", "runs/np-arbertv2", "runs/np-arbertv2-s1",
+       "runs/np-araelectra", "runs/np-araelectra-s1"]
+ONNP = ["runs/nopnx-np", "runs/nopnx-np-s1", "runs/nopnx-np-s2", "runs/nopnx-np-s3",
+        "runs/nopnx-np-s4", "runs/nopnx-np-s5",
+        "runs/nopnx-np-araelectra", "runs/nopnx-np-araelectra-s1",
+        "open_runs/nopnx-np-ft", "open_runs/nopnx-np-ft-s1"]
+ONNP_W = [1, 1, 1, 1, 1, 1, 3, 3, 3, 3]  # 4 uniform slots; satft slot adds weight 6
+
 CONFIG = {
-    # PA: 6-model mega + DP (lam .2, bias 0); forces doc-end + pre-\n
-    ("closed", "PA"): dict(models=M("pa"), method="dp", lam=0.2, bias=0.0),
-    ("open",   "PA"): dict(models=M("pa"), method="dp", lam=0.2, bias=0.0),
-    # NoPnx-PA (re-frozen 2026-07-04): 3 encoders + mDeBERTa-v3 (closed-legal
-    # pretrained encoder, AraSeg-train-only FT; dev +0.54 CI[+0.20,+0.87], test 87.27)
-    ("closed", "NoPnx-PA"): dict(models=ENC3("nopnx-pa") + ["runs/nopnx-pa-mdeberta"],
-                                 method="thresh", thr=0.50, or_par=True),
-    ("open",   "NoPnx-PA"): dict(models=ENC3("nopnx-pa") + ["runs/nopnx-pa-mdeberta"],
-                                 method="thresh", thr=0.50, or_par=True),
-    # NP: 3-encoder ensemble + threshold (bootstrap-selected, simpler)
-    ("closed", "NP"): dict(models=ENC3("np"), method="thresh", thr=0.50, or_par=False),
-    ("open",   "NP"): dict(models=ENC3("np"), method="thresh", thr=0.50, or_par=False),
-    # NoPnx-NP: mega + adaptive length prior (closed); + 2 external voters (open)
+    ("closed", "PA"): dict(models=PA10, weights=PA10_W, method="dp", lam=0.2, bias=0.0),
+    ("open",   "PA"): dict(models=PA10, weights=PA10_W, method="dp", lam=0.2, bias=0.0),
+    ("closed", "NoPnx-PA"): dict(models=NPA8, method="thresh", thr=0.50, or_par=True),
+    ("open",   "NoPnx-PA"): dict(models=NPA8, method="thresh", thr=0.50, or_par=True),
+    ("closed", "NP"): dict(models=NP6, method="thresh", thr=0.50, or_par=False),
+    ("open",   "NP"): dict(models=NP6, method="thresh", thr=0.50, or_par=False),
+    # closed NoPnx-NP: round-5 variant breached the dev guard -> ORIGINAL frozen kept
     ("closed", "NoPnx-NP"): dict(models=M("nopnx-np"), method="adaptive",
                                  lam1=0.4, bias=0.75, lam2=0.6, blend=1.0),
-    # open NoPnx-NP (re-frozen 2026-07-03, bootstrap dev CI [+0.15,+0.80]):
-    # 4 voters = AraBERTv02-s2 + AraELECTRA + OPUS-ft + SaT-ft (satft probs come
-    # from an npz dumped by satft_blind.py in the venv27 env; pass --satft-npz).
-    ("open",   "NoPnx-NP"): dict(models=["runs/nopnx-np-s2", "runs/nopnx-np-araelectra",
-                                         "open_runs/nopnx-np-ft"],
-                                 satft=True,
+    # open NoPnx-NP: 4 uniform slots {arabert(6 seeds), araelectra(2), opus-ft(2),
+    # satft(2 states)}. SaT probs: dump BOTH states with satft_blind.py (venv27)
+    # and pass --satft-npz a.npz,b.npz (they are averaged into the satft slot).
+    ("open",   "NoPnx-NP"): dict(models=ONNP, weights=ONNP_W, satft=True, satft_weight=6,
                                  method="adaptive", lam1=0.4, bias=0.75, lam2=0.6, blend=1.0),
 }
 
 
-def ensemble_probs(docs, model_dirs, device):
+def ensemble_probs(docs, model_dirs, device, weights=None):
     words = [[MODEL_PAR_TOKEN if w == PARAGRAPH_TOKEN else w for w in d["tokens"]] for d in docs]
+    ws = weights or [1.0] * len(model_dirs)
     sums = [np.zeros(len(d["tokens"])) for d in docs]
-    for mdir in model_dirs:
+    for mdir, mw in zip(model_dirs, ws):
         tok = AutoTokenizer.from_pretrained(mdir)
         mdl = AutoModelForTokenClassification.from_pretrained(mdir).to(device).eval()
         for i, w in enumerate(words):
-            sums[i] += predict_doc(w, tok, mdl, device, 180, 60, 512)
+            sums[i] += mw * predict_doc(w, tok, mdl, device, 180, 60, 512)
         del mdl
         torch.cuda.empty_cache()
-    return [s / len(model_dirs) for s in sums]
+    return [s / sum(ws) for s in sums]
 
 
 def decode_one(task, cfg, docs, probs):
@@ -107,15 +119,20 @@ def decode_one_dp(d, p, glp, lam, bias):
 def run_task(track, task, jsonl, out, device, satft_npz=None):
     cfg = CONFIG[(track, task)]
     docs = load_jsonl(jsonl)
-    probs = ensemble_probs(docs, cfg["models"], device)
+    weights = cfg.get("weights")
+    probs = ensemble_probs(docs, cfg["models"], device, weights)
     n_vote = len(cfg["models"])
+    wsum = sum(weights) if weights else n_vote
     if cfg.get("satft"):
         if not satft_npz:
-            raise SystemExit(f"[{track}/{task}] config includes the SaT-ft voter: "
-                             "dump its probs with satft_blind.py (venv27) and pass --satft-npz")
-        sat = np.load(satft_npz)
-        probs = [(p * n_vote + sat[d["doc_id"]]) / (n_vote + 1) for d, p in zip(docs, probs)]
-        n_vote += 1
+            raise SystemExit(f"[{track}/{task}] config includes the SaT-ft slot: dump "
+                             "each state with satft_blind.py (venv27) and pass "
+                             "--satft-npz state1.npz,state2.npz")
+        sats = [np.load(p) for p in satft_npz.split(",")]
+        sw = cfg.get("satft_weight", 1)
+        probs = [(p * wsum + sw * np.mean([s[d["doc_id"]] for s in sats], axis=0))
+                 / (wsum + sw) for d, p in zip(docs, probs)]
+        n_vote += len(sats)
     preds = decode_one(task, cfg, docs, probs)
     write_submission(docs, preds, out)
     rate = sum(map(sum, preds)) / max(sum(map(len, preds)), 1)

@@ -26,6 +26,7 @@ _ap = argparse.ArgumentParser()
 _ap.add_argument("--task", default="NoPnx-NP")
 _ap.add_argument("--epochs", type=int, default=6)
 _ap.add_argument("--suffix", default="satft", help="probs/{task}_{split}_{suffix}.npz + open_runs dir name part")
+_ap.add_argument("--seed", type=int, default=0)
 _ARGS, _ = _ap.parse_known_args()
 
 TASK = _ARGS.task
@@ -96,8 +97,9 @@ def main() -> None:
             samples.append((wt, wl))
     rate = float(np.mean([l for _, wl in samples for l in wl]))
     pos_w = torch.tensor((1 - rate) / max(rate, 1e-4), device=DEV)
+    torch.manual_seed(_ARGS.seed)
     opt = torch.optim.AdamW(model.parameters(), lr=LR)
-    rng = np.random.default_rng(0)
+    rng = np.random.default_rng(_ARGS.seed)
 
     best, best_state = -1.0, None
     for ep in range(EPOCHS):

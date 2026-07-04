@@ -9,9 +9,9 @@ token whether a sentence boundary follows it — across four variants that cross
 *paragraph availability* × *punctuation availability*.
 
 > **Ranked #1 on all four closed-track subtasks** (development-phase leaderboards,
-> CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.3 · NP 92.7 · NoPnx-NP 85.0**
-> (open track 85.2) — ahead of the organizer baseline on every board
-> (PA +1.6 … NoPnx-NP +7.4 F1).
+> CodaBench, as `omar_saqr`): **PA 94.4 · NoPnx-PA 87.4 · NP 92.9 · NoPnx-NP 85.0**
+> (open track 85.1) — ahead of the organizer baseline on every board
+> (PA +1.6 … NoPnx-NP +7.3 F1).
 
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**
 (AraBERT / AraELECTRA / ARBERT) decoded with a **semi-Markov dynamic program**
@@ -34,10 +34,10 @@ model capacity**), and a Krogh–Vedelsby decomposition (voter diversity is only
 
 | Subtask  | Description                              | Closed | Open | Organizer baseline | Δ      |
 |----------|------------------------------------------|:------:|:----:|:------------------:|:------:|
-| PA       | Punctuation + paragraphs                 | **94.4** | 94.4 | 92.8             | +1.6   |
-| NoPnx-PA | Paragraphs, **no punctuation**           | **87.3** | **87.3** | 82.8         | +4.5   |
-| NP       | Punctuation, **no paragraphs**           | **92.7** | 92.7 | 89.7             | +3.0   |
-| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.2** | 77.8      | +7.4   |
+| PA       | Punctuation + paragraphs                 | **94.4** | **94.4** | 92.8         | +1.6   |
+| NoPnx-PA | Paragraphs, **no punctuation**           | **87.4** | **87.4** | 82.8         | +4.6   |
+| NP       | Punctuation, **no paragraphs**           | **92.9** | **92.9** | 89.7         | +3.2   |
+| NoPnx-NP | **No punctuation, no paragraphs** (hardest) | **85.0** | **85.1** | 77.8      | +7.3   |
 
 Open = closed on three tasks (external data never beat the closed ensemble there).
 On NoPnx-NP the open system is a **4-voter pool** (AraBERTv02 seed + AraELECTRA +
@@ -49,7 +49,11 @@ test 85.17). Decorrelation, not accumulation. A final round extended the
 architecture axis further: **mDeBERTa-v3** — a fourth architecture family, and
 closed-track legal — joins the NoPnx-PA ensemble in both tracks (dev +0.54,
 CI [+0.20,+0.87]; test 87.27), while longer-SaT and SaT-for-NoPnx-PA variants
-posted positive dev signals but failed test confirmation and were rejected.
+posted positive dev signals but failed test confirmation and were rejected. A
+final **pre-registered seed-averaging round** (variance reduction; ±0.1 regression
+guard, no selection) was adopted for 4 of 5 systems (+0.19 NP, +0.11 NoPnx-PA
+test), and `prepare_blind.py` validates blind-day inputs against invariants
+verified on the public set.
 
 Per-document macro-F1 (boundary class). Official CodaBench scores matched the
 offline evaluator (`src/eval_local.py`) exactly, so iteration happened offline and

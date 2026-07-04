@@ -238,10 +238,11 @@ split is held out for verification only; test inputs are used solely for predict
 Significance is by paired bootstrap over documents ($5000$ resamples).
 
 \section{Results}\label{sec:results}
-The full pipeline reaches development \fone{} of $95.15$/$87.60$/$93.37$/$84.53$ and
-open-test \fone{} of $94.42$/$87.27$/$92.69$/$84.97$ (closed track; the NoPnx-PA
-system includes the mDeBERTa voter adopted in \S\ref{sec:open}); the
-development-to-test gap is $\le0.7$ everywhere. During the development phase this ranked first on all four
+The final submitted systems reach development \fone{} of
+$95.08$/$87.54$/$93.27$/$84.53$ and open-test \fone{} of
+$94.43$/$87.38$/$92.88$/$84.97$ (closed track; NoPnx-PA includes the mDeBERTa
+voter and all systems except closed NoPnx-NP use the seed-averaged slots of
+\S\ref{sec:open}); the development-to-test gap is $\le0.7$ everywhere. During the development phase this ranked first on all four
 closed-track leaderboards. Table~\ref{tab:baselines} contextualises this against
 external systems: a rule baseline, the off-the-shelf multilingual SOTA SaT-12L
 \citep{frohmann2024sat} (zero-shot $\sim$$69$ on every task---punctuation-sensitive
@@ -258,10 +259,10 @@ System & split & PA & N-PA & NP & N-NP \\
 \midrule
 Rule baseline      & dev & 72.2 & 45.2 & 60.2 & 13.4 \\
 SaT-12L (0-shot)   & dev & 68.9 & 68.5 & 68.9 & 68.5 \\
-\textbf{Ours}      & dev & \textbf{95.2} & \textbf{87.6} & \textbf{93.4} & \textbf{84.5}\,/\,\textbf{85.1}$^{\dagger}$ \\
+\textbf{Ours}      & dev & \textbf{95.1} & \textbf{87.5} & \textbf{93.3} & \textbf{84.5}\,/\,\textbf{85.0}$^{\dagger}$ \\
 \midrule
 Organiser baseline & test & 92.8 & 82.8 & 89.7 & 77.8 \\
-\textbf{Ours}      & test & \textbf{94.4} & \textbf{87.3} & \textbf{92.7} & \textbf{85.0}\,/\,\textbf{85.2}$^{\dagger}$ \\
+\textbf{Ours}      & test & \textbf{94.4} & \textbf{87.4} & \textbf{92.9} & \textbf{85.0}\,/\,\textbf{85.1}$^{\dagger}$ \\
 \bottomrule
 \end{tabular}
 \caption{External comparison (macro-\fone{}). Off-the-shelf SaT is far below an
@@ -544,6 +545,16 @@ become four-encoder ensembles. The axis has a sharp boundary condition, however:
 substitutes for right-context. Across $\sim$$26$ post-freeze attempts, the only
 two survivors are \emph{bidirectional} architecture changes---consistent with
 every diagnostic in \S\ref{sec:why}.
+
+\paragraph{Variance reduction for the one-shot blind test.} A final,
+\emph{pre-registered} round replaces each voter slot with the mean of $2$--$6$
+seeds, slot weights unchanged---pure variance reduction, with dev and test used
+only as a $\pm0.1$ regression guard, never for selection. Four of five systems
+adopt it (NP $+0.19$ and NoPnx-PA $+0.11$ test; PA and open NoPnx-NP within
+noise of frozen at lower variance); the guard correctly rejects the fifth
+(closed NoPnx-NP, dev $-0.13$). For a single-submission blind evaluation,
+shrinking the seed-luck tail is worth more than its $\approx0$ expected
+point-estimate change.
 
 \section{Related Work}
 Sentence segmentation has moved from rule and statistical models to neural sequence
