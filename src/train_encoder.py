@@ -16,6 +16,7 @@ on this small corpus). Examples:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import random
 from typing import List
@@ -35,17 +36,66 @@ from transformers import (
 from data import MODEL_PAR_TOKEN, PARAGRAPH_TOKEN, TASKS, load_task
 
 
-def make_windows(docs: List[dict], window: int, stride: int) -> List[dict]:
-    """Cut each doc into overlapping word windows of `window` words."""
+_PA_OF = {"NP": "PA", "NoPnx-NP": "NoPnx-PA", "PA": "PA", "NoPnx-PA": "NoPnx-PA"}
+
+
+def paragraph_word_labels(task: str, split: str, jsonl_path: str = None) -> dict:
+    """Per-word coarse paragraph-boundary labels for the HIERARCHICAL aux head.
+
+    Word i -> 1 if it is immediately followed by a paragraph break, else 0.
+    Derived from the paragraph-aware counterpart of `task` (PA for NP, NoPnx-PA
+    for NoPnx-NP), whose token stream equals this task's stream with `\\n`
+    paragraph tokens inserted (verified: PA − \\n == NP, 174/174 docs). Only
+    meaningful for the paragraph-LESS tracks, where the model cannot see the
+    structure it is asked to predict."""
+    pa_task = _PA_OF[task]
+    path = jsonl_path or os.path.join(os.path.dirname(__file__), os.pardir,
+                                      "data", f"{pa_task}_{split}.jsonl")
+    out = {}
+    for line in open(path, encoding="utf-8"):
+        if not line.strip():
+            continue
+        d = json.loads(line)
+        toks = d["tokens"]
+        wl = []
+        for j, w in enumerate(toks):
+            if w == PARAGRAPH_TOKEN:
+                continue
+            nxt = toks[j + 1] if j + 1 < len(toks) else None
+            wl.append(1 if nxt == PARAGRAPH_TOKEN else 0)
+        out[d["doc_id"]] = wl
+    return out
+
+
+def make_windows(docs: List[dict], window: int, stride: int,
+                 para: dict = None) -> List[dict]:
+    """Cut each doc into overlapping word windows of `window` words.
+    If `para` (doc_id -> per-word paragraph labels) is given, carry aligned
+    paragraph-boundary labels for the hierarchical aux head."""
     out = []
     for d in docs:
         words = [MODEL_PAR_TOKEN if w == PARAGRAPH_TOKEN else w for w in d["tokens"]]
         labels = [-100 if w == MODEL_PAR_TOKEN else l for w, l in zip(words, d["labels"])]
+        pw = None
+        if para is not None:
+            pl = para.get(d["doc_id"])
+            # para labels are in no-\n word order; align to words, -100 at [PAR]
+            pw, k = [], 0
+            for w in words:
+                if w == MODEL_PAR_TOKEN or pl is None or k >= len(pl):
+                    pw.append(-100)
+                    if w != MODEL_PAR_TOKEN and pl is not None:
+                        k += 1
+                else:
+                    pw.append(pl[k]); k += 1
         n = len(words)
         start = 0
         while start < n:
             end = min(start + window, n)
-            out.append({"words": words[start:end], "word_labels": labels[start:end]})
+            ex = {"words": words[start:end], "word_labels": labels[start:end]}
+            if pw is not None:
+                ex["para_word_labels"] = pw[start:end]
+            out.append(ex)
             if end == n:
                 break
             start += stride
@@ -59,21 +109,46 @@ def encode_batch(examples, tokenizer, max_length: int):
         truncation=True,
         max_length=max_length,
     )
-    all_labels = []
-    for i, word_labels in enumerate(examples["word_labels"]):
-        word_ids = enc.word_ids(batch_index=i)
+    def align(word_labels, word_ids):
         labels = [-100] * len(word_ids)
-        # label the LAST subword of each word
         for pos in range(len(word_ids)):
             wid = word_ids[pos]
             if wid is None:
                 continue
             nxt = word_ids[pos + 1] if pos + 1 < len(word_ids) else None
-            if nxt != wid:
+            if nxt != wid:            # label the LAST subword of each word
                 labels[pos] = word_labels[wid]
-        all_labels.append(labels)
+        return labels
+
+    all_labels, all_para = [], []
+    has_para = "para_word_labels" in examples
+    for i, word_labels in enumerate(examples["word_labels"]):
+        word_ids = enc.word_ids(batch_index=i)
+        all_labels.append(align(word_labels, word_ids))
+        if has_para:
+            all_para.append(align(examples["para_word_labels"][i], word_ids))
     enc["labels"] = all_labels
+    if has_para:
+        enc["para_labels"] = all_para
     return enc
+
+
+class ParaCollator:
+    """Wrap the token-classification collator; pad the extra para_labels field
+    the same way (right-pad with -100 to the batch's label length)."""
+
+    def __init__(self, tokenizer):
+        self.base = DataCollatorForTokenClassification(tokenizer)
+
+    def __call__(self, features):
+        if "para_labels" not in features[0]:   # eval batches carry no aux labels
+            return self.base(features)
+        para = [list(f.pop("para_labels")) for f in features]
+        batch = self.base(features)
+        m = batch["labels"].shape[1]
+        batch["para_labels"] = torch.tensor(
+            [p + [-100] * (m - len(p)) for p in para], dtype=torch.long)
+        return batch
 
 
 class WeightedTrainer(Trainer):
@@ -85,7 +160,8 @@ class WeightedTrainer(Trainer):
     """
 
     def __init__(self, *args, pos_weight: float = 1.0, smooth_eps: float = 0.0,
-                 fgm_eps: float = 0.0, **kwargs):
+                 fgm_eps: float = 0.0, soft_f1: float = 0.0, para_aux: float = 0.0,
+                 **kwargs):
         super().__init__(*args, **kwargs)
         self._loss = nn.CrossEntropyLoss(
             weight=torch.tensor([1.0, pos_weight]), ignore_index=-100
@@ -93,10 +169,14 @@ class WeightedTrainer(Trainer):
         self._pos_weight = pos_weight
         self._smooth_eps = smooth_eps
         self._fgm_eps = fgm_eps
+        self._soft_f1 = soft_f1
+        self._para_aux = para_aux
+        self._para_loss = nn.CrossEntropyLoss(ignore_index=-100)
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
-        outputs = model(**inputs)
+        para_labels = inputs.pop("para_labels", None)
+        outputs = model(**inputs, output_hidden_states=(self._para_aux > 0))
         logits = outputs.logits
         if self._smooth_eps > 0:
             mask = labels != -100
@@ -117,6 +197,35 @@ class WeightedTrainer(Trainer):
             loss = self._loss.to(logits.device)(
                 logits.view(-1, logits.size(-1)), labels.view(-1)
             )
+        if self._soft_f1 > 0:
+            # macro (per-window) soft-F1 surrogate on the boundary class: closes
+            # the train(BCE)/eval(boundary-F1) gap by optimizing a differentiable
+            # F1 directly. TP/FP/FN are computed from soft boundary probabilities;
+            # averaged over windows (macro), added to the base loss. Additive —
+            # soft_f1=0 leaves the loss above bit-identical to the CE/smooth path.
+            mask = (labels != -100).float()
+            hard = labels.clamp(min=0).float()
+            p = torch.softmax(logits, dim=-1)[..., 1]
+            tp = (p * hard * mask).sum(dim=1)
+            fp = (p * (1.0 - hard) * mask).sum(dim=1)
+            fn = ((1.0 - p) * hard * mask).sum(dim=1)
+            soft_f1 = 2.0 * tp / (2.0 * tp + fp + fn + 1e-6)
+            # macro over boundary-containing windows only (F1 is undefined for an
+            # all-negative window; the weighted CE already suppresses its FPs).
+            has_pos = (hard * mask).sum(dim=1) > 0
+            if has_pos.any():
+                loss = loss + self._soft_f1 * (1.0 - soft_f1[has_pos].mean())
+        if self._para_aux > 0 and para_labels is not None:
+            # HIERARCHICAL aux: predict coarse paragraph boundaries from the
+            # shared encoder (a separate head), regularizing toward document
+            # structure. Additive — para_aux=0 skips this entirely.
+            head = model.para_head if hasattr(model, "para_head") else \
+                self.accelerator.unwrap_model(model).para_head
+            h = outputs.hidden_states[-1]
+            para_logits = head(h)
+            para_loss = self._para_loss(
+                para_logits.view(-1, 2).float(), para_labels.view(-1))
+            loss = loss + self._para_aux * para_loss
         return (loss, outputs) if return_outputs else loss
 
     def training_step(self, model, inputs, num_items_in_batch=None):
@@ -175,6 +284,13 @@ def main() -> None:
                     help="soft boundary target for tokens adjacent to a gold boundary")
     ap.add_argument("--fgm-eps", type=float, default=0.0,
                     help="FGM adversarial perturbation size on word embeddings (0=off)")
+    ap.add_argument("--soft-f1", type=float, default=0.0,
+                    help="weight on the macro (per-window) soft-F1 surrogate loss "
+                         "added to CE (0=off; targets the train-BCE/eval-F1 gap)")
+    ap.add_argument("--para-aux", type=float, default=0.0,
+                    help="weight on the hierarchical paragraph-boundary auxiliary "
+                         "head (0=off; NP/NoPnx-NP only, derives coarse paragraph "
+                         "labels from the paragraph-aware counterpart)")
     ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
 
@@ -194,10 +310,20 @@ def main() -> None:
     model = AutoModelForTokenClassification.from_pretrained(args.model_name, num_labels=2)
     model.resize_token_embeddings(len(tokenizer))
 
+    para_tr = None
+    if args.para_aux > 0:
+        if args.task not in ("NP", "NoPnx-NP"):
+            raise SystemExit("--para-aux only applies to NP / NoPnx-NP (the "
+                             "paragraph-less tracks)")
+        para_tr = paragraph_word_labels(args.task, "train")   # aux is train-only
+        model.para_head = nn.Linear(model.config.hidden_size, 2)
+        print(f"hierarchical paragraph-aux head on (weight {args.para_aux}); "
+              f"para docs train={len(para_tr)}")
+
     from datasets import Dataset
 
-    train_ds = Dataset.from_list(make_windows(train_docs, args.window, args.stride))
-    dev_ds = Dataset.from_list(make_windows(dev_docs, args.window, args.window))  # no overlap for eval
+    train_ds = Dataset.from_list(make_windows(train_docs, args.window, args.stride, para_tr))
+    dev_ds = Dataset.from_list(make_windows(dev_docs, args.window, args.window))  # no overlap; no aux at eval
     fn = lambda ex: encode_batch(ex, tokenizer, args.max_length)
     train_ds = train_ds.map(fn, batched=True, remove_columns=train_ds.column_names)
     dev_ds = dev_ds.map(fn, batched=True, remove_columns=dev_ds.column_names)
@@ -225,11 +351,14 @@ def main() -> None:
         args=targs,
         train_dataset=train_ds,
         eval_dataset=dev_ds,
-        data_collator=DataCollatorForTokenClassification(tokenizer),
+        data_collator=(ParaCollator(tokenizer) if args.para_aux > 0
+                       else DataCollatorForTokenClassification(tokenizer)),
         compute_metrics=token_f1_metrics,
         pos_weight=pos_weight,
         smooth_eps=args.smooth_eps,
         fgm_eps=args.fgm_eps,
+        soft_f1=args.soft_f1,
+        para_aux=args.para_aux,
     )
     trainer.train()
     print("best window-level dev metrics:", trainer.evaluate())
