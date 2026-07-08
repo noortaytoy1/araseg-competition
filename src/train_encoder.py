@@ -34,6 +34,7 @@ from transformers import (
 )
 
 from data import MODEL_PAR_TOKEN, PARAGRAPH_TOKEN, TASKS, load_task
+from dice_loss import DiceLoss  # ShannonAI/dice_loss_for_NLP, verbatim (Apache-2.0)
 
 
 _PA_OF = {"NP": "PA", "NoPnx-NP": "NoPnx-PA", "PA": "PA", "NoPnx-PA": "NoPnx-PA"}
@@ -161,7 +162,7 @@ class WeightedTrainer(Trainer):
 
     def __init__(self, *args, pos_weight: float = 1.0, smooth_eps: float = 0.0,
                  fgm_eps: float = 0.0, soft_f1: float = 0.0, para_aux: float = 0.0,
-                 **kwargs):
+                 dice_alpha: float = -1.0, **kwargs):
         super().__init__(*args, **kwargs)
         self._loss = nn.CrossEntropyLoss(
             weight=torch.tensor([1.0, pos_weight]), ignore_index=-100
@@ -172,13 +173,29 @@ class WeightedTrainer(Trainer):
         self._soft_f1 = soft_f1
         self._para_aux = para_aux
         self._para_loss = nn.CrossEntropyLoss(ignore_index=-100)
+        # real Dice loss (ShannonAI), NER-SOTA config; dice_alpha<0 = off
+        self._dice = None
+        if dice_alpha is not None and dice_alpha >= 0:
+            self._dice = DiceLoss(with_logits=True, smooth=1.0,
+                                  square_denominator=True, ohem_ratio=0.0,
+                                  alpha=dice_alpha, reduction="mean",
+                                  index_label_position=True)
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
         para_labels = inputs.pop("para_labels", None)
         outputs = model(**inputs, output_hidden_states=(self._para_aux > 0))
         logits = outputs.logits
-        if self._smooth_eps > 0:
+        if self._dice is not None:
+            # authors' Dice loss on valid tokens only (filter -100 before one_hot)
+            valid = labels.view(-1) != -100
+            if valid.any():
+                fl = logits.view(-1, logits.size(-1))[valid]
+                ft = labels.view(-1)[valid]
+                loss = self._dice(fl, ft)
+            else:
+                loss = logits.sum() * 0.0
+        elif self._smooth_eps > 0:
             mask = labels != -100
             hard = labels.clamp(min=0).float()
             # neighbors of a boundary (within the window) get a soft target
@@ -291,6 +308,9 @@ def main() -> None:
                     help="weight on the hierarchical paragraph-boundary auxiliary "
                          "head (0=off; NP/NoPnx-NP only, derives coarse paragraph "
                          "labels from the paragraph-aware counterpart)")
+    ap.add_argument("--dice-loss", type=float, default=-1.0,
+                    help="use the authors' Dice loss (ShannonAI) as the main loss; "
+                         "value = alpha (NER-SOTA=0.01); <0 = off (keep CE)")
     ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
 
@@ -359,6 +379,7 @@ def main() -> None:
         fgm_eps=args.fgm_eps,
         soft_f1=args.soft_f1,
         para_aux=args.para_aux,
+        dice_alpha=args.dice_loss,
     )
     trainer.train()
     print("best window-level dev metrics:", trainer.evaluate())
