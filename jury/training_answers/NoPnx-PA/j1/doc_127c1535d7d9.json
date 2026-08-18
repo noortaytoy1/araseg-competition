@@ -1,0 +1,98 @@
+{
+ "doc_id": "doc_127c1535d7d9",
+ "identity": "Qur'anic scripture: Surat al-Baqarah, ayat 154-171, in Uthmanic rasm orthography stripped of all diacritics and verse markers (note the rasm spellings الأمول، الثمرت، صلوت، السموت، البينت، الملئكة، خلدين، لءايت، حسرت، خطوت، الشيطن، ءاباءنا، بخرجين). Not prose and not an essay quoting scripture: 306 tokens that partition with zero remainder into 18 consecutive ayat. Two structural facts fix the identity. First, the document opens exactly at the first word of 2:154 and closes exactly at the last word of 2:171 - neither edge is truncated mid-verse, so the extraction unit of the source record was the verse. Second, there is not a single <NL> in the document even though this track preserves paragraph structure, i.e. the verses were deliberately run together into one continuous paragraph. That is what makes the document a training item at all: the only removed punctuation was the verse terminator, and the task is to recover the ayah divisions without line cues.",
+ "law": "The ayah is the sentence. One boundary at the end of each verse, none inside. This is a canonical-structure genre, the same family as my doctrine K1 (verse/poetry), where a fixed traditional unit - not syntax - sets the boundary and the short-tail rule is suspended: a 9-token ayah and a 43-token ayah are each exactly one unit. The corollary matters as much as the rule: inside a verse I do NOT apply the conjunct-weight test. Clause-initial fa, chained waw + new predication, idh, innama, bal - all automatic cuts for me in prose (doctrine A1, B1, B4, C5, E2) - are structurally invisible here, because the mushaf carries no sentence punctuation for the stripper to have removed except the verse terminator. Every one of the 18 boundaries I take is a verse end, and every verse end is taken.",
+ "reasoning": "GRANULARITY IS THE WHOLE DECISION (doctrine checklist item 1: classify genre before reading for content; wrong granularity cost me 50 F1 on the MCQ document). Two rival readings. (V) verse-level: 18 units. (W) clause-level, my ordinary prose law applied through the conjunct-weight test: roughly 33+ units. I rule for V on mechanism, not on piety. Gold boundaries in this corpus are the positions where removed punctuation stood. A mushaf carries no full stops, commas or colons; the only sentence-grade separator in Quranic running text is the verse terminator (marker or bracketed number). A stripping pipeline over this text therefore yields verse ends and nothing else. Reading W additionally requires that the source retained the optional waqf marks AND that the splitter treated them as sentence enders - but this text has been stripped of every other supra-segmental mark, and waqf marks are pause advisories, not terminators. Confirming V independently: both document edges land exactly on verse edges, which a token- or character-based chunker would not produce. I take all 18 verse ends and add nothing. CALIBRATION CHECK, because my standing error profile is 7:1 in the MISSED direction and this answer looks sparse. The bias correction does not apply here, for a reason I want on the record: the 18 verse ends are boundaries under BOTH hypotheses - a clause-based gold would be a superset of a verse-based one - so each individual cut I make is high-confidence regardless of which law is right. What is uncertain is only whether EXTRA boundaries exist. Hedging with a handful of internal cuts is F1-negative: at P(V) around 0.85, predicting 18 beats predicting 26, and the hedge only breaks even at P(V)=0.5. I commit rather than split the difference. HARD SITE 1, @24 al-sabirin - the one place where V and W genuinely diverge, and my only non-hi mark. 2:155 ends wa-bashshir al-sabirin and 2:156 opens alladhina idha asabathum musiba. Syntactically alladhina is a relative modifier of al-sabirin, and my own connective table lists alladhi as a tight subordinator that never opens a unit - so a purely syntactic annotator would run 155 into 156 and instead cut at @22 wa-al-thamarat, before the imperative wa-bashshir. Under verse law the cut is at @24 and there is no cut at @22. I take @24 and mark it med. It is the site that diagnoses which law the annotator used. HARD SITE 2, @111 ajmain and @87 al-lainun - two verse ends that are syntactically dependent continuations. khalidina fiha (2:162) is an accusative circumstantial hanging off the preceding verse, and illa alladhina tabu (2:160) is an exceptive attached to 2:159. A syntax-first reader merges both. Verse law cuts both, and here W agrees anyway: each carries substantial predication of its own, so by conjunct weight they are units too. Both hi. HARD SITE 3, @130-@172, ayah 2:164 at 43 tokens - the strongest pull toward shredding, and I refuse it deliberately. My doctrine F1 (the Ragnarok passage) says long waw-chained conjuncts each become a unit even when grammatically they are all objects of one verb: weight beats syntax. Applied mechanically here it would cut before wa-al-fulk allati tajri fi al-bahr, before wa-ma anzala Allah min al-sama, and before wa-tasrif al-riyah wa-al-sahab - three or four internal cuts. I decline all of them. The verse is a single rhetorical period: inna fi khalq opens it, every waw-conjunct is another genitive complement of fi khalq, and the construction is not discharged until the predicate la-ayat li-qawmin yaqilun. Cutting inside would strand the lam answer from its inna. Genre outranks the conjunct-weight test, exactly as it does in verse and in legal articles (H4). HARD SITE 4, @44-@67, ayah 2:158 at 24 tokens - same refusal, applied to fa. fa-man hajja al-bayt and wa-man tatawwaa khayran are two full conditional predications, and clause-initial fa is close to an absolute cut for me in classical prose (B1). No cut: they are inside one verse. Likewise the 31-token 2:165 (wa-law yara alladhina zalamu is not cut off), the 23-token 2:167, and the 22-token 2:170 (a-wa-law kana abauhum rides along). WHERE THE TWO LAWS COINCIDE, and why the answer is still safe if I am wrong about the law: @203 before idh tabarraa (B4), @215 before wa-qala (E3, speech verb opens a unit), @254 before innama (E2), @238 before the vocative ya-ayyuha al-nas, @129 before inna fi khalq, @120 before wa-ilahukum, @265 before wa-idha qila, @287 before wa-mathal alladhina kafaru, @43 before inna al-safa, @67 and @98 before inna alladhina. Eleven of my eighteen cuts would be made by prose law too. The disagreement between V and W is almost entirely about cuts I am NOT making, and only @24 about one I am. FINAL TOKEN: @305 yaqilun is the last token of the document and carries a mandatory boundary; it is also the true end of 2:171, so the two agree.",
+ "boundaries": [
+  {
+   "i": 12,
+   "w": "تشعرون",
+   "c": "hi"
+  },
+  {
+   "i": 24,
+   "w": "الصبرين",
+   "c": "med"
+  },
+  {
+   "i": 34,
+   "w": "رجعون",
+   "c": "hi"
+  },
+  {
+   "i": 43,
+   "w": "المهتدون",
+   "c": "hi"
+  },
+  {
+   "i": 67,
+   "w": "عليم",
+   "c": "hi"
+  },
+  {
+   "i": 87,
+   "w": "اللعنون",
+   "c": "hi"
+  },
+  {
+   "i": 98,
+   "w": "الرحيم",
+   "c": "hi"
+  },
+  {
+   "i": 111,
+   "w": "أجمعين",
+   "c": "hi"
+  },
+  {
+   "i": 120,
+   "w": "ينظرون",
+   "c": "hi"
+  },
+  {
+   "i": 129,
+   "w": "الرحيم",
+   "c": "hi"
+  },
+  {
+   "i": 172,
+   "w": "يعقلون",
+   "c": "hi"
+  },
+  {
+   "i": 203,
+   "w": "العذاب",
+   "c": "hi"
+  },
+  {
+   "i": 215,
+   "w": "الأسباب",
+   "c": "hi"
+  },
+  {
+   "i": 238,
+   "w": "النار",
+   "c": "hi"
+  },
+  {
+   "i": 254,
+   "w": "مبين",
+   "c": "hi"
+  },
+  {
+   "i": 265,
+   "w": "تعلمون",
+   "c": "hi"
+  },
+  {
+   "i": 287,
+   "w": "يهتدون",
+   "c": "hi"
+  },
+  {
+   "i": 305,
+   "w": "يعقلون",
+   "c": "hi"
+  }
+ ]
+}

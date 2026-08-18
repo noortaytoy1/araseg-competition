@@ -37,6 +37,12 @@ def main() -> None:
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    try:  # modernbert decorates a layer with @torch.compile at import; this box's inductor is broken -> neuter
+        from transformers import AutoConfig as _AC
+        if getattr(_AC.from_pretrained(args.model), "model_type", "") == "modernbert":
+            torch.compile = lambda model=None, *a, **k: (model if callable(model) else (lambda f: f))
+    except Exception:
+        pass
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     model = AutoModelForTokenClassification.from_pretrained(args.model).to(device).eval()
 

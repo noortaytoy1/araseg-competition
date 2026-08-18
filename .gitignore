@@ -41,3 +41,27 @@ env/
 Thumbs.db
 .idea/
 .vscode/
+
+# ---- Post-competition heavy / local artifacts (never committed) ----
+models/
+scratch_exo/
+merge_judge/
+knn_store/
+canon/
+vendor/
+rae_ft/
+rae_gate/
+unet2d/
+data_union/
+features/
+stability/
+subs_blind/
+*.log
+preds_*.json
+*.npz
+*.pt
+*.ckpt
+*.zip
+paper/transcript_audit.json
+paper/SUBMISSION_PROVENANCE.json
+coordination/

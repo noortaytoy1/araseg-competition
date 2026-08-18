@@ -5,8 +5,8 @@
 # the realistic PREDICTED-paragraph result.
 set -e
 cd "$(dirname "$0")"
-T=NoPnx-NP
-B=runs/opus_cascade_2026-07-08
+T="${1:-NoPnx-NP}"
+B=runs/opus_cascade_2026-07-08/${T}
 mkdir -p "$B"
 TR=data/${T}_train.jsonl; DV=data/${T}_dev.jsonl
 C="--task $T --epochs 8 --seed 42"

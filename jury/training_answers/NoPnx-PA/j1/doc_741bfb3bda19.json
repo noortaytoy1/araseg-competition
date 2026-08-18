@@ -1,0 +1,343 @@
+{
+ "doc_id": "doc_741bfb3bda19",
+ "identity": "A primary-school science quiz / item bank on animals (growth, reproduction, parental care, migration and living in groups). It is not prose at any point: there is no instruction line, no reading passage, no connected discourse, no narrative. It is 20 discrete assessment items, exactly one per <NL>-delimited line, of two types: 13 true/false items (a statement followed by the two response tokens sah and khata) and 7 multiple-choice items (a stem followed by 2-3 options). The <NL> is the item delimiter, which I verified holds for all 20 lines with no item spanning a line break.",
+ "law": "Exam genre, so by the native-unit law the unit is THE STEM AND EACH OPTION, never the clause. Three consequences. (1) The stem ends exactly where the options begin, even when the stem breaks off mid-construction: a dangling verb whose subject slot is filled by the options (yazdad), or a dangling preposition (an, min ajl). A trailing function word at the end of a stem is a colon in disguise. (2) Every option is its own unit regardless of length, because options are exchangeable answer siblings rather than constituents of the stem clause; the short-tail rule is suspended in this genre. This includes the two response tokens sah and khata of a true/false item, which stand outside the statement syntax entirely and cannot be attached to any argument slot in it. (3) A waw joining bare nouns inside a stem or an option is bare-noun waw and carries no boundary: umm wa ab, al-hijra wa al-tanaqqul, al-taam wa al-difa. Boundaries go between siblings, never inside one.",
+ "reasoning": "Classification first, because on my one previous exam paper I read the genre as prose and it cost me roughly 42 F1 points, far more than any connective call. The sah/khata pairs settle the genre immediately: response options exist only in an assessment text. The document then turns out to be internally self-verifying through three minimal pairs, which is why my confidence is high almost everywhere. PAIR A, the dangling verb. Line 5 is oindama tanmu al-hayawanat yazdad ADADUHA then sah khata: the subject slot is filled and the statement is complete. Line 2 is the identical frame oindama tanmu al-hayawanat yazdad followed by hajmuha, tuluha, KILAHUMA. The word kilahuma (both of them) can only be the third member of an option set, which proves the two nouns before it are options too, which proves yazdad is left dangling. So the stem ends at yazdad (10), and the same reading transfers to line 9 at yazdad (65), where the three options hajmuha/adaduha/tuluha follow with no connective. PAIR B, one animal versus three. Line 7, min al-hayawanat allati tatakathar bil-bayd AL-HISAN sah khata, is true/false with al-hisan as the postposed subject, so the whole statement is one unit ending at al-hisan (52) and I do not cut before it. Line 10 is the same frame with THREE animals and no sah/khata, so those three are options and the stem ends at bi-sigharihaa (74). The presence or absence of the response pair is what decides the parse, and it decides it cleanly both ways. PAIR C, the dangling preposition. Line 19, tuhajir al-tuyur maoan bahthan AN al-taam wa al-difa sah khata, carries the full prepositional complement inside a true/false statement. Line 16 is the same verb and the same preposition, tuhajir al-tuyur bahthan AN, and then al-taam, al-difa, kilahuma. Same content, split into options, kilahuma confirming. So an is a trailing function word ending the stem at 127. Line 17 works identically: min ajl is left without its genitive complement, stem ends at ajl (137), against line 18 where min ajl al-hijra wa al-tanaqqul is complete inside the stem and the options are three animal groups. THE ONE REAL GAMBLE, marked med, is cutting sah off the statement it follows. I have never seen a graded true/false item, only four-way multiple choice. Two readings compete. Against cutting: on the printed worksheet sah and khata plausibly sit together in one answer slot, and I know from the residue in tables and workbooks that the printed line is a real variable I cannot observe. For cutting, and this is what I went with: sah and khata are not constituents of the statement at all, since the statement has every argument slot filled and there is no syntactic relation available to absorb them; they are exchangeable answer siblings, which is the exact condition under which sub-clausal asyndetic material splits instead of merging; and my standing calibration is that I err toward merging by about seven to one, so I must justify not cutting rather than cutting. I cut, and I marked all 13 med so that if this systematic call is wrong it reads as one identifiable failure rather than 13 scattered ones. The khata cut is free in every case since it precedes an <NL> or ends the document. Everything else follows mechanically. No boundary sits on an <NL> token; every token immediately before an <NL> and the final token carries one; no boundary falls on either side of the three internal bare-noun waws at 42, 147 and 159.",
+ "boundaries": [
+  {
+   "i": 3,
+   "w": "جدي",
+   "c": "hi"
+  },
+  {
+   "i": 4,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 5,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 10,
+   "w": "يزداد",
+   "c": "hi"
+  },
+  {
+   "i": 11,
+   "w": "حجمها",
+   "c": "hi"
+  },
+  {
+   "i": 12,
+   "w": "طولها",
+   "c": "hi"
+  },
+  {
+   "i": 13,
+   "w": "كلاهما",
+   "c": "hi"
+  },
+  {
+   "i": 19,
+   "w": "النباتات",
+   "c": "hi"
+  },
+  {
+   "i": 20,
+   "w": "الغزال",
+   "c": "hi"
+  },
+  {
+   "i": 21,
+   "w": "العصفور",
+   "c": "hi"
+  },
+  {
+   "i": 22,
+   "w": "النمر",
+   "c": "hi"
+  },
+  {
+   "i": 27,
+   "w": "فرخ",
+   "c": "hi"
+  },
+  {
+   "i": 28,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 29,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 35,
+   "w": "عددها",
+   "c": "hi"
+  },
+  {
+   "i": 36,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 37,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 43,
+   "w": "أب",
+   "c": "hi"
+  },
+  {
+   "i": 44,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 45,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 52,
+   "w": "الحصان",
+   "c": "hi"
+  },
+  {
+   "i": 53,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 54,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 58,
+   "w": "متشابه",
+   "c": "hi"
+  },
+  {
+   "i": 59,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 60,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 65,
+   "w": "يزداد",
+   "c": "hi"
+  },
+  {
+   "i": 66,
+   "w": "حجمها",
+   "c": "hi"
+  },
+  {
+   "i": 67,
+   "w": "عددها",
+   "c": "hi"
+  },
+  {
+   "i": 68,
+   "w": "طولها",
+   "c": "hi"
+  },
+  {
+   "i": 74,
+   "w": "بصغارها",
+   "c": "hi"
+  },
+  {
+   "i": 75,
+   "w": "الحصان",
+   "c": "hi"
+  },
+  {
+   "i": 76,
+   "w": "الضفدع",
+   "c": "hi"
+  },
+  {
+   "i": 77,
+   "w": "السمك",
+   "c": "hi"
+  },
+  {
+   "i": 83,
+   "w": "فقط",
+   "c": "hi"
+  },
+  {
+   "i": 84,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 85,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 92,
+   "w": "بالبيض",
+   "c": "hi"
+  },
+  {
+   "i": 93,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 94,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 101,
+   "w": "بالبيض",
+   "c": "hi"
+  },
+  {
+   "i": 102,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 103,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 110,
+   "w": "بصغارها",
+   "c": "hi"
+  },
+  {
+   "i": 111,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 112,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 120,
+   "w": "بصغارها",
+   "c": "hi"
+  },
+  {
+   "i": 121,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 122,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 127,
+   "w": "عن",
+   "c": "hi"
+  },
+  {
+   "i": 128,
+   "w": "الطعام",
+   "c": "hi"
+  },
+  {
+   "i": 129,
+   "w": "الدفء",
+   "c": "hi"
+  },
+  {
+   "i": 130,
+   "w": "كلاهما",
+   "c": "hi"
+  },
+  {
+   "i": 137,
+   "w": "أجل",
+   "c": "hi"
+  },
+  {
+   "i": 138,
+   "w": "الحماية",
+   "c": "hi"
+  },
+  {
+   "i": 139,
+   "w": "الهجرة",
+   "c": "hi"
+  },
+  {
+   "i": 140,
+   "w": "كلاهما",
+   "c": "hi"
+  },
+  {
+   "i": 148,
+   "w": "التنقل",
+   "c": "hi"
+  },
+  {
+   "i": 149,
+   "w": "الفيلة",
+   "c": "hi"
+  },
+  {
+   "i": 150,
+   "w": "الحمام",
+   "c": "hi"
+  },
+  {
+   "i": 151,
+   "w": "النحل",
+   "c": "hi"
+  },
+  {
+   "i": 160,
+   "w": "الدفء",
+   "c": "hi"
+  },
+  {
+   "i": 161,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 162,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 170,
+   "w": "مجموعات",
+   "c": "hi"
+  },
+  {
+   "i": 171,
+   "w": "صح",
+   "c": "med"
+  },
+  {
+   "i": 172,
+   "w": "خطأ",
+   "c": "hi"
+  }
+ ]
+}

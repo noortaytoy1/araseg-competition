@@ -1,0 +1,63 @@
+{
+ "doc_id": "doc_7f0f8c191265",
+ "identity": "Qur'anic scripture: a continuous running-text passage of Surat Al Imran, ayat 98-108, in Uthmani/rasm orthography (defective alif throughout: yaahl al-kitab, bi-ayat, imanikum, sirat, ni'mat, al-bayyinat, khalidun, lil-alamin). 174 tokens, ZERO <NL> tokens, so the whole passage sits inside a single paragraph block. Eleven complete ayat, and the document is verse-aligned at both edges: it opens exactly at the start of 3:98 (qul ya ahl al-kitab) and closes exactly at the end of 3:108 (wa-ma Allahu yuridu zulman lil-alamin). No prose frame, no commentary, no isnad, no headings: it is scripture and nothing else.",
+ "law": "THE AYA IS THE UNIT. Scripture declares its own sentence unit exactly the way a statute declares the article, verse declares the hemistich, an isnad declares the transmission link, and a table declares the row (native-unit law, doctrine 0e). The aya-mark is literally the Qur'an's own full stop and is precisely the kind of mark this format strips as punctuation. So: cut at every aya end, and take NO cut inside an aya however long it runs and however many connectives it carries. 3:103 runs 34 tokens through four imperatives, three narrative fa-clauses and a closing kadhalika-clause and still stays whole, the same way a legal article swallows three asyndetic finite clauses (H4/H6). The connective laws (waw + own predication = CUT, clause-initial fa = CUT, cut before every imperative) are PASS 2 rules and they operate only inside a genre whose native unit is the clause-sized chunk. They do not get to overrule the PASS 1 granularity ruling; granularity outranks syntax, and getting granularity wrong is the single most expensive mistake in this corpus.",
+ "reasoning": "1. THE GRANULARITY CALL IS THE ENTIRE DOCUMENT. Two laws are live. Under my default clause-chunk law I would produce about 27 units here: cut at every waw that carries its own predication, at every clause-initial fa, and before every imperative. Under the aya law I produce 11. The 11 are a subset of the 27 (every aya end is also a clause end), so the whole question is whether the extra 16 exist. Three things decide it for the aya. (a) The native-unit law outranks the connective laws, and scripture is the clearest case in the corpus of a genre with a canonical unit of its own: the aya is what readers, printers and annotators all treat as the sentence, and the verse mark is its period. (b) There is not a single <NL> in 174 tokens, so the source was one running block; the only structure a punctuation-stripping pipeline could have removed from a running Qur'an block is the verse markers, and that lands boundaries exactly at aya ends and nowhere else. (c) The document is verse-aligned at BOTH edges. If the units were clause-sized, a chunk cut at unit boundaries would have had roughly a 4-in-10 chance of ending on an aya boundary and the same at its start; landing on both is unlikely by accident, whereas the aya law forces it. I therefore rule aya, and I rule it cleanly rather than hedging: a hedge that adds a few clause cuts on top of the aya skeleton is wrong under both laws at once, losing precision if the aya law holds and still missing most of the recall if it does not. 2. THE HARDEST SITE IS 3:103, tokens 74-107, the stretch I do NOT cut: wa-'tasimu bi-habl Allah jami'an wa-la tafarraqu wa-'dhkuru ni'mat Allah alaykum idh kuntum a'da'an fa-allafa bayna qulubikum fa-asbahtum bi-ni'matihi ikhwanan wa-kuntum ala shafa hufratin min al-nar fa-anqadhakum minha kadhalika yubayyinu Allahu lakum ayatihi la'allakum tahtadun. My connective doctrine would shred this into seven or eight units: three coordinated imperatives (E6 says cut before every imperative in every genre), three clause-initial fa's (B1 calls fa near-absolute), and a fresh asyndetic kadhalika-clause at the end. I take none of them. The closing kadhalika yubayyinu Allahu lakum ayatihi la'allakum tahtadun is the single strongest temptation on the page, because it is an asyndetic new predication commenting on the whole preceding narrative and nothing in my prose doctrine protects a bare asyndetic clause (D3). It is protected here only by the aya. This is the site where I am consciously spending the granularity ruling, and if the ruling is wrong this one verse is where most of the loss lands. 3. @135 azim / yawma tabyaddu wujuh is the ONE boundary where the two laws point in opposite directions, so it is the only boundary I mark med. yawma is an adverbial zarf that can hang syntactically off adhabun azim in 3:105, and a clause-level reader would very plausibly attach it rather than cut. But 3:105 ends at azim, so the aya law cuts. I follow the aya law for consistency: having ruled granularity I do not get to take the syntactic reading at one site and the mushaf reading everywhere else. 4. @152 takfurun / wa-amma alladhina ibyaddat. My F5 brake says amma X fa Y attaches to the statement it contrasts with. That brake was learned on a short contrastive tail in translated prose. Here fa-amma alladhina iswaddat wujuhuhum and wa-amma alladhina ibyaddat wujuhuhum are two heavy, aya-length members of a matched pair and the seam between them is a verse end, so I cut with high confidence. Note the mirror site inside 3:106 at @140/@141 (wujuh / fa-amma alladhina iswaddat) is aya-internal and gets no cut: the same construction, opposite verdicts, decided purely by where the aya boundary falls. That asymmetry is a good test of whether I actually believe the law, and I do. 5. THE SEVEN CUTS I AM DELIBERATELY HOLDING, each a textbook waw + own predication and normally my most reliable cut in the corpus: @7 wa-Allahu shahidun ala ma ta'malun; @26 wa-ma Allahu bi-ghafilin amma ta'malun; @54 wa-man ya'tasim bi-Allah fa-qad hudiya; @69 wa-la tamutunna illa wa-antum muslimun (a prohibition, i.e. an imperative, E6); @119 wa-ula'ika hum al-muflihun; @132 wa-ula'ika lahum adhabun azim; @169 wa-ma Allahu yuridu zulman lil-alamin. Several of these are the Qur'an's characteristic closing cadence, the fasila, which rhymes the aya shut and is constitutive of the aya rather than a separate unit; cutting them would be like cutting a hemistich in half. Holding all seven is one decision, not seven, and I take it as one. 6. NO HEDGE. My standing calibration is 7:1 toward under-segmenting and my default at every waw and fa is CUT. That correction lives in PASS 2 and cannot be layered on top of a PASS 1 ruling. Likewise my binding restriction that the advance-or-comment test may only cancel a cut, never skip one, is about 0d and is not what is doing the work here: I am not calling these spans comments, I am saying the genre's unit is larger than the clause. Eleven clean ayat is the answer; if it is wrong, it is wrong as a single classification error, which is the shape of error I can actually learn from.",
+ "boundaries": [
+  {
+   "i": 11,
+   "w": "تعملون",
+   "c": "hi"
+  },
+  {
+   "i": 30,
+   "w": "تعملون",
+   "c": "hi"
+  },
+  {
+   "i": 44,
+   "w": "كفرين",
+   "c": "hi"
+  },
+  {
+   "i": 61,
+   "w": "مستقيم",
+   "c": "hi"
+  },
+  {
+   "i": 73,
+   "w": "مسلمون",
+   "c": "hi"
+  },
+  {
+   "i": 107,
+   "w": "تهتدون",
+   "c": "hi"
+  },
+  {
+   "i": 121,
+   "w": "المفلحون",
+   "c": "hi"
+  },
+  {
+   "i": 135,
+   "w": "عظيم",
+   "c": "med"
+  },
+  {
+   "i": 152,
+   "w": "تكفرون",
+   "c": "hi"
+  },
+  {
+   "i": 162,
+   "w": "خلدون",
+   "c": "hi"
+  },
+  {
+   "i": 173,
+   "w": "للعلمين",
+   "c": "hi"
+  }
+ ]
+}

@@ -32,6 +32,12 @@ def main() -> None:
     ]
     sums = [np.zeros(len(d["tokens"])) for d in docs]
     for mdir in args.models:
+        try:  # modernbert @torch.compile-at-import vs this box's broken inductor -> neuter to eager
+            from transformers import AutoConfig as _AC
+            if getattr(_AC.from_pretrained(mdir), "model_type", "") == "modernbert":
+                torch.compile = lambda model=None, *a, **k: (model if callable(model) else (lambda f: f))
+        except Exception:
+            pass
         tokenizer = AutoTokenizer.from_pretrained(mdir)
         model = AutoModelForTokenClassification.from_pretrained(mdir).to(device).eval()
         for i, words in enumerate(words_per_doc):

@@ -323,3 +323,31 @@ Official scores matched eval_local.py exactly → iterate offline, upload only r
 - Seed ensembles (seeds 1/2/3, majority vote).
 - Window/stride/LR/epoch sweeps; threshold re-tune after each change.
 - Per-genre error analysis with eval_local.py --show-worst.
+
+## 2026-07-10 — FM3 chain decode pack (src/chain_decode.py), NoPnx-NP, CPU
+
+Hand-written decode-side rules for repetition-chain genres (isnad, genealogy,
+verse lists), v16-B1 pattern: train-gold-only fitting, hard fire/no-fire gates
+(n>=2, P>=0.9), dev = measurement only. Gates of record: ISNAD/qal+trans 10/10
+ENABLED, ISNAD/qal-matn 4/4 ENABLED (handover-verb refinement fit on
+doc_dfc470ebeb16), GEN-WALAD وعاش 16/16 + فكانت 9/9 + وسار 2/2 ENABLED (ودعا
+1/3 parked), GEN-BN before-بن 0/55 NEVER FIRES, VERSE opening 0 train regions
+(unconditional 0/7) NEVER FIRES.
+
+Applied as post-processing on frozen dev caches at t=0.5, overrides asserted
+to touch only joints inside detected spans (outside-chain false-cut cost = 0):
+  union-s42 dev: 83.96 -> 83.96, **DELTA +0.00** (19 forced joints, all 19
+  already predicted; 0 flips).
+  POOL dev:      84.52 -> 84.52, **DELTA +0.00** (same 19 joints, all already
+  predicted).
+Pre-registered expectation was +0.1-0.3; measured +0.00 — PARKED.
+
+Finding of record: every chain joint that train gold licenses is ALREADY cut
+by both the single voter and the pool (isnad genre mean F1 91+). FM3's chain
+fusion lives exclusively in conventions absent from train: the Luke-3 بن
+chain (dev doc_111cbfecd397, gold cuts every FIFTH بن-link) and the Matthew-1
+ولد chain (dev doc_d93fbe520d5c, gold cuts every THIRD ولد-link) are verse
+rhythms with no surface marker at the joint; train's only بن-run evidence
+(doc_a9c7d1c861a3 nasab, 0 internal cuts over 5 links) licenses the OPPOSITE.
+Fourth sighting of the v16-B1 verdict: a rare-convention collision cannot be
+patched by train-fitted decode rules.

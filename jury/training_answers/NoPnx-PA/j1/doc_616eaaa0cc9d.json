@@ -1,0 +1,308 @@
+{
+ "doc_id": "doc_616eaaa0cc9d",
+ "identity": "A scraped thread of eleven independent Arabic reader comments posted under news items, with Al Jazeera addressed directly twice (qanat al-jazeera, ya jazeera). Each <NL>-delimited paragraph is a different commenter on a different subject: the Syrian uprising; an Aramco drilling-contractor safety complaint; Al Jazeera's credibility versus regime commenters; an ultimatum to Abu Mazen over Fatah and Hamas; condolences for the Syrian dead; a suspicious video clip on Wesal TV; a second defence of Al Jazeera; America's 'crusade'; disillusionment with Assad and Nasrallah; rhetorical questions about Lebanon and Fath al-Islam; and a fatwa-style line on jihad in Sham. Register is unedited user-generated writing: misspellings (ARMKWA for ARAMCO, GHLY for ALA), Egyptian idiom (wa-l-sayb mash), a garbled clause (fi inna kabira fi al-mawdu), oaths, supplications, and a stuck-key run of eight DHAL tokens. No layout genre applies here: it is not a table, list, exam, drill, verse, statute, isnad or credit block.",
+ "law": "Native-unit law (0e): with no printed-line layout to infer, the default unit governs -- the clause-sized information chunk, roughly one finite predication each, arbitrated by the conjunct-weight test (section 0) and the advance-or-comment brake (0d). Two things dominate this document. FIRST, it is overwhelmingly ASYNDETIC run-on: sentence after sentence is simply juxtaposed with no connective at all, and in running prose asyndetic finite clauses CUT (0f, D3, A6/A9) -- so most boundaries here are asyndetic, not connective. SECOND, it is saturated with SPEECH ACTS, and every change of speech act opens a unit (E4/E6): oaths (wallahi), supplications (nas-alu llah, allahumma, adamakum allah), praise formulas (al-hamdu lillah), requests (yurja al-tafakkur), sign-offs (shukran), and rhetorical questions (ala man tadhakun, limadha, alam yaqul, a-li-hadha). Fronted discourse deictics likewise open units (C8/B1/G4): maa dhalik, ala kulli al-ahwal, fa-l-an. The brakes I actually earned here, each backed by a doctrine entry: a vocative or salutation carries no predication so it rides inside its clause (ya abu mazen, akhi al-karim); lidha attaches to the premise that licenses it (C3, near-verbatim precedent wa-li-hadha yatlubun muaqabat); a short connective-headed anaphoric, evaluative or vague-quantifier comment attaches (0d/C9: wa-l-sayb mash, wa-laysa an amd, wa-yakfikum hadha, wa-l-kull yahrab min al-ijaba); short same-subject coordinated verbs ride along inside one unit (0c precedent wa-dafatuhu / fa-sadara: wa-nudafi anhum wa-nahmil suwarahum, wa-nahtaqiruhum, wa-yatakhayyaluhu aql); and bal followed by a bare corrective NP with no predication never cuts.",
+ "reasoning": "PASS 1, granularity: I checked for every layout genre in 0e and found none -- there is no announcer, no cataphoric stem, no run of exchangeable answer-siblings, no table row, no heading, no verse. So the clause chunk is the unit and PASS 2 does all the work. The eleven <NL>-mandated boundaries (22, 67, 109, 162, 212, 260, 317, 377, 434, 492, 509) are given. || P1 @0/@5/@10: three chained future predictions, sayasmudun / wa-sayakun al-taghyir bidaya min suriya / wa-sayashmul kull al-bilad. Each waw-conjunct brings a new predicate PLUS material of its own (a subject and a PP frame; then an object NP), which is the cut side of the conjunct-weight test, and A1/A2 say three consecutive waw-cuts in a row is normal. 0d cannot cancel: none of them evaluates, restates or refers back. I mark @0 'lo' only because it leaves a one-token unit, which is unusual outside drill genres -- but the weight test is unambiguous and my documented prior is 7:1 toward merging, so I take the cut. @15: nas-alu llah an yataqabbal al-shuhada / wa-nas-aluhu ajil al-nasr li-l-shab -- same verb and subject, so I tested B9 isocolon, but B9 merges only chains of one-word predicate TAGS; here the second supplication carries a different object and a five-token beneficiary phrase, i.e. material of its own, so B2 and section 0 cut. || P2 @30/@34/@47 are easy (asyndetic topic shift; lakin; maa dhalik as a fronted concessive of the C8 family). The real site is @56 versus @58. I was inclined to cut at both, and 0d cancelled the first: wa-l-sayb mash is two tokens, waw-headed, and purely evaluative of the fact just stated (Aramco applies no pressure, so everything slides) -- the exact profile of the eight absorbed fragments in 0b's table. wa-ahamm shay ind al-sharikat kam yadkhul fi hisabiha survives the brake: new agent, new topic (the firms' profit motive), a full nominal predication with its own PP frame. @66: shukran is asyndetic, and 0b protects only connective-headed tails -- D3 is explicit that nothing protects a bare asyndetic span, however short -- and a sign-off is its own speech act. || P3 @84/@95/@98 are clean asyndetic sentence starts, and ala man tadhakun is a three-token rhetorical question with an addressee shift, which E4 makes a unit in its own right. @107 is a parse call marked 'lo': I read la takhaf absolutely ('because it is not afraid') and kadhibukum wadih as a separate nominal punchline ('your lying is obvious'), rather than la takhaf kadhibakum ('does not fear your lie'), which is semantically odd -- one fears a liar, not a lie. On that reading the two-token asyndetic nominal clause cuts by D3. || P4: I declined @113 (ya abu mazen). A vocative carries no predication, so the information-chunk law gives it nothing to be a chunk of; E5's speaker-name rule is a layout rule about <NL>-delimited script lines, and E5's own gold keeps the vocative ayyatuha al-sadiqatan INSIDE its clause. I also declined @120: wa-la yurid salaman is a second predicate of the same relative head man, embedded inside the object of tarif, and it introduces no new agent, event or frame -- F1's 'weight beats syntax' precedent concerns coordinated new ENTITIES, not a second predicate on one referent. @134 fa-amma is clause-initial fa opening an ultimatum (B1); note this is not the amma X fa Y construction, whose no-cut rule concerns the internal fa. I declined @143 because B7's gold keeps a whole aw-disjunction inside one modal frame as ONE unit. @147 and @154 open a new question and a new first-person assertion. || P5: I declined @165 (akhi al-karim) for the same reason as @113, and declined @185 because wa-yatakhayyaluhu aql is a bare coordinated verb under the same negation with a one-token subject -- new predicate only, so isocolon. @187 is my hardest 'lo': karah wa-tughyan wa-ijram is a verbless exclamatory appositive run. 0f's default merges sub-clausal asyndeton, but F5's actual gold (... ila nihaya || nihaya haqiqiyya nihayat al-alam ||) puts a boundary BEFORE an appositive-escalation run and only forbids splitting inside it. I follow F5, cut once at @187, and take no internal cuts (bare-noun waw). @190/@200/@205: wallahi is an oath, al-hamdu lillah a praise formula, and allahumma ... farrij an imperative supplication -- three consecutive new speech acts, E6. || P6: I did NOT cut inside 219-230. yuzhir jundiyan ... yatazahar ... yatakallam wa-yahmilunahu are stacked sifa clauses attributive to the indefinite jundiyan, i.e. relative clauses without alladhi, and the tight-subordinator rule forbids cutting a relative off its head; A9's chain-cut precedent is about independent verb-initial statements, not attributive ones. I flag wa-yahmilunahu as the residual risk, since the agent does shift to the crowd. @240 wa-l-taswir fi shari muzayyaf brings a new subject and a new topic, so it cuts even if read as a second coordinate complement of yaktashif. @244/@250/@253/@258 are four asyndetic new predications ending in a request, yurja al-tafakkur, which E6 makes a unit. || P7 @270 is my weakest connective call ('lo'): wa-tani al-tashbih al-ilami is a definitional gloss, and B11 makes wa-mana X a cut in prose (the opposite of J4's table rows), so I cut, while conceding it could be read as one parenthetical aside together with min al-nubah. @278 and @302 are both wa-anna complement clauses; A12 makes wa-an / wa-alla a cut, each conjunct here carries its own subject and predicate, and the second pair is tightly parallel, which B2 says forces cuts rather than preventing them. I declined @294 (wa-laysa an amd, three tokens, a qualifier on the claim just made) and @306 (wa-yakfikum hadha, two tokens, anaphoric and concluding) -- both are textbook 0d comments. I also declined @312: wa-shawka fi halq ahl al-batil is a bare noun conjunct sharing the verb adamakum, exactly F8's wa-mughallafan bi-l-lawn al-akhdar, which merges. || P8: @326 and @341 are heavy new predications (wa-ma ... illa, and wa-qad, which F4 makes an outright cut). I declined @352 because C3 is directly on point and its gold sentence is almost this sentence -- wa-li-hadha yatlubun muaqabat kull man yuqdim alayha attaches -- so lidha wajab muaqabatuha attaches too. The emphatic tail: @363 cuts because yajib muaqabatuha is a restatement that has grown its own finite verb, which is F7's discriminator between apposition (merge) and a new unit; but the three bare yajib after it are repetition-with-intensification, which F5 keeps inside one unit, so the next boundary is @368. @369 ('lo') separates the sign-off intaha from the stuck-key run, following A5, where a stray token run (3 3) got its own unit. || P9: I declined @393 and @395. nujadil / wa-nudafi anhum / wa-nahmil suwarahum are short same-subject verbs painting one past habit, which is exactly 0c's gold (wa-dafatuhu ila al-matbaa fa-sadara riding along inside one unit), and 0d finds no new agent, time or topic. @399 wa-lakin and @403 fa-l-an are both listed cuts (B6; B1 and C8); I kept wa-bada an inside the fa-l-an unit because bada an is a tight subordinator. @418 cuts, but @417 does not: wa-nahtaqiruhum is a one-token verb tag with no material of its own. @422 is the isocolon test in reverse -- al-mumanaa ... zaifa / wa-l-muqawama ... khasira are parallel frames but over DIFFERENT subjects, each with its own PP and predicate, so B2 cuts rather than B9 merging. || P10 is a chain of rhetorical questions and E4 governs: @443, @467, @480 each open one. @457 is my one 'med' here -- wa-takhallat anhu illa bi-l-shukr shifts from a negated subordinate present to a main-clause past and carries its own PP plus its own kama-clause, which is enough weight to cut. I did NOT cut at @461: kama faalat bi-l-muqawama is the comparative 'just as it did', not the additive sentence-initial kama of C2/B5/H3. @486 opens the closing epigram, and I declined @488: wa-l-kull yahrab min al-ijaba is C9's shape almost verbatim -- a waw-clause with a vague-quantifier subject commenting anaphorically on the questions just raised, the very case that broke my word-count brake and forced 0d. || P11 is one unit: bal hatta al-walidayn is a three-token corrective NP with no predication at all, so the conjunct-weight test and the revised C5 both keep it attached.",
+ "boundaries": [
+  {
+   "i": 0,
+   "w": "سيصمدون",
+   "c": "lo"
+  },
+  {
+   "i": 5,
+   "w": "سوريا",
+   "c": "med"
+  },
+  {
+   "i": 10,
+   "w": "والإسلامية",
+   "c": "hi"
+  },
+  {
+   "i": 15,
+   "w": "الشهداء",
+   "c": "med"
+  },
+  {
+   "i": 22,
+   "w": "والإسلامي",
+   "c": "hi"
+  },
+  {
+   "i": 30,
+   "w": "لأرامكوا",
+   "c": "hi"
+  },
+  {
+   "i": 34,
+   "w": "عالية",
+   "c": "hi"
+  },
+  {
+   "i": 47,
+   "w": "أرامكوا",
+   "c": "hi"
+  },
+  {
+   "i": 58,
+   "w": "ماش",
+   "c": "med"
+  },
+  {
+   "i": 66,
+   "w": "حسابها",
+   "c": "med"
+  },
+  {
+   "i": 67,
+   "w": "شكرا",
+   "c": "hi"
+  },
+  {
+   "i": 84,
+   "w": "كاذبة",
+   "c": "hi"
+  },
+  {
+   "i": 95,
+   "w": "الجزيرة",
+   "c": "hi"
+  },
+  {
+   "i": 98,
+   "w": "تضحكون",
+   "c": "hi"
+  },
+  {
+   "i": 107,
+   "w": "تخاف",
+   "c": "lo"
+  },
+  {
+   "i": 109,
+   "w": "واضح",
+   "c": "hi"
+  },
+  {
+   "i": 134,
+   "w": "فسادهم",
+   "c": "hi"
+  },
+  {
+   "i": 147,
+   "w": "معهم",
+   "c": "hi"
+  },
+  {
+   "i": 154,
+   "w": "هنية",
+   "c": "hi"
+  },
+  {
+   "i": 162,
+   "w": "فعل",
+   "c": "hi"
+  },
+  {
+   "i": 173,
+   "w": "يوم",
+   "c": "hi"
+  },
+  {
+   "i": 177,
+   "w": "شهيد",
+   "c": "hi"
+  },
+  {
+   "i": 187,
+   "w": "عقل",
+   "c": "lo"
+  },
+  {
+   "i": 190,
+   "w": "وإجرام",
+   "c": "hi"
+  },
+  {
+   "i": 200,
+   "w": "لونه",
+   "c": "hi"
+  },
+  {
+   "i": 205,
+   "w": "حال",
+   "c": "hi"
+  },
+  {
+   "i": 212,
+   "w": "سوريا",
+   "c": "hi"
+  },
+  {
+   "i": 230,
+   "w": "الأكتاف",
+   "c": "hi"
+  },
+  {
+   "i": 240,
+   "w": "مأجورين",
+   "c": "med"
+  },
+  {
+   "i": 244,
+   "w": "مزيف",
+   "c": "hi"
+  },
+  {
+   "i": 250,
+   "w": "كلها",
+   "c": "hi"
+  },
+  {
+   "i": 253,
+   "w": "محير",
+   "c": "med"
+  },
+  {
+   "i": 258,
+   "w": "الموضوع",
+   "c": "hi"
+  },
+  {
+   "i": 260,
+   "w": "التفكر",
+   "c": "hi"
+  },
+  {
+   "i": 270,
+   "w": "النباح",
+   "c": "lo"
+  },
+  {
+   "i": 274,
+   "w": "النظام",
+   "c": "hi"
+  },
+  {
+   "i": 278,
+   "w": "مصداقيتكم",
+   "c": "med"
+  },
+  {
+   "i": 297,
+   "w": "عمد",
+   "c": "hi"
+  },
+  {
+   "i": 302,
+   "w": "صادقون",
+   "c": "med"
+  },
+  {
+   "i": 308,
+   "w": "هذا",
+   "c": "hi"
+  },
+  {
+   "i": 317,
+   "w": "الباطل",
+   "c": "hi"
+  },
+  {
+   "i": 326,
+   "w": "المسلمين",
+   "c": "hi"
+  },
+  {
+   "i": 341,
+   "w": "المسلمين",
+   "c": "hi"
+  },
+  {
+   "i": 363,
+   "w": "ثقافية",
+   "c": "med"
+  },
+  {
+   "i": 368,
+   "w": "يجب",
+   "c": "med"
+  },
+  {
+   "i": 369,
+   "w": "انتهى",
+   "c": "lo"
+  },
+  {
+   "i": 377,
+   "w": "ذ",
+   "c": "hi"
+  },
+  {
+   "i": 399,
+   "w": "موبايلاتنا",
+   "c": "hi"
+  },
+  {
+   "i": 403,
+   "w": "دوما",
+   "c": "hi"
+  },
+  {
+   "i": 418,
+   "w": "ونحتقرهم",
+   "c": "hi"
+  },
+  {
+   "i": 422,
+   "w": "زائفة",
+   "c": "med"
+  },
+  {
+   "i": 426,
+   "w": "خاسرة",
+   "c": "hi"
+  },
+  {
+   "i": 434,
+   "w": "حق",
+   "c": "hi"
+  },
+  {
+   "i": 443,
+   "w": "أميركية",
+   "c": "hi"
+  },
+  {
+   "i": 457,
+   "w": "الجيش",
+   "c": "med"
+  },
+  {
+   "i": 467,
+   "w": "تموز",
+   "c": "hi"
+  },
+  {
+   "i": 480,
+   "w": "اللبنانية",
+   "c": "hi"
+  },
+  {
+   "i": 486,
+   "w": "الجيش",
+   "c": "hi"
+  },
+  {
+   "i": 492,
+   "w": "الإجابة",
+   "c": "hi"
+  },
+  {
+   "i": 509,
+   "w": "الوالدين",
+   "c": "hi"
+  }
+ ]
+}

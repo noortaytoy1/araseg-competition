@@ -1,0 +1,368 @@
+{
+ "doc_id": "doc_666e6f739000",
+ "identity": "Front matter plus a children's storybook. Five credit/title lines (series المكتبة الخضراء للأطفال, title الوزير الحكيم, author سلوى مطاوع, illustrator محمد عبلة, الطبعة الخامسة), then a fairy-tale for children opening with the frozen formula في قديم الزمان وسالف العصر والأوان, set in the Indian city of كاندي. The body is simple third-person narrative prose (short beats, heavy explanatory ف, descriptive و-chains) that from <403> onward becomes an extended King/Vizier dialogue, each turn framed by قال + speaker and mostly laid out one turn per <NL> line. Register: plain literary MSA for young readers - not classical prose, not encyclopedic, not a workbook or exam.",
+ "law": "Native unit = the clause-sized information chunk (doctrine 0e default: no table, no drill, no MCQ, no verse, no statute here, so nothing overrides the prose default). Front matter obeys M1 - each credit line is a unit - and the <NL> layout already forces those. Inside paragraphs: default CUT at every clause-initial ف and at every و that opens its own predication with material of its own; NO CUT for bare noun/adjective/participle conjuncts (وسالف العصر والأوان, ووفرة الزهر والثمار, والشهيرة, وسعة صدره وحسن حديثه وأحكامه, والتجار, والأمان); NO CUT after tight subordinators حتى / purpose ل- / التي / الذي / حينما / على أن / إذا. Two document-internal sub-laws I derived and applied consistently: (1) a TWO-VERB SAME-SUBJECT PAIR under one governing frame is ONE unit - ليراها الجميع ويسمعها الجميع, يقف بجانبهم ويرعى شئونهم, أريح أعصابي وأجدد نشاطي, تستعد وتجهز, يتجولان ويستمتعان - which is B9 isocolon applied to verbs, and it is the brake that keeps the و-default honest; (2) in dialogue, قال + speaker + the FIRST complete utterance of the turn is one unit (E3), and every further asyndetic sentence inside the same turn is its own unit (E5/D3/A11).",
+ "reasoning": "GENRE FIRST (checklist v2 pass 1): this is prose, so the clause-chunk default holds. The only announcer-shaped token in the document is الآتية at <625> and it is a TRAP - القنوات المائية الآتية من النهر is an active participle 'coming from', not the cataphoric 'the following' of H1. No colon cut anywhere. No runs of 3+ asyndetic parallel siblings, so no list granularity. || <31>: CUT. ومدينة كاندي اشتهرت repeats the full subject NP instead of pronominalising and predicates a new fact - advance, not comment. حتى at <40> is a tight subordinator, so the unit runs to the forced <47>. || <152>: my weakest call, marked lo. Conjunct weight says CUT (ولم تر عيناه النوم has its own subject and its own حتى-frame); 0d pulls the other way because 'the hours passed' and 'his eyes saw no sleep' are two faces of one durative fact, i.e. a restatement. I cut, because every absorbed span in my 0d table is evaluative/anaphoric/attributive, never a narrative predication with a distinct grammatical subject, and my standing prior is 7:1 toward over-merging. I would not be surprised to be wrong here. || <185>: NO CUT, against the ولكن=CUT default. صحيح أنه متيقظ ولكنه مشتت الذهن is a concessive correlative: the صحيح-half exists only to set up the ولكن-half, the tail is a bare nominal predicate with no verb and no frame of its own, and it qualifies the very claim just made - the B8/@443 shape (comment, attach), not the B6 shape. || <287>: CUT. فاللحية بيضاء كثيفة || والبشرة بيضاء تعكس... is B2 parallel enumeration with CHANGING subjects, which is exactly the case B9 excludes (isocolon requires one unchanged subject). I did NOT cut at <289>: تعكس is a circumstantial verb on البشرة, not F7's appositive-NP-that-grows-a-verb. || <315>: NO CUT. كان دائما يقف بجانبهم ويرعى شئونهم = two short same-subject verbs under one كان. Confirmed by layout: the next paragraph opens ويفصل, i.e. the source's own line break falls inside this serial-verb chain, so the annotator is plainly letting these ride. || <334>: NO CUT before حتى أن - حتى is in my never-cut column, and 0d agrees independently (a consequence drawn from what precedes = comment). Both tests concur, so no tension. || <362>: NO CUT before وهي الحكيم. A10 cuts وهو/وهي + NP only when it describes a newly introduced referent with material of its own; here وهي is resumptive of بصفته التي اشتهر بها and delivers a two-word identification riding inside the same clause - the A10/@354 no-cut shape, and the J5 short-inline-delivery shape. || <385>: NO CUT before كما نعلم, although my table says كما=CUT. Every كما in the doctrine introduces substantive new content; كما نعلم is a two-word metatextual parenthetical with no material of its own - it fails the conjunct-weight test outright. Same ruling for كما تعلم يا مولاي inside <474-481>, and for the pious insert والحمد لله inside <575-579> (formulas attach, cf. H4/@15997). || <396>: CUT before لذلك أمر الحارس, against C3's ولهذا/لذا=attach. C3's evidence is لذا drawing an INFERENCE about the same proposition; here لذلك introduces a new physical event in the narrative chain - 0d advance. Decisive document-internal evidence: at <192> the source itself put a paragraph break immediately before لذلك قرر الملك, so in THIS text لذلك opens a unit when it introduces a new action. || DIALOGUE, <403> onward. E3 binds قال + speaker to the first complete utterance, so قال الوزير صباح الخير أيها الملك, قال الملك كلا, قال الوزير في دهشة..., and قال الملك لا داعي للحراس معنا all stay whole. Deliberate asymmetry: at <468> I do NOT cut after the vocative, because قال الوزير لكن يا مولاي is not a complete utterance, whereas at <543> and <600> I DO cut after سمعا وطاعة يا مولاي, which is. Then A11/E5 govern the rest of each turn: <408>, <413>, <513> and <600> are asyndetic sentence boundaries inside a single speaker turn - <513> (اسمع يا حكيم || إنني مرهق جدا) is exactly E5's imperative-then-إنّ-clause pattern. || <421>: CUT. C5 substantive-بل: the correction بل إنني لم أنم طوال الليلة الماضية is 7 tokens, the 'ليس شيئا تافها || بل يخفي...' shape. Supported internally by <460-462> قال الملك نعم, an <NL>-forced 3-token turn that proves this annotator tolerates a bare قال + one-word answer as a unit. || <428>/<431>: the king's complaint is a chained enumeration of first-person predications (لم أنم / وأشعر / وأحتاج), each with its own complement - B3/F1 chained-و, cut both. Inside the last, حتى أريح أعصابي وأجدد نشاطي is a verb pair under one purpose frame, no cut; <448> then cuts before the imperative فاستعد (E6 + clause-initial ف). || <505>/<507>: the vizier's duties are a four-item enumeration (فنحن ... في موسم الحصاد / وعلينا أن نحسم / ولدينا أيضا اجتماع / وأمامنا كذلك). B2 says parallelism defeats the short-tail brake, so the aborted two-token fourth item gets its own unit rather than being absorbed by the third; <507> then closes it because قاطعه الملك قائلا is a new narrative speech frame breaking into the quotation. || <579>: CUT before وأهلها طيبون despite it being only two tokens. Subject changes (مدينتنا -> أهلها), the frame is B2 parallel-clause, and 0b protects only connective-headed spans that COMMENT - this one predicates something new about a new subject. Same call as <287>; I keep the two consistent. || <613>: CUT before وأخذا يتجولان - new finite predication with its own PP frame, opening the outing scene, 22 tokens of material. But <617>: NO CUT before ويستمتعان - يتجولان and يستمتعان are a two-verb pair sharing the one auxiliary أخذا and one dual subject. F1's six-way cut applied to an enumeration of N>=3 objects each with its own relative clause; a bare PAIR is not an enumeration, and this document has already shown four other verb pairs merging. The trailing التي/الآتية/الذي relatives all ride inside the final unit to the forced <635>. || CALIBRATION: 72 units over 608 word tokens, ~8.4 words per unit. 43 argued, 29 <NL>-forced. I used 0d as a brake only four times (<185>, <315>, <362>, <385>) and in each case the absorbed span was a bare predicate or a fixed parenthetical with no material of its own, honouring the section 3.5 restriction that 0d may only cancel a cut I had already decided to make, never skip one I had not considered.",
+ "boundaries": [
+  {
+   "i": 2,
+   "w": "للأطفال",
+   "c": "hi"
+  },
+  {
+   "i": 5,
+   "w": "الحكيم",
+   "c": "hi"
+  },
+  {
+   "i": 9,
+   "w": "مطاوع",
+   "c": "hi"
+  },
+  {
+   "i": 13,
+   "w": "عبلة",
+   "c": "hi"
+  },
+  {
+   "i": 16,
+   "w": "الخامسة",
+   "c": "hi"
+  },
+  {
+   "i": 31,
+   "w": "كاندي",
+   "c": "hi"
+  },
+  {
+   "i": 47,
+   "w": "الخضراء",
+   "c": "hi"
+  },
+  {
+   "i": 56,
+   "w": "والنشاط",
+   "c": "hi"
+  },
+  {
+   "i": 76,
+   "w": "أيضا",
+   "c": "hi"
+  },
+  {
+   "i": 87,
+   "w": "نفسه",
+   "c": "hi"
+  },
+  {
+   "i": 93,
+   "w": "أيضا",
+   "c": "hi"
+  },
+  {
+   "i": 111,
+   "w": "الأعطال",
+   "c": "hi"
+  },
+  {
+   "i": 124,
+   "w": "الأرق",
+   "c": "hi"
+  },
+  {
+   "i": 137,
+   "w": "الرعية",
+   "c": "hi"
+  },
+  {
+   "i": 147,
+   "w": "الراحة",
+   "c": "hi"
+  },
+  {
+   "i": 152,
+   "w": "والدقائق",
+   "c": "lo"
+  },
+  {
+   "i": 162,
+   "w": "صباحا",
+   "c": "hi"
+  },
+  {
+   "i": 170,
+   "w": "العمل",
+   "c": "hi"
+  },
+  {
+   "i": 174,
+   "w": "والملل",
+   "c": "hi"
+  },
+  {
+   "i": 182,
+   "w": "أمس",
+   "c": "hi"
+  },
+  {
+   "i": 190,
+   "w": "الفكر",
+   "c": "hi"
+  },
+  {
+   "i": 219,
+   "w": "تفكيره",
+   "c": "hi"
+  },
+  {
+   "i": 228,
+   "w": "كالدهار",
+   "c": "hi"
+  },
+  {
+   "i": 235,
+   "w": "الرحلات",
+   "c": "hi"
+  },
+  {
+   "i": 252,
+   "w": "والحديثة",
+   "c": "hi"
+  },
+  {
+   "i": 261,
+   "w": "فورا",
+   "c": "hi"
+  },
+  {
+   "i": 269,
+   "w": "الملك",
+   "c": "hi"
+  },
+  {
+   "i": 278,
+   "w": "السبعين",
+   "c": "hi"
+  },
+  {
+   "i": 284,
+   "w": "بوضوح",
+   "c": "hi"
+  },
+  {
+   "i": 287,
+   "w": "كثيفة",
+   "c": "hi"
+  },
+  {
+   "i": 299,
+   "w": "الناس",
+   "c": "hi"
+  },
+  {
+   "i": 310,
+   "w": "الحكيم",
+   "c": "hi"
+  },
+  {
+   "i": 317,
+   "w": "شئونهم",
+   "c": "hi"
+  },
+  {
+   "i": 344,
+   "w": "الحكيم",
+   "c": "hi"
+  },
+  {
+   "i": 354,
+   "w": "كالدهار",
+   "c": "hi"
+  },
+  {
+   "i": 364,
+   "w": "الحكيم",
+   "c": "hi"
+  },
+  {
+   "i": 376,
+   "w": "انتظاره",
+   "c": "hi"
+  },
+  {
+   "i": 387,
+   "w": "نعلم",
+   "c": "med"
+  },
+  {
+   "i": 396,
+   "w": "اليومي",
+   "c": "med"
+  },
+  {
+   "i": 401,
+   "w": "فورا",
+   "c": "hi"
+  },
+  {
+   "i": 408,
+   "w": "الملك",
+   "c": "med"
+  },
+  {
+   "i": 413,
+   "w": "الصباح",
+   "c": "med"
+  },
+  {
+   "i": 417,
+   "w": "حدث",
+   "c": "hi"
+  },
+  {
+   "i": 421,
+   "w": "كلا",
+   "c": "med"
+  },
+  {
+   "i": 428,
+   "w": "الماضية",
+   "c": "med"
+  },
+  {
+   "i": 431,
+   "w": "الشديد",
+   "c": "med"
+  },
+  {
+   "i": 448,
+   "w": "معك",
+   "c": "hi"
+  },
+  {
+   "i": 450,
+   "w": "حالا",
+   "c": "hi"
+  },
+  {
+   "i": 458,
+   "w": "مولاي",
+   "c": "hi"
+  },
+  {
+   "i": 462,
+   "w": "نعم",
+   "c": "hi"
+  },
+  {
+   "i": 473,
+   "w": "الأعمال",
+   "c": "hi"
+  },
+  {
+   "i": 481,
+   "w": "الحصاد",
+   "c": "hi"
+  },
+  {
+   "i": 491,
+   "w": "الأسعار",
+   "c": "hi"
+  },
+  {
+   "i": 505,
+   "w": "المجاورة",
+   "c": "med"
+  },
+  {
+   "i": 507,
+   "w": "كذلك",
+   "c": "hi"
+  },
+  {
+   "i": 513,
+   "w": "حكيم",
+   "c": "med"
+  },
+  {
+   "i": 516,
+   "w": "جدا",
+   "c": "med"
+  },
+  {
+   "i": 524,
+   "w": "الأطراف",
+   "c": "hi"
+  },
+  {
+   "i": 536,
+   "w": "قويين",
+   "c": "hi"
+  },
+  {
+   "i": 543,
+   "w": "مولاي",
+   "c": "hi"
+  },
+  {
+   "i": 547,
+   "w": "فقط",
+   "c": "hi"
+  },
+  {
+   "i": 550,
+   "w": "يركبون",
+   "c": "hi"
+  },
+  {
+   "i": 557,
+   "w": "معنا",
+   "c": "hi"
+  },
+  {
+   "i": 563,
+   "w": "تقيدني",
+   "c": "hi"
+  },
+  {
+   "i": 574,
+   "w": "المدينة",
+   "c": "hi"
+  },
+  {
+   "i": 579,
+   "w": "آمنة",
+   "c": "med"
+  },
+  {
+   "i": 581,
+   "w": "طيبون",
+   "c": "hi"
+  },
+  {
+   "i": 591,
+   "w": "حراس",
+   "c": "hi"
+  },
+  {
+   "i": 600,
+   "w": "مولاي",
+   "c": "hi"
+  },
+  {
+   "i": 607,
+   "w": "معدا",
+   "c": "hi"
+  },
+  {
+   "i": 613,
+   "w": "جواديهما",
+   "c": "med"
+  },
+  {
+   "i": 635,
+   "w": "الخضراء",
+   "c": "hi"
+  }
+ ]
+}

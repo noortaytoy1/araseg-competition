@@ -1,0 +1,168 @@
+{
+ "doc_id": "doc_35734be96b2b",
+ "identity": "A classical Arabic adab anthology page carrying two titled entries. Entry 1, headed نفس كبيرة, is a short prose khabar: Sulayman ibn Ali, governor of al-Ahwaz, writes to al-Khalil ibn Ahmad al-Farahidi to hire him as a tutor and sends money with the messenger; al-Khalil refuses, comes out with dry bread from his reed hut, and sends back a retort, then a letter in verse. The verse that follows is his reply, and after it the famous Ibn Arabi lines أدين بدين الحب. Entry 2, headed السهل الممتنع, is a heading plus five verse lines on eloquence. The decisive formal fact: the entire verse portion is typeset one hemistich (shatr) per line, so every <NL> from index 58 onward already falls on a metrical boundary, and each heading occupies its own line.",
+ "law": "Mixed genre, so two laws run in sequence. (1) VERSE, indices 59-150 and 155-195: the hemistich is the sentence unit, and metre, not syntax, sets the boundary. Because the file already breaks a line at every hemistich, the mandatory pre-<NL> boundaries exhaust the segmentation there, and no verse-internal cut is licensed however loudly my prose connective rules shout. (2) PROSE KHABAR, indices 3-57: the unit is one information chunk, roughly one finite predication. A coordinating و or a clause-initial narrative ف opens a new unit whenever the conjunct carries its own predication and its own frame; the weight of the conjunct decides, not grammatical sentencehood. Two things stay attached: a bare speech tag whose quoted matter has been moved to the next line, and the فاء جواب الشرط binding an apodosis to its protasis. (3) HEADINGS are their own units, which the layout already supplies.",
+ "reasoning": "Only three spans are mine to judge (3-37, 39-49, 51-57); the rest is verse whose boundaries the <NL> layout already fixes. SITE 1, @16 أولاده before وبعث: the conjunct وبعث مع الرسول بمال كثير carries a finite verb plus two PPs and introduces the messenger and the money, the two things the whole anecdote turns on. It is therefore not the evaluative or consequential coda that my short-tail brake covers, even though it is exactly five words. The governing precedent is classical narrative, where a five-word و plus finite-verb clause took its own unit. CUT, medium. SITE 2, @21 كثير before فأبى: clause-initial narrative ف with an explicit subject switch from Sulayman to al-Khalil. This is the pivot of the khabar and the near-absolute ف of classical prose; the preceding adjunct does not protect it. CUT, high. SITE 3, @23 الخليل before وخرج: genuinely contested, and I record both sides. AGAINST: it strands فأبى الخليل as a two-word unit, and my rule that when two candidates sit within about five words the annotator takes the earlier and skips the later would kill it outright; the same-subject action chain refused / went out / said is the shape documented as riding along inside one already-open unit. FOR: those riding-along verbs were all three or four words, whereas وخرج إلى الرسول بخبز يابس من بيت الخوص الذي يسكنه في البصرة is a twelve-word conjunct with its own verb, two PPs and a relative clause, and weight beats syntax; without the cut the unit carries three main verbs and overruns the two-clause budget. I take the cut and mark it low, because my calibration is that I merge far more often than I over-split, so the burden of proof sits on not cutting. SITE 4, @35 البصرة before وقال له: NOT cut, and the evidence is internal to this document, which is the strongest kind. The parallel tag قال فيها closing ثم كتب رسالة إلى الوالي is asyndetic, two words, and plainly rides along; the two tags must be treated alike. A bare two-word speech tag whose quoted content has already been moved to the next line is not the speech-verb-opens-a-unit case, which requires the quote to sit inside the unit. SITE 5, @45 بيتي before فلا حاجة بي إليه: NOT cut. That ف is the فاء جواب الشرط answering مادمت, not the inferential ف; protasis and apodosis are one unit, and splitting them would be a category error about the connective. SITE 6, @40 لسليمان: not cut; imperative speech tag plus its content. SITE 7, @55 الوالي: not cut, as argued at site 4. VERSE TEMPTATIONS I CHECKED AND REFUSED. غير أني at 68 is a default-cut connective for me, but it sits inside a single seven-word hemistich behind only وفي غنى; hemistich wins. ولا يبقى at 83 is و plus a finite verb, again inside one hemistich; hemistich wins. وقد at 119, بل at 163, فالفضل at 172, وما at 185 and والعي at 189 are all connectives I would cut before, and in every case the boundary is already supplied by the preceding <NL>, so no extra work is needed. The chains وديرا لرهبان, وكعبة طائف and ومصحف قرآن are bare-noun conjuncts with no predication of their own, so they never cut under the conjunct-weight test either. Finally @147 ركائبه before فالحب ديني: not cut. The line is enjambed across the hemistich break, ركائبه being the stranded subject of توجهت on the previous line, and the hemistich is still the unit. That enjambment is itself the proof that this layout is metrical rather than syntactic, which is what licenses law (1) across the whole verse portion.",
+ "boundaries": [
+  {
+   "i": 1,
+   "w": "كبيرة",
+   "c": "hi"
+  },
+  {
+   "i": 16,
+   "w": "أولاده",
+   "c": "med"
+  },
+  {
+   "i": 21,
+   "w": "كثير",
+   "c": "hi"
+  },
+  {
+   "i": 23,
+   "w": "الخليل",
+   "c": "lo"
+  },
+  {
+   "i": 37,
+   "w": "له",
+   "c": "hi"
+  },
+  {
+   "i": 49,
+   "w": "إليه",
+   "c": "hi"
+  },
+  {
+   "i": 57,
+   "w": "فيها",
+   "c": "hi"
+  },
+  {
+   "i": 64,
+   "w": "سعة",
+   "c": "hi"
+  },
+  {
+   "i": 72,
+   "w": "مال",
+   "c": "hi"
+  },
+  {
+   "i": 79,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 86,
+   "w": "حال",
+   "c": "hi"
+  },
+  {
+   "i": 94,
+   "w": "نعرفه",
+   "c": "hi"
+  },
+  {
+   "i": 102,
+   "w": "المال",
+   "c": "hi"
+  },
+  {
+   "i": 109,
+   "w": "صاحبي",
+   "c": "hi"
+  },
+  {
+   "i": 117,
+   "w": "داني",
+   "c": "hi"
+  },
+  {
+   "i": 124,
+   "w": "صورة",
+   "c": "hi"
+  },
+  {
+   "i": 129,
+   "w": "لرهبان",
+   "c": "hi"
+  },
+  {
+   "i": 134,
+   "w": "طائف",
+   "c": "hi"
+  },
+  {
+   "i": 139,
+   "w": "قرآن",
+   "c": "hi"
+  },
+  {
+   "i": 145,
+   "w": "توجهت",
+   "c": "hi"
+  },
+  {
+   "i": 150,
+   "w": "وإيماني",
+   "c": "hi"
+  },
+  {
+   "i": 153,
+   "w": "الممتنع",
+   "c": "hi"
+  },
+  {
+   "i": 157,
+   "w": "معنى",
+   "c": "hi"
+  },
+  {
+   "i": 161,
+   "w": "يطول",
+   "c": "hi"
+  },
+  {
+   "i": 166,
+   "w": "كثير",
+   "c": "hi"
+  },
+  {
+   "i": 170,
+   "w": "قليل",
+   "c": "hi"
+  },
+  {
+   "i": 175,
+   "w": "لفظ",
+   "c": "hi"
+  },
+  {
+   "i": 179,
+   "w": "الفضول",
+   "c": "hi"
+  },
+  {
+   "i": 183,
+   "w": "سهلا",
+   "c": "hi"
+  },
+  {
+   "i": 187,
+   "w": "سبيل",
+   "c": "hi"
+  },
+  {
+   "i": 191,
+   "w": "قصير",
+   "c": "hi"
+  },
+  {
+   "i": 195,
+   "w": "طويل",
+   "c": "hi"
+  }
+ ]
+}

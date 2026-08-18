@@ -13,6 +13,26 @@ token whether a sentence boundary follows it — across four variants that cross
 > (open track 85.1) — ahead of the organizer baseline on every board
 > (PA +1.6 … NoPnx-NP +7.3 F1).
 
+## Final system: encoder ensemble + reasoning juries (ENSAR)
+
+The submitted system adds a second stage on top of the ensemble below: two LLM
+**juries** (Claude Opus 5, maximum reasoning effort) whose segmentation policy is
+learned as *text*, not weights. Each jury segments training documents, is shown every
+error beside the gold, and writes the rule it should have followed into its own policy
+file; at inference the two juries argue each document and only edits both endorse are
+applied. **Final blind results: Pnx-PA 95.30 · Pnx-NP 92.0 · NoPnx-NP 89.1 (first on
+all three) · NoPnx-PA 90.0.** On the released test split the juries add an average of
+**+2.8 F1** over the ensemble (+4.85 / +5.23 / +0.77 / +0.36 on NoPnx-NP / NoPnx-PA /
+NP / PA).
+
+- **`jury/`** — the exact prompts, the six learned policy files, the training grader,
+  all NoPnx-PA blind training attempts, the test-split verdicts and ablation results,
+  and the scorer. Start with [`jury/README.md`](jury/README.md).
+- **`paper/ensar_araseg.tex`** — the system paper (ArabicNLP 2026), with
+  `paper/verify_paper.py`, which recomputes every number in it from source data.
+
+Everything below this section describes the encoder ensemble stage.
+
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**
 (AraBERT / AraELECTRA / ARBERT) decoded with a **semi-Markov dynamic program**
 that adds a train-fit segment-length prior and forces structurally-certain

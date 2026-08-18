@@ -1,0 +1,48 @@
+{
+ "doc_id": "doc_6d2684ec8595",
+ "identity": "A short unedited modern-Arabic school composition (mawdu ta'bir) titled وسائل التواصل الاجتماعي وتأثيرها على الفرد والمجتمع (social media and its effect on the individual and society). 71 tokens. Layout: title line (0-6), <NL> at 7, body paragraph 1 (8-46), <NL> at 47, body paragraph 2 (48-70). Register is student MSA: run-on, loosely governed, a shift into 2nd-person address in the middle of paragraph 1, and one syntactically broken stretch in paragraph 2. PASS-1 genre call: modern expository essay / op-ed family (doctrine section C). It is NOT a list, table, MCQ bank, word drill, verse, isnad, statute or reference record. No cataphoric announcers and no dangling stems anywhere, so the announcer/colon law (H1/G4) has nothing to fire on; no run of three-plus connective-less parallel siblings except the terminal platform list.",
+ "law": "The genre declares no unit of its own, so the corpus default applies (0e): the unit is the clause-sized information chunk, roughly one finite predication each. Concretely: (1) the title line is its own unit (headings always are, H2/M2) and its internal وتأثيرها / والمجتمع are bare-noun conjuncts, no internal cut; (2) inside paragraphs every clause-initial ف and every و that opens a new predication CUTS (A1/B1/C1); (3) every asyndetic finite clause CUTS - nothing protects it, even at two words (D3/0f), because no larger native unit (article, reading passage, table row, reference record) is in force here; (4) bare coordinated nouns, adjectives and participles never cut (conjunct-weight test, section 0); (5) the advance-or-comment brake (0d) may only cancel a cut I had already decided to make, never manufacture a merge - my standing prior is 7:1 wrong in the merge direction; (6) a unit must contain a predication, so I reject any cut pattern that would strand a verbless NP as its own unit in running prose. Format-mandatory: 6 and 46 (each immediately before an <NL>) and 70 (final token).",
+ "reasoning": "TITLE (0-6). One unit; the boundary at 6 is format-mandatory anyway. وتأثيرها and والمجتمع are bare conjuncts inside a single title NP - no internal cut (section 0; the السمع والبصر precedent). || SITE @15 (بكثرة, before أصبح). في عصرنا الحالي تعددت ... بكثرة is a complete clause with a fronted temporal frame; أصبح التواصل سهلا وسريعا is a verb-initial asyndetic finite clause with a different subject (التواصل vs وسائل التواصل) and a second fact. D3/A9/0f: clausal asyndeton cuts in prose. CUT, hi. Internal وسريعا is a bare adjective on the same أصبح - no cut there. || SITE @19 vs @23 - first genuine fork. The PP من خلال كبسة بسيطة can either close the previous clause (communication became easy and fast through a simple keypress; boundary would then be at 23, before ستتحدث) or front the next one (with a simple keypress you will be talking to someone on the other side of the globe; boundary at 19). I take 19, for three reasons: (a) ستتحدث is 2nd-person future, a shift of addressee, which 0d counts as a strong ADVANCE, and the pause belongs before the whole rhetorical illustration including its adverbial frame, not inside it; (b) أصبح التواصل سهلا وسريعا is already complete and idiomatic as it stands; (c) instrument-PP followed by result-verb is the idiomatic shape of exactly this cliche. Recorded risk: if the annotator attached the PP leftward the boundary sits at 23 instead - hence med, not hi. I deliberately do not take both, because that would strand the bare PP من خلال كبسة بسيطة as a verbless unit, which this genre never does. || SITE @31 (الأرض, before فأصبح). Clause-initial ف carrying a new finite predication and a new agent (الناس). B1/F3/C1: ف-initial is a near-absolute CUT; it yields only to a short comment-tail, and fifteen tokens of new content with its own subject is not that. CUT, hi. || SITE @37 (بكثرة, before ولا يلجؤون) - second fork. Syntactically ولا يلجؤون is a second khabar of the same أصبح over the same subject الناس, which argues for merging (cf. F8, where ومغلفا باللون الأخضر rides inside its كان). But conjunct weight beats syntax (section 0; F1's Byatt objects, which are all grammatically objects of one verb and still each a unit): this conjunct has its own finite verb, its own PP complement and a three-item exemplification list - nine tokens. Closest logged precedent is A12, where وألا يسهو أثناء المباراة is a coordinated NEGATIVE predicate inside the same governing frame and gold still cuts. Applying 0d as a brake: this is not evaluative, not anaphoric, not attributive, not a restatement - it introduces genuinely new material (the abandoned old customs), i.e. ADVANCE. The cut stands, med. The tail كالزيارة وكتابة البرقية والرسائل الورقية is a tight bare-NP list under one كـ - no internal cuts (J5-type). || PARAGRAPH 2 - the hardest stretch, because the student's syntax is broken and the internal boundary is a choice between two mutually exclusive parses, @52 or @60. Parse X: أخذ is an inceptive verb (min af'al al-shuru), its ism is السؤال عن الحال والأحوال من الأقارب والأصدقاء and its khabar is the imperfect يمكنهم, so 53-66 is one predication and the boundary falls at 52. Parse Y: أخذ is a masdar coordinated with الزيارات as a second object of سهلت, so 48-60 is one clause and يمكنهم ... opens a new asyndetic clause with التويتر والواتساب as its postposed subject, boundary at 60. I cannot take both: under X that splits an ism from its khabar, and under Y it strands the verbless NP وأخذ السؤال عن الحال ... as its own unit, and in this genre a unit needs a predication. So I must choose one. Decider: referential coherence. من خلالها refers to the media; under Y the subject of يمكنهم is also the media (either وسائل التواصل or the postposed التويتر والواتساب), giving the circular the-media-enable-them-through-the-media, which a writer does not produce. Under X the subject of يمكنهم is السؤال (asking after them became possible for them through the media), which is non-circular and also explains the masculine agreement of both أخذ and يمكنهم with السؤال. I take X: CUT at 52, med. Independently 52 is also where my strongest law points - و plus a new finite predication with its own subject (A1) - and سهلت وسائل التواصل الاجتماعي الزيارات is a clean paragraph-opening topic statement. NO CUT at 60. || SITE @66 (منازلهم, before التويتر). التويتر و الواتساب وغيره is a four-token و-joined bare NP, either the postposed subject of يمكنهم or an appended exemplification of خلالها. Under both parses it is sub-clausal asyndetic material, which 0f merges by default; it is not a set of exchangeable answer-siblings (I3/J1 are suspended - this is no drill and no option list), and no announcer licenses a colon cut (H1 needs الآتية / ما يلي / مثل or a dangling function word, none present). Closest precedent J5: three bare terms riding inside one sentence, no cuts. NO CUT; the format-mandatory boundary at 70 closes it. The internal و at 68 is bare-noun و - no cut. || CALIBRATION NOTE. Final count 8 boundaries over 71 tokens - five earned (15, 19, 31, 37, 52) plus three mandatory - averaging about eight tokens per unit, which matches the clause-chunk density this corpus shows in modern prose. I checked myself in the merge direction rather than the cut direction at every fork, per my logged 7:1 under-segmentation prior; the only two sites where I declined a cut (60, 66) were declined on structural grounds - a subject may not be split from its predicate, and a bare NP may not stand as a prose unit - never on grounds of shortness or feel.",
+ "boundaries": [
+  {
+   "i": 6,
+   "w": "والمجتمع",
+   "c": "hi"
+  },
+  {
+   "i": 15,
+   "w": "بكثرة",
+   "c": "hi"
+  },
+  {
+   "i": 19,
+   "w": "وسريعا",
+   "c": "med"
+  },
+  {
+   "i": 31,
+   "w": "الأرض",
+   "c": "hi"
+  },
+  {
+   "i": 37,
+   "w": "بكثرة",
+   "c": "med"
+  },
+  {
+   "i": 46,
+   "w": "الورقية",
+   "c": "hi"
+  },
+  {
+   "i": 52,
+   "w": "الزيارات",
+   "c": "med"
+  },
+  {
+   "i": 70,
+   "w": "وغيره",
+   "c": "hi"
+  }
+ ]
+}

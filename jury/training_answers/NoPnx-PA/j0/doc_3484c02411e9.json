@@ -1,0 +1,523 @@
+{
+ "doc_id": "doc_3484c02411e9",
+ "identity": "A short piece of modern Egyptian literary prose titled 'Dima' fi Maydan al-Tahrir' (Blood in Tahrir Square) - a revolutionary vignette in the Nawal El Saadawi manner, narrated in the first person by a daughter about her aged mother at the January-25 sit-in. Movement: a cinematic establishing shot of Cairo as an ash-coloured expanse; the mother seated on a stone by her tent; a digression on inherited eyes and skin; the mother rejuvenated and chanting with the millions; then the cavalry charge and her blood on the asphalt. Register: staccato modernist montage - almost NO connectives, clause piled on clause asyndetically, heavy use of verbless nominal sentences and bare fragments, present-tense description alternating with past-tense narration. 548 tokens, 6 paragraphs (title + 5 blocks), the fifth block a 361-token slab.",
+ "law": "This register punctuates with the FULL STOP, not with the connective. Because the text is almost entirely asyndetic, juxtaposition IS the boundary: a sentence = one predication carrying its own subject/topic and its own complements. CUT at every asyndetic joint where a fresh finite verb takes a fresh subject or a fresh topic-NP opens a nominal sentence (jalasat / kanat talhath / al-ziham shadid / la makana li-qadam); CUT at parallel or repeated shapes, which are the source's comma-lists (hajamu / dasu / atlaqu; kubri X kubri Y; tashuddu / tuqawimu); CUT before a colon-introduced list. WELD: (a) phrase-level waw joining nouns, adjectives or a bare V+O that add no new subject (dukhan wa-bukhar wa-qatam; wa-sharibat al-ma'; wa-saffaqat fi al-hawa'; wa-tasqutu 'ala al-ard); (b) trailing adjuncts and comparative kama, which belong to the clause they follow - LAW 4; (c) fronted time/place adverbials, which attach FORWARD; (d) a quoted utterance with its verb of saying or chanting - LAWS G1/D3/I3. List discriminator adopted here and reconciling LAW 3 with B5: a WAW-joined list is ONE segment (no commas existed to convert), an ASYNDETIC list had commas in the source and gets one segment per item. Target length, read off paragraph 3: 3-8 tokens, occasionally 12-14 in the descriptive passages.",
+ "reasoning": "CALIBRATION FIRST (LAW 6). Paragraph 3 (idx 60-83) is diagnostic and unambiguous: 'jalasat fawqa hajar bi-jiwar khaymatiha / kanat talhath qalilan / al-ziham shadid / la makana li-qadam / al-malayin min al-mutazahirin kharaju ila al-shawari' wal-mayadin / al-hitaf yadwi yasqutu al-nizam'. Nothing but full stops can be reconstructed there: 24 tokens carry 6 units, mean 3.4. That sets the clock for the whole document and forbids the periodic-English reading that cost me 231 misses in batch 1 (LAW 0). || ASYNDETON. This doc has almost no connectives, so if asyndetic juxtaposition welded there would be no sentences at all and the 361-token paragraph 5 would be a single sentence. T3 therefore resolves toward CUT in this register, and my batch-1 asyndetic FALSE CUTS (doc_226fc860e550 @710, doc_56781db1019f @242/@323) are quarantined as belonging to comma-heavy translated prose, not to native staccato montage. So I cut 'khala'at shalaha ... katifayha @91 | farashat-hu fawqa al-hajar'; 'akhrajat ... saghira @303 | nawalat-ha iyyaha'; 'khala'at al-shal ... al-samik @343 | basatat dhira'ayha'. In each case the second clause carries its own full complement structure. || PARALLEL CHAINS = LAW 3, my clearest wins. @98/@100/@102: 'kanat tujahid lil-wuquf || tashuddu 'adalatiha || tuqawimu al-inhina' || ya'udu qawamuha ila wad'ihi al-mustaqim' - the exact shape of the graded 'yakbar || yazdadu tulan || yatadakhkham' precedent. @465/@469/@472: 'hajamu 'ala maydan al-tahrir || dasu al-nas bil-hawafir wal-'ajalat || atlaqu al-niran wal-ghazat || irtafa'a al-ghubar' - four verb-initial clauses, no connective. @533/@538: 'hamaluha ila al-khayma || ghattawha bil-battaniya al-suf', 'tada'afat al-malayin || tafat al-tazahurat'. @486 is literal verb repetition: 'zujajat al-ma' tatiru min yadiha || hiya nafsuha tatiru ma'a al-zujaja'. @525/@530: 'al-bulufar al-azraq asbaha lawnuhu ka-lawni al-turab || qamisuha al-abyad yaghraqu fi al-dam'. || THE TWO LISTS - my biggest bet, 11 boundaries. The bridges @166/@168/@170/@173/@176 (kubri al-Giza, kubri al-Gami'a, kubri al-Galaa, kubri Qasr al-Nil, kubri 6 Uktubar) cannot have been printed without commas and they repeat a head: LAW 3 in its purest form, plus the J2 table-cell precedent. @164 is the colon that introduces them ('al-kabari al-qadima wal-jadida allati tajtazu al-Nil:'). The people list @366-@372 (ha'ula' al-malayin: al-nisa', al-shabab, al-shabbat, al-rijal, al-atfal, al-'aja'iz) is the same object. Reconciling with B5, where the gold kept 'afradan wa-duwalan wa-mu'assasat dawliyya' WHOLE: that list was WAW-joined, so there were no commas to convert; these are asyndetic, so there were. New discriminator: waw-joined list = one segment, asyndetic list = one segment per item. I extend it to the locative run @182/@185 ('fawqa al-kabari wa-fi al-shawari' | fi al-mudun wal-qura | fi kull al-muhafazat') and the adverbial run @153/@157 ('khams sa'at wa-akthar | min al-janub ila al-shamal | fawqa al-kabari...'), both marked lo. Exception retained: bare two-adjective pairs (qawiyya matina @110, qawiyyan haddan @214) are hendiadys, printed without a comma - welded. || THE SLOGAN - 5 sites where doctrine overrides instinct. 'yasqutu al-nizam' appears at @82, @193, @396, @422, @546 and was certainly colon- or quote-introduced in the source, which by LAW 0's corollary argues CUT. But my own graded record says the opposite three times over: G1 (5 false cuts - a quoted utterance is ONE segment with its speech verb, and even an internal question mark did not become a boundary), D3 (3 false cuts - the hadith question/answer turn welds), I3. So I WELD to the verb of saying/chanting: 'al-hitaf yadwi yasqutu al-nizam' (@81, @545), 'yahtifuna yasqutu al-nizam' (@192), 'tahtifu ma'ahum yasqutu al-nizam' (@421). The one I do cut is @395, 'bi-kalimatayn ithnatayn || yasqutu al-nizam', because there the colon introduces an APPOSITION naming the two words rather than a speech act, and G2 says apposition does cut ('khuffan min al-satan || afdal khuff'). Marked lo - it is the site I am least sure of. Same G1 reasoning welds @330: 'qalat rafi'atan wajhaha nahwaha ta'ishi lana ya ummi'. || TRAILING ADJUNCTS - LAW 4, where batch 1 burned me in both directions. All four comparative kama-clauses WELD backward: @121 'kama kanu yaquluna 'anha' (the cut falls AFTER it, before lakinnaha), @210 'kama kana', @351 'kama kanat taf'al wa-hiya tifla', and @510 'kama nazafat fawqa al-asfalt fi al-sijn' - the last is the thematically loudest line in the piece and I still weld it, because J7's cutting kama is discourse-'moreover', not comparative kama. Same for @295 'qabla an talhazaha hiya'. Mirror rule: fronted adverbials attach FORWARD, so no cut at @144 ('mundhu al-'ashira sabahan hatta al-thaniya ba'da al-zuhr | kanat tamshi') and none at @199 ('fawqa al-hajar alladhi wada'at 'alayhi shalaha ... ajlasat-ha'). || WAW SITES - LAW 1 against its exception. CUT: @55 'yahubbu fiha al-nas min al-nu'as || wa-yuraqu fiha al-dam' (new subject al-dam plus perfect parallelism; I cut inside the allati-relative and accept the risk); @254 'wa-qad kana abi yada'u nazzara' (waw + qad + new subject); @437 'wa-adhanu al-ard aydan fi jihaz amn al-dawla' (new subject NP with its own nominal predicate - C4); @416 'wa-intalaqat wasta al-malayin' (new narrative step with a full adjunct and a hal chain). WELD: @47 'wa-al-shuhur wa-al-layali' (nouns coordinated to al-shita' under inna-hu); @233 'wa-la bashrataha al-samra'' (coordinated object); @319 'wa-sharibat al-ma' ka-musafir jaffa halquhu' (bare V+O, the 'wa-zara'aha' precedent); @347 'wa-saffaqat fi al-hawa''; @412-414 'al-bulufar wal-shal wa-haqibat yadiha'; @492 'wa-tasqutu 'ala al-ard'; @125 'wa-laysat kahla' (tight antithetical pair, same subject); @404 'al-sahaba wal-ta'ab' (coordinate subjects of inqasha'at). || REMAINING JUDGEMENT CALLS. @7 'innaha madinat al-Qahira || tabdu lil-'ayn al-kalila' - cut, on the strength of the parallel presentative 'innahu al-shita' aydan' at @45 and LAW 0's coin-flip rule; med. @20 and @30 break the opening description at each fresh subject (yashuqquha majra..., ya'luha dukhan...). @240/@245 'warithtu bashrati al-bayda' min abi || wa-lawna 'aynayya min 'aynayhi al-khadrawayn || wa-qasra nazari min qasri nazarihi' - gapped coordination with no new predicate, so LAW 1 does not strictly fire, but the three-member parallelism plus B5's precedent of cutting a comma-set list mid-sentence makes me cut; lo. @225 'al-bu'bu' al-aswad kabir || lawnuhu ka-lawni al-layl' and its twin @270/@273 ''aynaya khadrawan || lawnuhuma lawnu al-zar' || talma'ani fi mir'ati haqibati ka-'uyuni al-qitat' are kept consistent with each other; the lawnuhu splits are lo/med. @287 'lahaztu annaha talhath wa-riquha jaff' - WELD, because that waw-clause sits inside the anna-complement; this is the one place I let a new-subject waw ride and I flag it as my likeliest miss. @69 'al-ziham shadid || la makana li-qadam' - cut, and note the control at @178 where the same 'al-ziham shadid' is followed by its own PP complement and correctly welds. @450/@452/@457 split the soldiers' description into 'yanshaqqu al-kawn 'an 'asakir jaysh wa-bulis || malabisuhum 'adiyya || ba'duhum bil-jalabib wal-shawarib wal-liha al-tawila || yahmiluna al-banadiq wal-siyat wal-nibal' - three comma-set descriptive clauses. @494 'fa-badat laha dima' hamra'' is LAW 2 result-fa with a new subject. || SELF-CHECK. 103 boundaries over 548 tokens, mean 5.3 - short, but paragraph 3's measured 3.4 licenses it and 11 of the 103 are list items. All five pre-<NL> tokens (@3, @58, @83, @136, @498) and the final @547 are present, and no <NL> carries a boundary. If I am wrong on this document it will be in the direction of over-cutting, which is the correction LAW 0 explicitly ordered; the exposure is concentrated in the two lists, the two lawnuhu splits and @395.",
+ "boundaries": [
+  {
+   "i": 3,
+   "w": "التحرير",
+   "c": "hi"
+  },
+  {
+   "i": 7,
+   "w": "القاهرة",
+   "c": "med"
+  },
+  {
+   "i": 20,
+   "w": "الرماد",
+   "c": "med"
+  },
+  {
+   "i": 30,
+   "w": "جانبيه",
+   "c": "med"
+  },
+  {
+   "i": 44,
+   "w": "سوداء",
+   "c": "hi"
+  },
+  {
+   "i": 55,
+   "w": "النعاس",
+   "c": "med"
+  },
+  {
+   "i": 58,
+   "w": "الدم",
+   "c": "hi"
+  },
+  {
+   "i": 64,
+   "w": "خيمتها",
+   "c": "hi"
+  },
+  {
+   "i": 67,
+   "w": "قليلا",
+   "c": "hi"
+  },
+  {
+   "i": 69,
+   "w": "شديد",
+   "c": "med"
+  },
+  {
+   "i": 72,
+   "w": "لقدم",
+   "c": "hi"
+  },
+  {
+   "i": 79,
+   "w": "والميادين",
+   "c": "hi"
+  },
+  {
+   "i": 83,
+   "w": "النظام",
+   "c": "hi"
+  },
+  {
+   "i": 91,
+   "w": "كتفيها",
+   "c": "med"
+  },
+  {
+   "i": 95,
+   "w": "لتجلسها",
+   "c": "hi"
+  },
+  {
+   "i": 98,
+   "w": "للوقوف",
+   "c": "med"
+  },
+  {
+   "i": 100,
+   "w": "عضلاتها",
+   "c": "med"
+  },
+  {
+   "i": 102,
+   "w": "الانحناء",
+   "c": "med"
+  },
+  {
+   "i": 107,
+   "w": "المستقيم",
+   "c": "hi"
+  },
+  {
+   "i": 111,
+   "w": "متينة",
+   "c": "med"
+  },
+  {
+   "i": 121,
+   "w": "عنها",
+   "c": "hi"
+  },
+  {
+   "i": 127,
+   "w": "كهلة",
+   "c": "hi"
+  },
+  {
+   "i": 132,
+   "w": "عليها",
+   "c": "hi"
+  },
+  {
+   "i": 136,
+   "w": "عمرها",
+   "c": "hi"
+  },
+  {
+   "i": 150,
+   "w": "الصفوف",
+   "c": "med"
+  },
+  {
+   "i": 153,
+   "w": "وأكثر",
+   "c": "lo"
+  },
+  {
+   "i": 157,
+   "w": "الشمال",
+   "c": "lo"
+  },
+  {
+   "i": 164,
+   "w": "النيل",
+   "c": "hi"
+  },
+  {
+   "i": 166,
+   "w": "الجيزة",
+   "c": "med"
+  },
+  {
+   "i": 168,
+   "w": "الجامعة",
+   "c": "med"
+  },
+  {
+   "i": 170,
+   "w": "الجلاء",
+   "c": "med"
+  },
+  {
+   "i": 173,
+   "w": "النيل",
+   "c": "med"
+  },
+  {
+   "i": 176,
+   "w": "أكتوبر",
+   "c": "hi"
+  },
+  {
+   "i": 182,
+   "w": "الشوارع",
+   "c": "lo"
+  },
+  {
+   "i": 185,
+   "w": "والقرى",
+   "c": "lo"
+  },
+  {
+   "i": 188,
+   "w": "المحافظات",
+   "c": "hi"
+  },
+  {
+   "i": 194,
+   "w": "النظام",
+   "c": "hi"
+  },
+  {
+   "i": 203,
+   "w": "أجلستها",
+   "c": "hi"
+  },
+  {
+   "i": 210,
+   "w": "كان",
+   "c": "hi"
+  },
+  {
+   "i": 215,
+   "w": "حادا",
+   "c": "hi"
+  },
+  {
+   "i": 222,
+   "w": "اليمامة",
+   "c": "hi"
+  },
+  {
+   "i": 225,
+   "w": "كبير",
+   "c": "med"
+  },
+  {
+   "i": 228,
+   "w": "الليل",
+   "c": "hi"
+  },
+  {
+   "i": 235,
+   "w": "السمراء",
+   "c": "hi"
+  },
+  {
+   "i": 240,
+   "w": "أبي",
+   "c": "lo"
+  },
+  {
+   "i": 245,
+   "w": "الخضراوين",
+   "c": "lo"
+  },
+  {
+   "i": 254,
+   "w": "مايوبيا",
+   "c": "hi"
+  },
+  {
+   "i": 262,
+   "w": "طفولته",
+   "c": "hi"
+  },
+  {
+   "i": 268,
+   "w": "اللاصقة",
+   "c": "hi"
+  },
+  {
+   "i": 270,
+   "w": "خضراوان",
+   "c": "lo"
+  },
+  {
+   "i": 273,
+   "w": "الزرع",
+   "c": "med"
+  },
+  {
+   "i": 279,
+   "w": "القططة",
+   "c": "hi"
+  },
+  {
+   "i": 284,
+   "w": "المتوحشة",
+   "c": "hi"
+  },
+  {
+   "i": 289,
+   "w": "جاف",
+   "c": "med"
+  },
+  {
+   "i": 296,
+   "w": "هي",
+   "c": "hi"
+  },
+  {
+   "i": 303,
+   "w": "صغيرة",
+   "c": "med"
+  },
+  {
+   "i": 305,
+   "w": "إياها",
+   "c": "hi"
+  },
+  {
+   "i": 316,
+   "w": "الطماطم",
+   "c": "hi"
+  },
+  {
+   "i": 326,
+   "w": "الصحراء",
+   "c": "hi"
+  },
+  {
+   "i": 334,
+   "w": "أمي",
+   "c": "hi"
+  },
+  {
+   "i": 337,
+   "w": "بالابتسام",
+   "c": "hi"
+  },
+  {
+   "i": 343,
+   "w": "السميك",
+   "c": "med"
+  },
+  {
+   "i": 359,
+   "w": "عمرها",
+   "c": "hi"
+  },
+  {
+   "i": 364,
+   "w": "الحلم",
+   "c": "hi"
+  },
+  {
+   "i": 366,
+   "w": "الملايين",
+   "c": "med"
+  },
+  {
+   "i": 367,
+   "w": "النساء",
+   "c": "lo"
+  },
+  {
+   "i": 368,
+   "w": "الشباب",
+   "c": "lo"
+  },
+  {
+   "i": 369,
+   "w": "الشابات",
+   "c": "lo"
+  },
+  {
+   "i": 370,
+   "w": "الرجال",
+   "c": "lo"
+  },
+  {
+   "i": 371,
+   "w": "الأطفال",
+   "c": "lo"
+  },
+  {
+   "i": 372,
+   "w": "العجائز",
+   "c": "med"
+  },
+  {
+   "i": 379,
+   "w": "والبقاع",
+   "c": "med"
+  },
+  {
+   "i": 384,
+   "w": "والميادين",
+   "c": "hi"
+  },
+  {
+   "i": 395,
+   "w": "اثنتين",
+   "c": "lo"
+  },
+  {
+   "i": 397,
+   "w": "النظام",
+   "c": "hi"
+  },
+  {
+   "i": 402,
+   "w": "جبينها",
+   "c": "hi"
+  },
+  {
+   "i": 405,
+   "w": "والتعب",
+   "c": "hi"
+  },
+  {
+   "i": 409,
+   "w": "عينيها",
+   "c": "hi"
+  },
+  {
+   "i": 416,
+   "w": "الأرض",
+   "c": "med"
+  },
+  {
+   "i": 423,
+   "w": "النظام",
+   "c": "hi"
+  },
+  {
+   "i": 431,
+   "w": "والزفير",
+   "c": "hi"
+  },
+  {
+   "i": 437,
+   "w": "الصوت",
+   "c": "med"
+  },
+  {
+   "i": 444,
+   "w": "الدولة",
+   "c": "hi"
+  },
+  {
+   "i": 450,
+   "w": "وبوليس",
+   "c": "hi"
+  },
+  {
+   "i": 452,
+   "w": "عادية",
+   "c": "med"
+  },
+  {
+   "i": 457,
+   "w": "الطويلة",
+   "c": "med"
+  },
+  {
+   "i": 461,
+   "w": "والنبال",
+   "c": "hi"
+  },
+  {
+   "i": 465,
+   "w": "التحرير",
+   "c": "hi"
+  },
+  {
+   "i": 469,
+   "w": "والعجلات",
+   "c": "hi"
+  },
+  {
+   "i": 472,
+   "w": "والغازات",
+   "c": "hi"
+  },
+  {
+   "i": 481,
+   "w": "النار",
+   "c": "hi"
+  },
+  {
+   "i": 486,
+   "w": "يدها",
+   "c": "hi"
+  },
+  {
+   "i": 494,
+   "w": "الأرض",
+   "c": "hi"
+  },
+  {
+   "i": 498,
+   "w": "حمراء",
+   "c": "hi"
+  },
+  {
+   "i": 515,
+   "w": "السجن",
+   "c": "hi"
+  },
+  {
+   "i": 519,
+   "w": "الأخضر",
+   "c": "hi"
+  },
+  {
+   "i": 525,
+   "w": "التراب",
+   "c": "hi"
+  },
+  {
+   "i": 530,
+   "w": "الدم",
+   "c": "hi"
+  },
+  {
+   "i": 533,
+   "w": "الخيمة",
+   "c": "hi"
+  },
+  {
+   "i": 536,
+   "w": "الصوف",
+   "c": "hi"
+  },
+  {
+   "i": 538,
+   "w": "الملايين",
+   "c": "hi"
+  },
+  {
+   "i": 543,
+   "w": "والميادين",
+   "c": "hi"
+  },
+  {
+   "i": 547,
+   "w": "النظام",
+   "c": "hi"
+  }
+ ]
+}

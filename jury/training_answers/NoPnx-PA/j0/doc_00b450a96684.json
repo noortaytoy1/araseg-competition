@@ -1,0 +1,388 @@
+{
+ "doc_id": "doc_00b450a96684",
+ "identity": "A Jordanian primary-school assessment worksheet / answer sheet. Two blocks: first a run of multiple-choice items (civic values, a road-safety scenario, the Jordanian Arab Army, the desert castles of Jordan, types of takaful, the Royal Medical Services), then a long block of true/false items on lunar phases, the qibla, and the geography of Palestine. It is almost pure page furniture: each <NL> is one exam item, and each item is a stem plus a strip of discrete answer options. There is essentially no running prose in it.",
+ "law": "Doctrine section J, but a sub-type not yet filed: the MCQ option grid. The unit is the printed cell, not the clause, and two things generate every boundary. (1) A stem separates from its option strip. The split point is always identifiable in this document: a dangling preposition (yadullu ala), a construct-state head awaiting its complement (marakat, jihat), a list introducer (minha), a question mark (biha), or the end of a complete declarative before the sah/khata boxes. This is J4, the fill-in blank as boundary, and J1, rubric-before-content. (2) Every answer option is its own segment. Bare coordinate nominals juxtaposed with no waw are not Arabic prose; their bareness is direct evidence that ink stood between them and was stripped, which is LAW 0's corollary, reconstruct the ink. LAW 3, asyndetic parallel repetition always cuts, is met in its purest form by the repeated frames qasr X, al-takaful X, mustashfa X, and by the sah / khata pair. Conversely the standalone waw token inside an item is always item-internal and never cuts, whether phrase-level (shuruq wa ghurub), VP-chain (haraba al-ihtikar wa qawama), or circumstantial hal (wa al-ishara al-daw'iyya hamra). Trailing relatives and adjuncts stay welded to their head per LAW 4. Mean segment lands near 2.8 tokens, below the 3-10 band my LAW 6 table gives for textbooks, because that band was measured on prose-heavy textbooks; J2's one-token table cells (al-mufrada / tafsiruha / wa fi / ahdihi) show a pure grid legitimately runs shorter.",
+ "reasoning": "Register call first, per LAW 6. Then I resolved the single highest-leverage question before placing any boundary: does an option strip split? I split it. The evidence is lopsided. LAW 3 is met literally by qasr al-Mushatta / qasr al-Burqu / qasr al-Kharrana, by al-takaful al-insani / al-ijtimai / al-iqtisadi, and by mustashfa four times. J2 already shows table cells cutting down to a single token. J4 already shows a fill-in blank cutting mid-stem (taqa al-Imarat ... ila jihat || min shibh al-jazira al-arabiyya), which is the exact structural twin of yadullu ala ||, fi marakat || and min jihat || here. And three or four bare coordinate nouns with no waw is ungrammatical as running Arabic, so ink must have stood between them. Only the LAW 6 length table argues the other way, and it was measured on prose-heavy textbooks, not on an option grid. Against my batch-1 base rate of five-to-one under-cutting, welding here would be the far more expensive error. The same single decision governs sah / khata, which I split fifteen times; that call carries roughly fifteen errors in whichever direction it is wrong, and I took the cut. Site @15 is my flagged uncertainty: the waw in abarat Hiba al-shari wa al-ishara al-daw'iyya hamra. It matches C4 formally, waw plus a new topic NP plus a nominal predicate, and my base rate says cut. I welded it anyway, for three reasons. It is circumstantial waw al-hal, an adjunct specifying the manner of the crossing rather than a new assertion, so LAW 4 covers it. Arabic typography never sets a comma or a period before waw al-hal, and LAW 0 tells me to reconstruct the ink rather than the clause structure. And the other two standalone waw tokens in this document, @77 haraba al-ihtikar wa qawama and @163 shuruq wa ghurub, are certainly item-internal, which suggests waw is a within-item connector throughout. If I am wrong this costs one miss. Sites @18 and @20: I split the scenario from its prompt, abarat ... hamra || hadha al-suluk || ghayr sahih || sahih. The scenario is a complete declarative and hadha al-suluk is a fresh topic NP with a nominal predicate, so C4 yields the cut independently of the reconstructed full stop; and hadha al-suluk precedes its options, which is the J1 rubric-before-content shape. Marked hi because a period and a comma both yield a cut, so two independent marks would have to be absent for this to be wrong. Site @113 minha is my genuine off-by-one risk under LAW 5. The competing reading cuts at @112 al-tibbi and makes minha mustashfa al-Isra the first list item. I chose @113 because it makes all four list items share the frame mustashfa X, and LAW 3 says the gold tracks the frame; also the list carries no waw before its final item, which points to a displayed list under a minha: lead-in rather than a running sentence. Marked med. Site @96 suriya is debris in a garbled item whose other options (qarya, madina, badiya) are settlement types. Either it is the fourth option, matching the four-option count of every other MCQ here, or it is a stray from a deleted stem; both readings put a boundary on it and on al-wasia before it, so I cut both and marked suriya med. Internal welds I checked and rejected as cut sites: al-taatuf bayna al-nas is one option carrying its PP; Ayn Jalut and Bab al-Wad are single toponyms with no internal ink; naw min anwa al-takaful haraba al-ihtikar is an asyndetic relative on an indefinite head; and the trailing relatives allati naftakhiru biha and allati tatawajad fi al-Urdun stay with their stems per LAW 4. I also confirmed no boundary lands on an <NL> token and that all twenty free boundaries, the pre-<NL> tokens plus the final token, are present.",
+ "boundaries": [
+  {
+   "i": 3,
+   "w": "على",
+   "c": "hi"
+  },
+  {
+   "i": 4,
+   "w": "المغفرة",
+   "c": "hi"
+  },
+  {
+   "i": 5,
+   "w": "المحبة",
+   "c": "hi"
+  },
+  {
+   "i": 8,
+   "w": "الناس",
+   "c": "hi"
+  },
+  {
+   "i": 10,
+   "w": "ماسبق",
+   "c": "hi"
+  },
+  {
+   "i": 18,
+   "w": "حمراء",
+   "c": "hi"
+  },
+  {
+   "i": 20,
+   "w": "السلوك",
+   "c": "hi"
+  },
+  {
+   "i": 21,
+   "w": "غيرصحيح",
+   "c": "hi"
+  },
+  {
+   "i": 22,
+   "w": "صحيح",
+   "c": "hi"
+  },
+  {
+   "i": 31,
+   "w": "بها",
+   "c": "hi"
+  },
+  {
+   "i": 32,
+   "w": "الاحترام",
+   "c": "hi"
+  },
+  {
+   "i": 33,
+   "w": "الكرم",
+   "c": "hi"
+  },
+  {
+   "i": 34,
+   "w": "التسامح",
+   "c": "hi"
+  },
+  {
+   "i": 36,
+   "w": "ماسبق",
+   "c": "hi"
+  },
+  {
+   "i": 45,
+   "w": "معركة",
+   "c": "hi"
+  },
+  {
+   "i": 47,
+   "w": "جالوت",
+   "c": "hi"
+  },
+  {
+   "i": 48,
+   "w": "اليرموك",
+   "c": "hi"
+  },
+  {
+   "i": 49,
+   "w": "الكرامة",
+   "c": "hi"
+  },
+  {
+   "i": 51,
+   "w": "الواد",
+   "c": "hi"
+  },
+  {
+   "i": 60,
+   "w": "الأردن",
+   "c": "hi"
+  },
+  {
+   "i": 62,
+   "w": "المشتى",
+   "c": "hi"
+  },
+  {
+   "i": 64,
+   "w": "البرقع",
+   "c": "hi"
+  },
+  {
+   "i": 66,
+   "w": "الحرانة",
+   "c": "hi"
+  },
+  {
+   "i": 69,
+   "w": "سبق",
+   "c": "hi"
+  },
+  {
+   "i": 81,
+   "w": "الغش",
+   "c": "hi"
+  },
+  {
+   "i": 83,
+   "w": "الإنساني",
+   "c": "hi"
+  },
+  {
+   "i": 85,
+   "w": "الاجتماعي",
+   "c": "hi"
+  },
+  {
+   "i": 87,
+   "w": "الاقتصادي",
+   "c": "hi"
+  },
+  {
+   "i": 89,
+   "w": "ماسبق",
+   "c": "hi"
+  },
+  {
+   "i": 95,
+   "w": "الواسعة",
+   "c": "hi"
+  },
+  {
+   "i": 96,
+   "w": "سوريا",
+   "c": "med"
+  },
+  {
+   "i": 97,
+   "w": "قرية",
+   "c": "hi"
+  },
+  {
+   "i": 98,
+   "w": "مدينة",
+   "c": "hi"
+  },
+  {
+   "i": 99,
+   "w": "بادية",
+   "c": "hi"
+  },
+  {
+   "i": 113,
+   "w": "منها",
+   "c": "med"
+  },
+  {
+   "i": 115,
+   "w": "الاسراء",
+   "c": "hi"
+  },
+  {
+   "i": 118,
+   "w": "التخصصي",
+   "c": "hi"
+  },
+  {
+   "i": 121,
+   "w": "الوردية",
+   "c": "hi"
+  },
+  {
+   "i": 124,
+   "w": "الطبية",
+   "c": "hi"
+  },
+  {
+   "i": 128,
+   "w": "مختلفة",
+   "c": "hi"
+  },
+  {
+   "i": 129,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 130,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 137,
+   "w": "هلالا",
+   "c": "hi"
+  },
+  {
+   "i": 138,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 139,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 145,
+   "w": "فلسطين",
+   "c": "hi"
+  },
+  {
+   "i": 146,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 147,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 154,
+   "w": "القبلة",
+   "c": "hi"
+  },
+  {
+   "i": 155,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 156,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 168,
+   "w": "رمضان",
+   "c": "hi"
+  },
+  {
+   "i": 169,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 170,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 176,
+   "w": "الشرق",
+   "c": "hi"
+  },
+  {
+   "i": 177,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 178,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 184,
+   "w": "فلسطين",
+   "c": "hi"
+  },
+  {
+   "i": 185,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 186,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 194,
+   "w": "أصلية",
+   "c": "hi"
+  },
+  {
+   "i": 195,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 196,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 202,
+   "w": "جهة",
+   "c": "hi"
+  },
+  {
+   "i": 203,
+   "w": "الشمال",
+   "c": "hi"
+  },
+  {
+   "i": 204,
+   "w": "الغرب",
+   "c": "hi"
+  },
+  {
+   "i": 205,
+   "w": "الشرق",
+   "c": "hi"
+  },
+  {
+   "i": 211,
+   "w": "فلسطين",
+   "c": "hi"
+  },
+  {
+   "i": 212,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 213,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 219,
+   "w": "فلسطين",
+   "c": "hi"
+  },
+  {
+   "i": 220,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 221,
+   "w": "خطأ",
+   "c": "hi"
+  },
+  {
+   "i": 230,
+   "w": "الغرب",
+   "c": "hi"
+  },
+  {
+   "i": 231,
+   "w": "صح",
+   "c": "hi"
+  },
+  {
+   "i": 232,
+   "w": "خطأ",
+   "c": "hi"
+  }
+ ]
+}

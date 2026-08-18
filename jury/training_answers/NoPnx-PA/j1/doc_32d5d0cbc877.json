@@ -1,0 +1,333 @@
+{
+ "doc_id": "doc_32d5d0cbc877",
+ "identity": "Scripture: the Gospel of Luke 9:57-10:42 in the Van Dyke Arabic translation. Third-person narrative frame carrying long stretches of reported speech - the three would-be followers, the sending of the seventy, the woes on Chorazin/Bethsaida/Capernaum, the thanksgiving prayer, the lawyer's question, the Good Samaritan parable, Martha and Mary. Register is literal classical biblical Arabic. The source is natively versified and that grid survives in this file: the six <NL> markers fall exactly on pericope seams (9:62|10:1, 10:12|10:13, 10:16|10:17, 10:20|10:21, 10:24|10:25, 10:37|10:38), never inside a verse. So the paragraph structure independently confirms verse alignment and hands me a skeleton of near-certain boundaries.",
+ "law": "The unit is the sentence as this translation punctuates it, which in this text is almost exactly the verse: one predication, or one tightly bound cluster of predications sharing a subject. CUT at: (a) every verse-final stop; (b) every mid-verse full stop - a change of speech turn, a fresh imperative speech act, a second question; (c) a clause-initial waw/fa whose conjunct is a full finite predication of roughly 10+ tokens carrying its own adjunct frame (conjunct-weight test); (d) each member of a three-or-more-member anaphoric parallel series of full clauses; (e) bal when the correction is substantive (6+ tokens); (f) walakin when what follows is weighty. DO NOT CUT at: waw/fa conjuncts of 5 tokens or fewer (short-tail brake); bare noun or PP conjuncts however long the run; tight subordinators (li-anna, lamma, hatta, idh, alladhi, an, fa-in, mahma); a speech verb coordinated by waw to the preceding action verb of the same subject; the quoted content after its qala; vocatives; and amma X fa Y when the contrast is a mere echo. This document is pure running prose - no lists, no headings, no drills - so the short-tail brake is the operative rule here rather than the cut-everything corrective my doctrine prescribes for structural genres.",
+ "reasoning": "CALIBRATION FIRST. My standing flaw is under-segmenting 7:1, but re-reading the batch-1 error profile, that deficit came overwhelmingly from STRUCTURAL genres - word drills (J1, ~20 consecutive), MCQ options (I2/I3), constitutional colon-lists (H1, ~35), headings (H2). Every one of my recorded FALSE cuts (the 0b table) was in running prose. This document is running prose with no structure at all, so I deliberately let the short-tail brake govern and did not import the cut-everything corrective. I set an explicit weight threshold to keep myself honest: waw/fa conjunct >=10 tokens with its own finite verb and adjunct frame -> CUT; <=5 tokens -> absorb; 6-9 tokens -> decide by whether the head is already a complete standalone predication and whether a stronger boundary sits within ~5 tokens earlier (B8/D2: take the earlier). || @92 wa-arsalahum ithnayn ithnayn... 15 tokens, own PP frame, own relative clause. By the letter of the conjunct-weight test this is a CUT even though 'ayyana al-rabb sabin' and 'wa-arsalahum' share a subject and the two-clause budget (0c) would tolerate a merge. 0c's own example rode along only because those verbs were 2-3 tokens each. Weight beats budget. Taken, med. || @125 idhhabu as a ONE-token unit. A bare imperative is a complete speech act and carries its own stop before 'ha ana ursilukum'. Doctrine already licenses one-token units (J1/I3). This is my most exposed cut, so lo. || The walakin sites, decided by weight not by the connective table's blanket CUT. Declined @112 (walakin al-fa'ala qalilun = 3 tokens, and the head inna al-hasada kathir is also 3 - short-tail bites from both sides). Taken @219 (walakin i'lamu hadha = 9 tokens and a fresh exhortation). Taken at every verse-initial walakin (@267, @334, @547, @672). The site I am least sure of is @60: walakin i'dhan li awwalan an uwaddi'a alladhina fi bayti is 9 tokens, so weight says cut - but it is one speech turn, and it mirrors the structurally identical reply at 9:59 (fa-qala ya sayyid i'dhan li an amdiya awwalan wa-adfina abi) which is plainly a single unit. Consistency between the two parallel replies won. Declined. || @293/@296, Luke 10:16: alladhi yasma'u minkum yasma'u minni | wa-alladhi yardhulukum yardhuluni | wa-alladhi yardhuluni yardhulu alladhi arsalani. A clean three-member anaphoric parallel series of full independent predications. B2 (Ibn Tufayl, where I merged five such clauses and lost five cuts) and E1 (the three hadha clauses in Sara) both say parallelism defeats the short-tail rule and every member takes a unit even at 3 tokens - wa-al-shammu yudriku al-rawa'iha is the exact precedent. Taken, med. This is the site whose grading will teach me most: if gold merges it, my B2 override is narrower than I believe and is confined to series of four or more. || Deliberate CONTRAST at @399/@405 in 10:22 (wa-la man huwa al-abu illa al-ibnu / wa-man arada al-ibnu an yu'lina lahu). Superficially the same anaphoric series, but members two and three are elliptical continuations of the single negative predication 'wa-laysa ahadun ya'rifu' - they have no predication of their own. B2 requires each member to carry its own. Declined both. || @17/@20 in 9:58 (li-l-tha'alibi awjiratun | wa-li-tuyuri al-sama'i awkarun | wa-amma ibnu al-insani fa-laysa lahu...). Only TWO same-shape members, and the third is a differently shaped amma-contrast, so this fails B2's three-member test; and the connective table's default for amma X fa Y is attach (F5). Declined both, and likewise @48 (wa-amma anta fa-idhhab wa-nadi bi-malakuti-llah, 6 tokens). Note the two wa-amma sites I DID cut in front of (@494 opening 10:29, @638 opening 10:40) are verse-initial - which proves wa-amma can open a unit in this text, so my declines rest on weight and position, not on a blanket rule. || SPEECH VERBS - I forced this to be consistent rather than site-by-site. A speech verb that opens a NEW TURN takes a boundary before it (@12, @31, @41, @605 and the verse-initial ones). A speech verb coordinated by waw to the preceding action verb of the SAME subject does not: tahallala yasu'u bi-l-ruhi wa-qala (@357), wa-iltafata ila talamidhihi wa-qala (@381, @412 - there the cut sits at the verse edge BEFORE wa-iltafata, not before wa-qala), wa-a'tahuma li-sahibi al-funduqi wa-qala lahu (@580), fa-ajaba yasu'u wa-qala laha (@663). I was tempted by E3 at @580 and reversed myself: E3's precedent (...musa'id al-hakam | wa-qala mu'alliqan...) is a new turn, not a coordinated pair. || The quote always stays glued to its qala (E3), which is why I declined @150 (fa-qulu awwalan | salamun li-hadha al-bayt) and @210 (wa-qulu | hatta al-ghubaru...) despite the H1 dangling-stem temptation. H1 is a LIST rule; J5 shows a cataphoric announcer does NOT end its unit when what follows is running content rather than listed items. || @194 (wa-qulu lahum qad iqtaraba minkum malakutu-llah, 7 tokens, gray zone) declined because a certain boundary sits only 4 tokens earlier at @190 - B8/D2's take-the-earlier rule. Same logic declined @676 (fa-ikhtarat maryamu al-nasiba al-salih..., 8 tokens) in favour of the certain @672 before walakin. || @519 (fa-'arrawhu wa-jarahuhu wa-madaw wa-tarakuhu bayna hayyin wa-mayyit, 7 tokens) was the closest call I declined. Clause-initial fa is near-absolute in classical prose (B1) and cuts in hadith narrative (L2). I declined because the chain is one rapid same-object narrative burst whose individual verbs are 1-2 tokens each, and cutting once inside it would be arbitrary; @516 (fa-waqa'a bayna lusus, 3 tokens) is plainly absorbed. Low confidence in this decline. || @555 and @645 taken on the same threshold from the other side: the following fa-conjuncts are 16 and 15 tokens (fa-taqaddama wa-dammada... ; fa-waqafat wa-qalat plus a whole speech turn), far over the line. || @342: bal ifrahu bi-l-hariyyi anna asma'akum kutibat fi al-samawat is 8 tokens, so C5's 6-token threshold for a substantive bal fires. Taken, med, though the la tafrahu...bal correlative is tight enough that gold may hold it whole. || Mid-verse full stops taken on speech-act grounds: @176 (la tantaqilu min baytin ila bayt - a fresh asyndetic imperative, and note I did NOT cut before li-anna, a tight subordinator), @372 (na'am ayyuha al-ab - a fresh utterance), @391 (wa-laysa ahadun ya'rifu..., 20 tokens), @465 (two consecutive questions, E4), @491 (bi-l-sawabi ajabta | if'al hadha fa-tahya), @115 (fa-utlubu..., a new imperative after a statement). || @656 is my weakest cut and I marked it lo: the question ends at wahdi, but the 4-token tail fa-qul laha an tu'inani would normally be absorbed by 0b. I took it because a question boundary is a harder stop than a waw-coda, and E4 makes a question its own unit. || Structural givens honoured: the mandatory paragraph-final marks at 84, 242, 301, 350, 445, 613 and the document-final 684 are all present, and no boundary sits on an <NL> token.",
+ "boundaries": [
+  {
+   "i": 12,
+   "w": "تمضي",
+   "c": "hi"
+  },
+  {
+   "i": 28,
+   "w": "رأسه",
+   "c": "hi"
+  },
+  {
+   "i": 31,
+   "w": "اتبعني",
+   "c": "hi"
+  },
+  {
+   "i": 41,
+   "w": "أبي",
+   "c": "hi"
+  },
+  {
+   "i": 54,
+   "w": "الله",
+   "c": "hi"
+  },
+  {
+   "i": 69,
+   "w": "بيتي",
+   "c": "hi"
+  },
+  {
+   "i": 84,
+   "w": "الله",
+   "c": "hi"
+  },
+  {
+   "i": 92,
+   "w": "أيضا",
+   "c": "med"
+  },
+  {
+   "i": 107,
+   "w": "يأتي",
+   "c": "hi"
+  },
+  {
+   "i": 115,
+   "w": "قليلون",
+   "c": "med"
+  },
+  {
+   "i": 124,
+   "w": "حصاده",
+   "c": "hi"
+  },
+  {
+   "i": 125,
+   "w": "اذهبوا",
+   "c": "lo"
+  },
+  {
+   "i": 132,
+   "w": "ذئاب",
+   "c": "hi"
+  },
+  {
+   "i": 145,
+   "w": "الطريق",
+   "c": "hi"
+  },
+  {
+   "i": 153,
+   "w": "البيت",
+   "c": "hi"
+  },
+  {
+   "i": 164,
+   "w": "إليكم",
+   "c": "hi"
+  },
+  {
+   "i": 176,
+   "w": "أجرته",
+   "c": "med"
+  },
+  {
+   "i": 182,
+   "w": "بيت",
+   "c": "hi"
+  },
+  {
+   "i": 190,
+   "w": "لكم",
+   "c": "hi"
+  },
+  {
+   "i": 201,
+   "w": "الله",
+   "c": "hi"
+  },
+  {
+   "i": 219,
+   "w": "لكم",
+   "c": "hi"
+  },
+  {
+   "i": 228,
+   "w": "الله",
+   "c": "hi"
+  },
+  {
+   "i": 242,
+   "w": "المدينة",
+   "c": "hi"
+  },
+  {
+   "i": 247,
+   "w": "كورزين",
+   "c": "hi"
+  },
+  {
+   "i": 252,
+   "w": "صيدا",
+   "c": "hi"
+  },
+  {
+   "i": 267,
+   "w": "والرماد",
+   "c": "hi"
+  },
+  {
+   "i": 279,
+   "w": "لكما",
+   "c": "hi"
+  },
+  {
+   "i": 288,
+   "w": "الهاوية",
+   "c": "hi"
+  },
+  {
+   "i": 293,
+   "w": "مني",
+   "c": "med"
+  },
+  {
+   "i": 296,
+   "w": "يرذلني",
+   "c": "med"
+  },
+  {
+   "i": 301,
+   "w": "أرسلني",
+   "c": "hi"
+  },
+  {
+   "i": 312,
+   "w": "باسمك",
+   "c": "hi"
+  },
+  {
+   "i": 321,
+   "w": "السماء",
+   "c": "hi"
+  },
+  {
+   "i": 334,
+   "w": "شيء",
+   "c": "hi"
+  },
+  {
+   "i": 342,
+   "w": "لكم",
+   "c": "med"
+  },
+  {
+   "i": 350,
+   "w": "السماوات",
+   "c": "hi"
+  },
+  {
+   "i": 372,
+   "w": "للأطفال",
+   "c": "med"
+  },
+  {
+   "i": 380,
+   "w": "أمامك",
+   "c": "hi"
+  },
+  {
+   "i": 391,
+   "w": "أبي",
+   "c": "med"
+  },
+  {
+   "i": 411,
+   "w": "له",
+   "c": "hi"
+  },
+  {
+   "i": 423,
+   "w": "تنظرونه",
+   "c": "hi"
+  },
+  {
+   "i": 445,
+   "w": "يسمعوا",
+   "c": "hi"
+  },
+  {
+   "i": 458,
+   "w": "الأبدية",
+   "c": "hi"
+  },
+  {
+   "i": 465,
+   "w": "الناموس",
+   "c": "med"
+  },
+  {
+   "i": 467,
+   "w": "تقرأ",
+   "c": "hi"
+  },
+  {
+   "i": 487,
+   "w": "نفسك",
+   "c": "hi"
+  },
+  {
+   "i": 491,
+   "w": "أجبت",
+   "c": "med"
+  },
+  {
+   "i": 494,
+   "w": "فتحيا",
+   "c": "hi"
+  },
+  {
+   "i": 506,
+   "w": "قريبي",
+   "c": "hi"
+  },
+  {
+   "i": 526,
+   "w": "وميت",
+   "c": "hi"
+  },
+  {
+   "i": 536,
+   "w": "مقابله",
+   "c": "hi"
+  },
+  {
+   "i": 547,
+   "w": "مقابله",
+   "c": "hi"
+  },
+  {
+   "i": 555,
+   "w": "تحنن",
+   "c": "med"
+  },
+  {
+   "i": 571,
+   "w": "به",
+   "c": "hi"
+  },
+  {
+   "i": 590,
+   "w": "أوفيك",
+   "c": "hi"
+  },
+  {
+   "i": 600,
+   "w": "اللصوص",
+   "c": "hi"
+  },
+  {
+   "i": 605,
+   "w": "الرحمة",
+   "c": "hi"
+  },
+  {
+   "i": 613,
+   "w": "هكذا",
+   "c": "hi"
+  },
+  {
+   "i": 625,
+   "w": "بيتها",
+   "c": "hi"
+  },
+  {
+   "i": 638,
+   "w": "كلامه",
+   "c": "hi"
+  },
+  {
+   "i": 645,
+   "w": "كثيرة",
+   "c": "med"
+  },
+  {
+   "i": 656,
+   "w": "وحدي",
+   "c": "lo"
+  },
+  {
+   "i": 660,
+   "w": "تعينني",
+   "c": "hi"
+  },
+  {
+   "i": 672,
+   "w": "كثيرة",
+   "c": "hi"
+  },
+  {
+   "i": 684,
+   "w": "منها",
+   "c": "hi"
+  }
+ ]
+}

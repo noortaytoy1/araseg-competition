@@ -1,0 +1,558 @@
+{
+ "doc_id": "doc_4161e96c985e",
+ "identity": "Sura al-Kahf (Quran, chapter 18) complete and unabridged: all 110 ayat, in the Uthmani rasm (الكتب، الصلحت، السموت، ءايتنا، الحيوة، لشايء، يذا القرنين) with diacritics, verse markers and every punctuation mark stripped. There is no paragraph structure whatsoever - zero <NL> tokens - so the entire sura arrives as one continuous 1579-token block. Genre: revealed scripture / recitational prose, not running modern prose, not a list, not a table.",
+ "law": "In scripture the AYA is the sentence, full stop. The verse-end marker of the mushaf IS this text's punctuation; when punctuation was stripped, the sentence delimiters went with it, and they sat at exactly the 110 aya ends and nowhere else. The absence of any <NL> confirms the reading: the source's line/verse structure was consumed as SENTENCE structure, not paragraph structure, which is why a 1579-token document has no paragraph breaks at all. Al-Kahf's fasila is a near-invariant -an rhyme (عوجا حسنا أبدا ولدا كذبا أسفا عملا جرزا عجبا رشدا ... حولا مددا أحدا), so every verse end is independently recoverable from the token stream without any external key. Consequence for my prose doctrine: inside an aya the conjunct-weight test is NOT run - a long aya carrying four قال turns is still one unit - and outside it the short-tail brake (0b) is suspended exactly as it is for verse and drills, so a two-token aya is a full unit. Boundaries are structural here, like hemistiches (K1), not syntactic.",
+ "reasoning": "IDENTIFICATION FIRST (checklist item 1). The -an rhyme, the rasm spellings, the قال/قالوا dialogue cycles of Musa-and-al-Khidr and Dhu al-Qarnayn, and the Companions-of-the-Cave narrative fix this as al-Kahf in full. Getting the granularity right is the whole exam: reading it as running prose would be the same catastrophe as doc_25ed373f8aeb (33.3). || ALIGNMENT PROOF. I listed the 110 fasila words from the sura's rhyme and matched them greedily forward through the token stream. The match consumed all 1579 tokens with ZERO remainder, every reconstructed aya reads as correct Quranic text, and aya 110 terminates precisely at token 1578 - the token the format guarantees carries a boundary. A single misalignment anywhere would have caused drift and a non-empty tail, so this is a self-checking segmentation, not a guess. || SITES WHERE THE AYA LAW OVERRULES MY PROSE DOCTRINE (all marked med). @10 عوجا | قيما - قيما is a hal/second predicate of الكتب, grammatically continuous; no prose reader cuts here, the aya boundary does (this is the famous v1/v2 sakta). Same shape at @25 حسنا | مكثين. @366 غدا | إلا أن يشاء الله - my table lists إلا أن-type exception phrases as tight, never opening a unit; the v23/v24 division overrules it. @647 زلقا | أو يصبح ماؤها غورا - أو continues the same apodosis; prose merges, verse cuts. @1277 and @1330 and @1354 سببا | حتى إذا - حتى is on my never-cut list, yet فأتبع سببا (2 tokens), ثم أتبع سببا, ثم أتبع سببا are each a complete aya. Two independent supports raise these above a bare gamble: 0b/K suspend the short-tail brake for verse, and the three sababa clauses plus their three حتى إذا بلغ continuations are a perfect parallel enumeration, which B2/E1 say forces a cut at every member. @1456 عرضا | الذين كانت أعينهم and @1486 أعملا | الذين ضل سعيهم - الذي never opens a unit in prose; here it opens an aya. @1530 نزلا | خلدين فيها - hal again. || SITES WHERE I DELIBERATELY DID NOT CUT, against a loud prose instinct. This is the harder discipline given my 7-to-1 under-segmentation prior, so I state it explicitly rather than drift. v19 (@244-281, 38 tokens) contains قال قائل منهم / قالوا لبثنا / قالوا ربكم أعلم - E3 (speech verbs open a unit) would give three extra cuts; I take none. v17 (@189-221) would split at ذلك من ءايت الله and again at من يهد الله فهو المهتد. v22, v49, v50, v57, v77, v82, v96 all carry two or three finite predications past the 0c budget. Inside an aya the budget does not apply. || SHORT AYAT KEPT AS UNITS, brake suspended: مكثين فيه أبدا (3), فأتبع سببا (2), ثم أتبع سببا (3), قال إنك لن تستطيع معى صبرا (6), كذلك وقد أحطنا بما لديه خبرا (6), وعرضنا جهنم يومئذ للكفرين عرضا (5), قل هل ننبئكم بالأخسرين أعملا (5), خلدين فيها لا يبغون عنها حولا (6). || THE أما TRIO. F5 says أما X فـ Y attaches to its antecedent, which would glue أما السفينة to v78 and merge v79/v80/v81/v82. I cut at @1185, @1202, @1212, @1221 anyway: the three أما/وأما members (السفينة، الغلم، الجدار) are a textbook parallel enumeration (B2 beats F5 when the members are parallel siblings), and each is an aya. Same for أما من ظلم / وأما من ءامن at @1301 and @1314. || HEDGE CONSIDERED AND REJECTED. I weighed adding ~20 intra-aya cuts as insurance in case the gold is predication-based rather than verse-based. Under the aya hypothesis every extra cut is pure precision loss (110/130 -> F1 0.92); under the predication hypothesis the clean 110 still scores ~0.85 because every aya end is also a strong syntactic boundary. The clean 110 wins on expected value at any prior above roughly 0.4 for the aya hypothesis, and mine is far higher. So: exactly 110 boundaries, one per aya, nothing added and nothing merged.",
+ "boundaries": [
+  {
+   "i": 10,
+   "w": "عوجا",
+   "c": "med"
+  },
+  {
+   "i": 25,
+   "w": "حسنا",
+   "c": "med"
+  },
+  {
+   "i": 28,
+   "w": "أبدا",
+   "c": "hi"
+  },
+  {
+   "i": 34,
+   "w": "ولدا",
+   "c": "hi"
+  },
+  {
+   "i": 50,
+   "w": "كذبا",
+   "c": "hi"
+  },
+  {
+   "i": 61,
+   "w": "أسفا",
+   "c": "hi"
+  },
+  {
+   "i": 72,
+   "w": "عملا",
+   "c": "hi"
+  },
+  {
+   "i": 78,
+   "w": "جرزا",
+   "c": "hi"
+  },
+  {
+   "i": 88,
+   "w": "عجبا",
+   "c": "hi"
+  },
+  {
+   "i": 104,
+   "w": "رشدا",
+   "c": "hi"
+  },
+  {
+   "i": 111,
+   "w": "عددا",
+   "c": "hi"
+  },
+  {
+   "i": 120,
+   "w": "أمدا",
+   "c": "hi"
+  },
+  {
+   "i": 131,
+   "w": "هدى",
+   "c": "hi"
+  },
+  {
+   "i": 150,
+   "w": "شططا",
+   "c": "hi"
+  },
+  {
+   "i": 168,
+   "w": "كذبا",
+   "c": "hi"
+  },
+  {
+   "i": 187,
+   "w": "مرفقا",
+   "c": "hi"
+  },
+  {
+   "i": 221,
+   "w": "مرشدا",
+   "c": "hi"
+  },
+  {
+   "i": 243,
+   "w": "رعبا",
+   "c": "hi"
+  },
+  {
+   "i": 281,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 294,
+   "w": "أبدا",
+   "c": "hi"
+  },
+  {
+   "i": 326,
+   "w": "مسجدا",
+   "c": "hi"
+  },
+  {
+   "i": 359,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 366,
+   "w": "غدا",
+   "c": "med"
+  },
+  {
+   "i": 383,
+   "w": "رشدا",
+   "c": "hi"
+  },
+  {
+   "i": 391,
+   "w": "تسعا",
+   "c": "hi"
+  },
+  {
+   "i": 414,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 429,
+   "w": "ملتحدا",
+   "c": "hi"
+  },
+  {
+   "i": 459,
+   "w": "فرطا",
+   "c": "hi"
+  },
+  {
+   "i": 487,
+   "w": "مرتفقا",
+   "c": "hi"
+  },
+  {
+   "i": 499,
+   "w": "عملا",
+   "c": "hi"
+  },
+  {
+   "i": 527,
+   "w": "مرتفقا",
+   "c": "hi"
+  },
+  {
+   "i": 541,
+   "w": "زرعا",
+   "c": "hi"
+  },
+  {
+   "i": 552,
+   "w": "نهرا",
+   "c": "hi"
+  },
+  {
+   "i": 565,
+   "w": "نفرا",
+   "c": "hi"
+  },
+  {
+   "i": 577,
+   "w": "أبدا",
+   "c": "hi"
+  },
+  {
+   "i": 589,
+   "w": "منقلبا",
+   "c": "hi"
+  },
+  {
+   "i": 605,
+   "w": "رجلا",
+   "c": "hi"
+  },
+  {
+   "i": 613,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 632,
+   "w": "وولدا",
+   "c": "hi"
+  },
+  {
+   "i": 647,
+   "w": "زلقا",
+   "c": "med"
+  },
+  {
+   "i": 655,
+   "w": "طلبا",
+   "c": "hi"
+  },
+  {
+   "i": 674,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 685,
+   "w": "منتصرا",
+   "c": "hi"
+  },
+  {
+   "i": 694,
+   "w": "عقبا",
+   "c": "hi"
+  },
+  {
+   "i": 717,
+   "w": "مقتدرا",
+   "c": "hi"
+  },
+  {
+   "i": 730,
+   "w": "أملا",
+   "c": "hi"
+  },
+  {
+   "i": 741,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 757,
+   "w": "موعدا",
+   "c": "hi"
+  },
+  {
+   "i": 784,
+   "w": "أحدا",
+   "c": "hi"
+  },
+  {
+   "i": 810,
+   "w": "بدلا",
+   "c": "hi"
+  },
+  {
+   "i": 823,
+   "w": "عضدا",
+   "c": "hi"
+  },
+  {
+   "i": 836,
+   "w": "موبقا",
+   "c": "hi"
+  },
+  {
+   "i": 846,
+   "w": "مصرفا",
+   "c": "hi"
+  },
+  {
+   "i": 860,
+   "w": "جدلا",
+   "c": "hi"
+  },
+  {
+   "i": 879,
+   "w": "قبلا",
+   "c": "hi"
+  },
+  {
+   "i": 897,
+   "w": "هزوا",
+   "c": "hi"
+  },
+  {
+   "i": 927,
+   "w": "أبدا",
+   "c": "hi"
+  },
+  {
+   "i": 946,
+   "w": "موئلا",
+   "c": "hi"
+  },
+  {
+   "i": 954,
+   "w": "موعدا",
+   "c": "hi"
+  },
+  {
+   "i": 967,
+   "w": "حقبا",
+   "c": "hi"
+  },
+  {
+   "i": 978,
+   "w": "سربا",
+   "c": "hi"
+  },
+  {
+   "i": 990,
+   "w": "نصبا",
+   "c": "hi"
+  },
+  {
+   "i": 1010,
+   "w": "عجبا",
+   "c": "hi"
+  },
+  {
+   "i": 1019,
+   "w": "قصصا",
+   "c": "hi"
+  },
+  {
+   "i": 1031,
+   "w": "علما",
+   "c": "hi"
+  },
+  {
+   "i": 1042,
+   "w": "رشدا",
+   "c": "hi"
+  },
+  {
+   "i": 1048,
+   "w": "صبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1056,
+   "w": "خبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1066,
+   "w": "أمرا",
+   "c": "hi"
+  },
+  {
+   "i": 1078,
+   "w": "ذكرا",
+   "c": "hi"
+  },
+  {
+   "i": 1093,
+   "w": "إمرا",
+   "c": "hi"
+  },
+  {
+   "i": 1101,
+   "w": "صبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1111,
+   "w": "عسرا",
+   "c": "hi"
+  },
+  {
+   "i": 1127,
+   "w": "نكرا",
+   "c": "hi"
+  },
+  {
+   "i": 1136,
+   "w": "صبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1149,
+   "w": "عذرا",
+   "c": "hi"
+  },
+  {
+   "i": 1173,
+   "w": "أجرا",
+   "c": "hi"
+  },
+  {
+   "i": 1185,
+   "w": "صبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1202,
+   "w": "غصبا",
+   "c": "hi"
+  },
+  {
+   "i": 1212,
+   "w": "وكفرا",
+   "c": "hi"
+  },
+  {
+   "i": 1221,
+   "w": "رحما",
+   "c": "hi"
+  },
+  {
+   "i": 1256,
+   "w": "صبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1265,
+   "w": "ذكرا",
+   "c": "hi"
+  },
+  {
+   "i": 1275,
+   "w": "سببا",
+   "c": "hi"
+  },
+  {
+   "i": 1277,
+   "w": "سببا",
+   "c": "med"
+  },
+  {
+   "i": 1301,
+   "w": "حسنا",
+   "c": "hi"
+  },
+  {
+   "i": 1314,
+   "w": "نكرا",
+   "c": "hi"
+  },
+  {
+   "i": 1327,
+   "w": "يسرا",
+   "c": "hi"
+  },
+  {
+   "i": 1330,
+   "w": "سببا",
+   "c": "med"
+  },
+  {
+   "i": 1345,
+   "w": "سترا",
+   "c": "hi"
+  },
+  {
+   "i": 1351,
+   "w": "خبرا",
+   "c": "hi"
+  },
+  {
+   "i": 1354,
+   "w": "سببا",
+   "c": "med"
+  },
+  {
+   "i": 1367,
+   "w": "قولا",
+   "c": "hi"
+  },
+  {
+   "i": 1386,
+   "w": "سدا",
+   "c": "hi"
+  },
+  {
+   "i": 1398,
+   "w": "ردما",
+   "c": "hi"
+  },
+  {
+   "i": 1417,
+   "w": "قطرا",
+   "c": "hi"
+  },
+  {
+   "i": 1425,
+   "w": "نقبا",
+   "c": "hi"
+  },
+  {
+   "i": 1440,
+   "w": "حقا",
+   "c": "hi"
+  },
+  {
+   "i": 1451,
+   "w": "جمعا",
+   "c": "hi"
+  },
+  {
+   "i": 1456,
+   "w": "عرضا",
+   "c": "med"
+  },
+  {
+   "i": 1467,
+   "w": "سمعا",
+   "c": "hi"
+  },
+  {
+   "i": 1481,
+   "w": "نزلا",
+   "c": "hi"
+  },
+  {
+   "i": 1486,
+   "w": "أعملا",
+   "c": "med"
+  },
+  {
+   "i": 1497,
+   "w": "صنعا",
+   "c": "hi"
+  },
+  {
+   "i": 1511,
+   "w": "وزنا",
+   "c": "hi"
+  },
+  {
+   "i": 1520,
+   "w": "هزوا",
+   "c": "hi"
+  },
+  {
+   "i": 1530,
+   "w": "نزلا",
+   "c": "med"
+  },
+  {
+   "i": 1536,
+   "w": "حولا",
+   "c": "hi"
+  },
+  {
+   "i": 1554,
+   "w": "مددا",
+   "c": "hi"
+  },
+  {
+   "i": 1578,
+   "w": "أحدا",
+   "c": "hi"
+  }
+ ]
+}
