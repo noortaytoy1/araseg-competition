@@ -494,6 +494,28 @@ _both("pnx phase-1 trainer fragment", "depth is the entire point", "train_pnx_02
 _both("TRACK NOTE bridge fragment", "you trained on the DE-PUNCTUATED form", "exam_blind_pa_competition.js")
 _both("cheat-sheet clause shared", "UNRELIABLE CHEAT SHEET", "exam_zeroshot_all_tracks.js")
 
+# ---------------------------------------------------------------- 10. released verdicts == counted verdicts
+print("\n=== 10. Released verdicts match the counted verdicts (drift guard) ===")
+def _proj10(p10):
+    _v10 = json.load(open(p10, encoding="utf-8"))
+    return (_v10["doc_id"], json.dumps(_v10.get("add", []), sort_keys=True, ensure_ascii=False),
+            json.dumps(_v10.get("remove", []), sort_keys=True, ensure_ascii=False))
+for _tr10 in ("NoPnx-NP", "NoPnx-PA", "NP", "PA"):
+    _src10 = f"scratch_exo/papereval/{_tr10}/exam_out"
+    _bad10 = _n10 = 0
+    for _x10 in os.listdir(_src10):
+        if not _x10.endswith(".json"): continue
+        _n10 += 1
+        _rp10 = f"jury/verdicts_test/{_tr10}/{_x10}"
+        if not os.path.exists(_rp10) or _proj10(_rp10) != _proj10(os.path.join(_src10, _x10)):
+            _bad10 += 1
+    check(f"{_tr10} released==counted (262 files)", 0, _bad10)
+    check(f"{_tr10} counted verdict count", 262, _n10)
+    _ab10 = json.load(open(f"jury/verdicts_test/{_tr10}/ablation_result.json", encoding="utf-8"))
+    _cl10 = claims[_tr10]
+    check(f"{_tr10} released ablation_result jury", _cl10["jur"], round(_ab10["jury"], 2))
+    check(f"{_tr10} released ablation_result delta", _cl10["delta"], round(_ab10["delta"], 2))
+
 # ---------------------------------------------------------------- summary
 fails = [r for r in results if not r[0]]
 print("\n" + "=" * 62)
