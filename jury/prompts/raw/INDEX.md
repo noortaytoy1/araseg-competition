@@ -40,7 +40,9 @@ punctuated paragraph-aware rounds (the TRACK NOTE bridge law).
 | file | track |
 |---|---|
 | exam_doctrine_nonp.js / _b.js | NoPnx-NP |
-| exam_doctrine_nopa_2lane.js / _serial.js / _jury.js / _c.js / _d.js | NoPnx-PA |
+| exam_doctrine_nopa_2lane.js / _serial.js / _jury.js | NoPnx-PA (retrain4 pair) |
+| exam_doctrine_nopa_redo26.js | NoPnx-PA: re-adjudication of 26 docs first judged by a pre-retrain launcher |
+| exam_doctrine_nopa_c.js / _d.js | VOIDED: launched Aug 5 against the earlier retrain3 pair, before retrain4 existed; their 26 verdicts sit in `exam_out_void_retrain3pair/` and feed no reported number |
 | exam_doctrine_np_shipped.js / _finish.js | Pnx-NP (shipped pair) |
 | exam_doctrine_pa_resume.js | Pnx-PA |
 | exam_doctrine_chain_superseded_np.js / _b.js | SUPERSEDED Pnx-NP run with the wrong (retrained) pair; verdicts voided on disk, feeds no reported number |

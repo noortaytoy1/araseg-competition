@@ -655,24 +655,28 @@ paragraph ends, ALWAYS correct, never remove them, and never needed elsewhere; (
 <NL> token itself never carries a boundary. Everything inside paragraphs is yours to
 judge.
 \end{tcolorbox}
-\subparagraph{Provenance.} Which released artifacts produced which reported numbers:
-\begin{center}
-\scriptsize
-\begin{tabular}{llll}
-\toprule
-Track & Jury pair (released) & Trained by (raw scripts) & Adjudicated by \\
-\midrule
-NoPnx-NP & \texttt{doctrines/NoPnx-NP} & \texttt{train\_nonp\_retrain3*} & \texttt{exam\_doctrine\_nonp*} \\
-NoPnx-PA & \texttt{doctrines/NoPnx-PA} & \texttt{train\_nopa\_retrain4*} & \texttt{exam\_doctrine\_nopa*} \\
-Pnx-NP & \texttt{doctrines/Pnx-NP-PA} & \texttt{train\_pnx\_01..10*} & \texttt{exam\_doctrine\_np\_shipped*} \\
-Pnx-PA & \texttt{doctrines/Pnx-NP-PA} & \texttt{train\_pnx\_01..10*} & \texttt{exam\_doctrine\_pa\_resume} \\
-\bottomrule
-\end{tabular}
-\end{center}
-A superseded Pnx-NP evaluation that had mistakenly used a different retrained pair is
-released as \texttt{exam\_doctrine\_chain\_superseded\_np*}; its verdict directory is
-kept on disk under a \texttt{\_void} name and feeds no reported number. The zero-shot
-launchers are \texttt{exam\_zeroshot\_*}, the variance rerun is
+\subparagraph{Provenance.} Which released artifacts produced which reported numbers
+(training and exam scripts under \texttt{jury/prompts/raw/}):
+
+{\scriptsize
+\noindent NoPnx-NP: pair \texttt{doctrines/NoPnx-NP}; trained by
+\texttt{train\_nonp\_retrain3*}; adjudicated by \texttt{exam\_doctrine\_nonp*}.\
+NoPnx-PA: pair \texttt{doctrines/NoPnx-PA}; trained by \texttt{train\_nopa\_retrain4*};
+adjudicated by \texttt{exam\_doctrine\_nopa\_2lane/\_serial/\_jury} and
+\texttt{exam\_doctrine\_nopa\_redo26}.\
+Pnx-NP: pair \texttt{doctrines/Pnx-NP-PA} (shared); trained by
+\texttt{train\_pnx\_01..10}; adjudicated by \texttt{exam\_doctrine\_np\_shipped*}.\
+Pnx-PA: pair \texttt{doctrines/Pnx-NP-PA} (shared); trained by
+\texttt{train\_pnx\_01..10}; adjudicated by \texttt{exam\_doctrine\_pa\_resume}.\par}
+
+\noindent Two partial runs were voided and are released for the record: a Pnx-NP
+evaluation with a superseded retrained pair
+(\texttt{exam\_doctrine\_chain\_superseded\_np*}) and a 26-document NoPnx-PA start
+launched before that track's final pair existed
+(\texttt{exam\_doctrine\_nopa\_c/\_d}). Both verdict sets sit on disk under
+\texttt{\_void} names and feed no reported number; the 26 documents were
+re-adjudicated with the released pair by \texttt{exam\_doctrine\_nopa\_redo26}. The
+zero-shot launchers are \texttt{exam\_zeroshot\_*}, the variance rerun is
 \texttt{exam\_rerun\_variance\_nonp}, and the file-access audit prompts are
 \texttt{audit\_*}.
 \section{Error analysis}
