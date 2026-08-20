@@ -65,3 +65,12 @@ preds_*.json
 paper/transcript_audit.json
 paper/SUBMISSION_PROVENANCE.json
 coordination/
+# local working files not part of the release
+_convpoetry/
+araseg_clean/
+deploy_v*.py
+jais_*.py
+prediction
+prediction_*
+paper/*backup*.tex
+kit_*/

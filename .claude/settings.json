@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|MultiEdit|Glob|Grep|Bash|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "python \"C:/Users/pc/Downloads/evolving-vlm-46/arabic-sentence-segmentation/.claude/hooks/jury_guard.py\"" }
+        ]
+      }
+    ]
+  }
+}

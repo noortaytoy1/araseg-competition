@@ -31,6 +31,45 @@ NP / PA).
 - **`paper/ensar_araseg.tex`** — the system paper (ArabicNLP 2026), with
   `paper/verify_paper.py`, which recomputes every number in it from source data.
 
+
+## Reproducing the paper's numbers, from scratch
+
+Everything needed is in this repository plus the public corpus. Two levels of reproduction:
+
+**Level 1 — verify every number from released artifacts (no GPU, no LLM calls, minutes).**
+All jury verdicts, draft rows, doctrines and the scorer are released. From the repo root:
+
+```
+pip install -r requirements.txt
+make data                       # fetch the public AraSeg corpus (four tracks)
+make packets TRACK=NoPnx-NP     # rebuild the sealed exam packets: byte-identical to the paper's
+python jury/score/score_kit.py --track NoPnx-NP --kit kit_NoPnx-NP     --gold data/NoPnx-NP_test.jsonl --draft jury/draft_rows/NoPnx-NP.json
+```
+
+after copying the released verdicts `jury/verdicts_test/NoPnx-NP/*.json` into `kit_NoPnx-NP/out/`.
+Expected output, exactly: ensemble 84.64, + juries 89.49, delta +4.85, 1,340 edits applied, 0 rejected,
+186/28/48 improved/degraded/unchanged. Repeat with TRACK=NoPnx-PA (87.05 -> 92.28), NP (92.83 -> 93.61),
+PA (94.56 -> 94.92). `python paper/verify_paper.py` re-derives every number in the paper the same way.
+
+**Level 2 — re-run the pipeline yourself.**
+
+```
+make voters     # fine-tune the 5 encoders per track (GPU; ~4 min/voter/track on an RTX 5090)
+make probs      # cache per-voter probabilities
+make drafts     # notes on regenerating drafts (the exact paper drafts are released in jury/draft_rows/)
+make packets TRACK=NoPnx-NP
+make jury  TRACK=NoPnx-NP       # prints the two ways to run the jury stage:
+```
+
+The jury stage runs either **(A) inside Claude Code** (public CLI; zero further setup): open a terminal
+in `kit_NoPnx-NP/`, run `claude`, and paste the entire contents of `jury/orchestrator_prompt.txt` as one
+message — the session runs 66 sittings of 4 documents (one agent per sitting holding both juries, each
+arguing strictly from its own doctrine), Opus 5 at maximum reasoning effort, banking one verdict per
+document into `out/` and resuming from `out/` if anything dies; or **(B) via the API**:
+`pip install anthropic && python jury/run_exam.py kit_NoPnx-NP`. Then `make score TRACK=NoPnx-NP`.
+Decoding is non-deterministic: expect scores within ~0.5 F1 of the paper's (a second full 50-document
+run differed by 0.48; the jury gain is an order of magnitude larger). Details: `jury/REPLICATION.md`.
+
 Everything below this section describes the encoder ensemble stage.
 
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**
