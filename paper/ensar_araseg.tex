@@ -299,9 +299,15 @@ cannot be re-derived bit for bit. A second full run on 50 NoPnx-NP test document
 differed from the first by 0.48 $F_1$; the effect is an order of magnitude larger than
 the run-to-run variability. When both juries share a wrong reading, nothing in the
 design catches it, and every one of our degraded documents is of that kind. All
-results are from one corpus in one language. We did not test conveying the
-conventions as raw gold-segmented examples in context; whether the loop outperforms
-that simpler channel is left open.
+results are from one corpus in one language. Both juries are simulated within a
+single model context per document, each constrained to argue from its own policy file;
+their independence lies in the separately trained policies, not in separate processes.
+The two punctuated tracks are adjudicated by one shared jury pair whose doctrine
+carries format-specific law sections, so their two rows in Table~
+ef{tab:ablation}
+are correlated measurements of one policy under two format laws. We did not test
+conveying the conventions as raw gold-segmented examples in context; whether the loop
+outperforms that simpler channel is left open.
 \section*{Ethical Considerations}
 Sentence segmentation is a low-risk preprocessing task, and we see no direct misuse
 surface for this system. The corpus is provided by the organizers under its license
@@ -353,12 +359,28 @@ organizers' evaluation script; it is the official metric. Token-pooled micro val
 are higher because errors concentrate in long documents: on test the ensemble scores
 86.23 micro against 84.64 macro on NoPnx-NP, 89.30 against 87.05 on NoPnx-PA, 93.76
 against 92.83 on NP, and 95.76 against 94.56 on PA.
-\paragraph{Isolation.} Jury agents run under a file-access guard that denies any path
-outside their test packets, their own output directory, and their assigned doctrine files (the zero-shot arm
-assigns none); shell access to the corpus,
-the gold archive and the repository is denied, and the gold is read in memory by the
-scoring loop only. Transcript audits of the evaluation runs show no access beyond the
-permitted paths.
+\paragraph{Execution environment and replication.} The juries execute as agents of the
+Claude Code framework (public CLI, version 2.1.234 as recorded in the run transcripts),
+model 	exttt{claude-opus-5} at maximum reasoning effort. The release makes the full
+pipeline repeatable at two levels: every reported number re-derives from released
+artifacts alone (exact draft rows, all 1{,}048 doctrine verdicts and all 1{,}048
+zero-shot verdicts, the doctrines, and a strict scorer; the packet builder reproduces
+our sealed exam packets byte for byte), and the pipeline re-runs end to end from a
+Makefile (corpus fetch, voter training, probability caching, packet construction), with
+the jury stage driven either by a single released orchestrator prompt pasted into
+Claude Code or by a framework-free API runner. The verification script re-derives every
+number in this paper from source data on each build.
+
+\paragraph{Isolation.} Jury agents run under a released file-access guard (a
+pre-tool-use hook) that denies any path outside their test packets, their own output
+directory, and their assigned doctrine files (the zero-shot arm assigns none); shell
+access to the corpus, the gold archive and the repository is denied, and the gold is
+read in memory by the scoring loop only. Transcript audits of every evaluation run
+(275 agent transcripts for the zero-shot arm alone) show no access beyond the permitted
+paths and no gold label vector in any agent context. The agent platform may inject
+brief session notes into agent context; audits show the only such note that ever
+appeared named the existence of a training curriculum and carried no corpus content,
+labels, conventions, or results.
 \paragraph{Jury prompts.} The two prompts below are the exact texts run for the NoPnx-PA
 juries, with local file paths and the per-jury document lists replaced by placeholders
 in angle brackets. All prompts are in English while the documents, the juries' quoted
@@ -470,7 +492,11 @@ sites, the juries corrected 1{,}110 and introduced 230 new errors. 299 of the
 corrected sites (26.9\%) are sites where every voter had been wrong, a class that no
 reweighting, recalibration, or voter promotion can reach, because no voter disagrees
 with the mistake; the remainder are mixed sites where the juries sided with the
-minority reading when the document's convention licensed it.
+minority reading when the document's convention licensed it. The zero-shot arm reaches
+fewer errors of every kind on the same split: it corrected 917 sites while introducing
+187, and 227 of its corrections (24.8\%) were all-five-wrong sites against the
+doctrine's 299 (26.9\%), so the learned policy both edits more and aims slightly
+better.
 \section{The juries' reasoning while learning}
 \label{sec:learning}
 The policy files are the training record: every entry carries the batch that produced
@@ -574,4 +600,92 @@ is banked end to end, and the other tracks' attempts are not recoverable in curr
 order.}
 \label{fig:curve}
 \end{figure}
+\section{How the juries work a document}
+\label{sec:traces}
+
+Two complete adjudication records in the juries' own words as recorded at decision
+time, abridged where marked, from the rerun of the Limitations section (identical
+doctrines and protocol to the submitted system; that run's records are in
+transliteration, which this template can typeset). Both documents are wins: the first
+rose from 28.6 to 100.0 $F_1$, the second from 77.1 to 87.5.
+
+\paragraph{A 20-token sura (Surat an-Nas, Q114).}
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize
+``REGISTER: the whole document is Surat an-Nas (Q114) entire, 20 tokens, standing alone,
+not a quotation inside prose. J0 S21: for the Quran the RECORD is the AYA, every
+\textit{wa}/\textit{fa} rule suspended, and the text carries its own hard external test
+(known verse count plus known fasila list). J1 S16/S12c: verse cuts at the rhyme and
+nowhere else. Both juries: 6 ayat = 6 units. J1's objection from S2b (quoted verses are
+ONE unit) was withdrawn: that datapoint was a Quranic fragment embedded in Ibn Tufayl
+prose, and the material J1 called verse 1 and verse 2 is in fact two clauses of a single
+aya (Q8:17), so it is no evidence against per-aya segmentation of a standalone sura. J0
+S21 is evidence from THIS register and outranks it. [Five adds follow, each the end of an
+aya, each endorsed by both.] @10 al-waswas ARGUED AND REJECTED: J1's mechanical rhyme
+scan (cut at every token carrying -as) fires here. J0 rebutted with S21's sharpest
+lesson: a fasila can repeat INSIDE its own verse, so take the LAST occurrence before the
+next ending, not the first (the an-Nahl trap that cost J0 a double penalty). al-waswas is
+verse-internal; cutting it would give 7 units for a 6-aya sura. J1 conceded. NO CUT.
+DENSITY: 20/6 = 3.3 tokens per unit, below J1's verse band of 4 to 6, but an exact
+external invariant (the sura has exactly 6 ayat) outranks a density heuristic; J0 S24.2
+orders verification against the invariant rather than the ear.''
+\end{tcolorbox}
+
+\paragraph{A 746-token translated novel chapter (Doctorow, \textit{Little Brother}).}
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize
+``REGISTER: Hindawi Arabic translation of Cory Doctorow, Little Brother, chapter 1:
+first-person YA novel, running prose, not layout. J1 bucket (d) translated prose, cut at
+the source-language period, 13 to 17 tokens; J0 S8 translated literary fiction about 14.
+[...] @188: J1 wanted the mark removed (English has a comma before the but), J0 S1.3
+holds that \textit{lakin} opens a sentence. UNRESOLVED, draft stands. @205: the 36-token
+unit is the worst density outlier in the document. J1 first objected (parallel negations
+do not cut), then conceded that this is an affirmative-then-negative contrast, not a
+parallel negation, and that bucket (d) points at the source period; J0: \textit{wa} plus
+finite verb in narrative. ADD. [...] @624 to @647, THE ONE STRUCTURAL ERROR IN THIS
+DOCUMENT: the draft read four data lines as display-line records and split them off,
+leaving a unit that ends on a dangling \textit{kana} with no predicate and a next unit
+opening on a bare predicate with no subject. Correct parse: the quote-plus-tag sentence
+ends at @624, and the identity block is a dash parenthetical between \textit{kana}'s
+subject and its predicate, one sentence. J0's false-heading trap (does the verb after the
+candidate agree with it and lack any other subject) and J1's rule (parse the verb's
+subject before deciding a heading's extent) are the same law, and both fire. ADD 624;
+REMOVE 627, 633, 638, 644, 647. @667 and @708: English joins these to the following
+clause, but the Arabic translator plausibly broke here; no jury evidence strong enough
+either way. NO CHANGE.''
+\end{tcolorbox}
+
+Six behaviours are visible across the two traces and none was scripted: register
+identification before any edit; suspension of general rules when a register-specific law
+applies; verification against an external invariant in place of intuition; an objection
+withdrawn after the jury re-audited its own evidence; disagreements left unresolved with
+the draft standing; and a structural correction argued from syntax rather than surface
+pattern.
+
+\paragraph{Raw internal reasoning (abridged; Arabic transliterated).} The platform
+records the model's internal reasoning; the excerpt below, from a hadith document in the
+same rerun, shows the full pattern of a single decision: a candidate edit proposed,
+endorsed by two laws, rejected against a third, relocated one token, and verified by
+density. It corroborates that the recorded arguments above reflect the actual process
+rather than post-hoc summaries.
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize
+``I am looking at this hadith document from Sahih al-Bukhari, checking my current mark
+placements against the isnad-breaking doctrine: the chain of narration splits at each
+\textit{qala}, since these are separate transmission records rather than one continuous
+sentence. Jury 1's notes add nuance: the final \textit{qala} still welds to the quoted
+speech regardless of isnad length. [...] Now for \textit{faqala} at token 28: this opens
+a new speech act. J0 \S22 names \textit{faqala} a boundary head in hadith, and J1's
+\S9d and \S18 both support cutting before a narrative \textit{faqala}, so a cut looks
+endorsed by both juries. But J0's gold example has the boundary after a complete
+narrative clause, whereas here it falls after a quoted imperative, and per \S9c an
+opening imperative right after the introducer welds to it rather than breaking away; so
+`\textit{qala lahu fi hijjat al-wada` istansit al-nas}' stays one unit and that cut
+should not happen. Both juries converge on adding the boundary at token 27
+(\textit{al-nas}) instead, once the next full clause (`\textit{faqala la tarji`u...}')
+begins. Checking density: 37 tokens and 3 boundaries is about 12.3 tokens per unit
+against J0's hadith benchmark of roughly 9.3; adding this one boundary brings it to
+9.25.''
+\end{tcolorbox}
+
 \end{document}

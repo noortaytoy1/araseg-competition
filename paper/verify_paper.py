@@ -282,6 +282,54 @@ check("test errors introduced by juries", 230, _intro)
 check("test fixed errors that were all-five-wrong", 299, _fixed_aw)
 check("pct of fixed errors that were all-five-wrong", 26.9, round(100 * _fixed_aw / max(_fixed, 1), 1))
 
+# zero-shot arm fix stats (appendix B integration)
+_totz = _fixedz = _introz = _fixed_awz = 0
+for _did, _srow in _rows.items():
+    if _did not in _gt: continue
+    _T = _gt[_did]["tokens"]; _g = np.array(_gt[_did]["labels"])
+    _base = np.array([int(c) for c in _srow]); _base[-1] = 1
+    _jury = _base.copy()
+    _vp = f"scratch_exo/papereval/NoPnx-NP/exam_out_zeroshot/{_did}.json"
+    if os.path.exists(_vp):
+        _v = json.load(open(_vp, encoding="utf-8"))
+        for _b in _v.get("remove", []):
+            _i2 = int(_b.get("i", -1)); _w2 = _b.get("w", "")
+            if 0 <= _i2 < len(_T) and _w2 and _T[_i2] == _w2 and _jury[_i2] == 1 and _i2 != len(_T) - 1: _jury[_i2] = 0
+        for _b in _v.get("add", []):
+            _i2 = int(_b.get("i", -1)); _w2 = _b.get("w", "")
+            if 0 <= _i2 < len(_T) and _w2 and _T[_i2] == _w2 and _jury[_i2] == 0: _jury[_i2] = 1
+        _jury[-1] = 1
+    _psx = np.stack([_Pt[v][_did] for v in _V])
+    _vw = ((_psx >= 0.5).astype(int) != _g)
+    _fx = (_base != _g) & (_jury == _g)
+    _fixedz += int(_fx.sum()); _introz += int(((_base == _g) & (_jury != _g)).sum())
+    _fixed_awz += int((_fx & _vw.all(0)).sum())
+check("zero-shot errors fixed", 917, _fixedz)
+check("zero-shot errors introduced", 187, _introz)
+check("zero-shot fixed all-five-wrong", 227, _fixed_awz)
+check("zero-shot pct all-five-wrong of fixes", 24.8, round(100 * _fixed_awz / max(_fixedz, 1), 1))
+
+# trace-document claims (appendix D)
+def _apply_strict(_T, _base, _v):
+    _r = _base.copy()
+    for _b in _v.get("remove", []):
+        _i3 = int(_b.get("i", -1)); _w3 = _b.get("w", "")
+        if 0 <= _i3 < len(_T) and _w3 and _T[_i3] == _w3 and _r[_i3] == 1 and _i3 != len(_T) - 1: _r[_i3] = 0
+    for _b in _v.get("add", []):
+        _i3 = int(_b.get("i", -1)); _w3 = _b.get("w", "")
+        if 0 <= _i3 < len(_T) and _w3 and _T[_i3] == _w3 and _r[_i3] == 0: _r[_i3] = 1
+    _r[-1] = 1
+    return _r
+def _f1s(_g, _p):
+    _tp = int(((_p == 1) & (_g == 1)).sum()); _fpq = int(((_p == 1) & (_g == 0)).sum()); _fnq = int(((_p == 0) & (_g == 1)).sum())
+    return 100 * 2 * _tp / max(2 * _tp + _fpq + _fnq, 1)
+for _did, _bf, _jf in [("doc_00f88da2b078", 28.6, 100.0), ("doc_23175663d44d", 77.1, 87.5)]:
+    _T = _gt[_did]["tokens"]; _g = np.array(_gt[_did]["labels"])
+    _base = np.array([int(c) for c in _rows[_did]]); _base[-1] = 1
+    _v = json.load(open(f"scratch_exo/papereval/NoPnx-NP/exam_out_rerun/{_did}.json", encoding="utf-8"))
+    check(f"trace {_did} draft F1", _bf, round(_f1s(_g, _base), 1))
+    check(f"trace {_did} jury F1", _jf, round(_f1s(_g, _apply_strict(_T, _base, _v)), 1))
+
 # ---------------------------------------------------------------- 5c. appendix reasoning excerpts are verbatim
 print("\n=== 5c. Appendix excerpts trace to the doctrine files ===")
 _d0 = open("scratch_exo/retrain4/nopa/doctrine_j0.md", encoding="utf-8").read()
