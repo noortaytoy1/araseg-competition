@@ -82,3 +82,4 @@ run_*.sh
 !run_cascade.sh
 *.log
 coordination/
+preds_*.csv
