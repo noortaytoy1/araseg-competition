@@ -70,6 +70,14 @@ document into `out/` and resuming from `out/` if anything dies; or **(B) via the
 Decoding is non-deterministic: expect scores within ~0.5 F1 of the paper's (a second full 50-document
 run differed by 0.48; the jury gain is an order of magnitude larger). Details: `jury/REPLICATION.md`.
 
+Every prompt of record is released verbatim: `jury/prompts/raw/` holds the 35 launcher
+scripts exactly as invoked (training, evaluation, the competition-day blind exam, the
+zero-shot control, the variance rerun, the integrity audits) with an `INDEX.md`;
+`jury/prompts/` holds cleaned path-parameterized templates. Model: `claude-opus-5`
+(no dated variant exists), maximum reasoning effort, no sampling parameters set.
+Voter stack: Python 3.13.3, PyTorch 2.11.0+cu128, Transformers 4.55.0; exact base-checkpoint
+revisions are pinned in the paper's appendix and the launch script is `scripts/train_pnx_voters.sh`.
+
 Everything below this section describes the encoder ensemble stage.
 
 The system is a **probability-averaged ensemble of fine-tuned Arabic encoders**

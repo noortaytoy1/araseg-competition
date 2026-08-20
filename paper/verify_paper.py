@@ -440,6 +440,60 @@ check("en dashes in tex", 0, tex.count("\u2013"))
 print(f"  [INFO] tildes in tex: {tex.count(chr(126))} (allowed in this draft: non-breaking refs)")
 print(f"  [INFO] TODO markers remaining: {tex.count('TODO')}")
 
+# ---------------------------------------------------------------- 9. prompt record & exact versions
+print("\n=== 9. Prompt record & exact versions ===")
+tex9 = open("paper/ensar_araseg.tex", encoding="utf-8").read()
+# library versions: paper claim vs the version recorded inside a shipped checkpoint
+ck = json.load(open("runs/pnxnp_imp_fgm/config.json", encoding="utf-8"))
+note("transformers version in checkpoint == 4.55.0", ck.get("transformers_version") == "4.55.0")
+check("tex states transformers 4.55.0 (2 places)", 2, tex9.count("Transformers 4.55.0"))
+check("tex states torch 2.11.0+cu128 (2 places)", 2, tex9.count("PyTorch 2.11.0+cu128"))
+check("tex no longer claims 2.5.1/4.57.3", 0, tex9.count("2.5.1") + tex9.count("4.57.3"))
+# checkpoint ids + revisions
+_ids = ["aubmindlab/bert-base-arabertv02", "aubmindlab/bert-large-arabertv02",
+        "asafaya/bert-large-arabic", "FacebookAI/xlm-roberta-large"]
+_sh9 = open("scripts/train_pnx_voters.sh", encoding="utf-8").read()
+for _m in _ids:
+    note(f"released launch script trains {_m}", _m in _sh9)
+    note(f"tex pins {_m}", _m.replace("_", "\\_") in tex9)
+_revs = {"aubmindlab--bert-base-arabertv02": "016fb9d6", "aubmindlab--bert-large-arabertv02": "12c9edc7",
+         "asafaya--bert-large-arabic": "a000d4b3", "FacebookAI--xlm-roberta-large": "c23d21b0"}
+_hub = os.path.expanduser("~/.cache/huggingface/hub")
+for _k, _r in _revs.items():
+    note(f"tex revision {_r} present", _r in tex9)
+    _sd = os.path.join(_hub, "models--" + _k, "snapshots")
+    if os.path.isdir(_sd):
+        note(f"cache snapshot for {_k} starts {_r}", any(s.startswith(_r) for s in os.listdir(_sd)))
+# optimizer facts claimed in tex exist in the training code
+_src9 = open("src/train_encoder.py", encoding="utf-8").read()
+note("weight_decay 0.01 in code", "weight_decay=0.01" in _src9)
+note("warmup_ratio 0.1 in code", "warmup_ratio=0.1" in _src9)
+note("seed default 42 in code", '"--seed", type=int, default=42' in _src9.replace("'", '"'))
+# jury decoding settings claimed vs the released API runner
+_rx = open("jury/run_exam.py", encoding="utf-8").read()
+note("run_exam pins max_tokens 32000", "max_tokens=32000" in _rx)
+note("run_exam pins thinking budget 30000", '"budget_tokens": 30000' in _rx)
+note("tex states 32,000 / 30,000", "32{,}000" in tex9 and "30{,}000" in tex9)
+note("tex names claude-opus-5 + max effort", "claude-opus-5" in tex9 and "maximum reasoning effort" in tex9)
+# the raw prompt release
+_raw = sorted(f for f in os.listdir("jury/prompts/raw") if f.endswith(".js"))
+check("raw launcher scripts released", 35, len(_raw))
+note("raw INDEX.md present", os.path.exists("jury/prompts/raw/INDEX.md"))
+_texflat = " ".join(tex9.split())
+def _both(label, frag, rawfile):
+    r9 = " ".join(open(f"jury/prompts/raw/{rawfile}", encoding="utf-8").read().split())
+    note(label, frag in _texflat and frag in r9)
+_both("zero-shot framing verbatim (tex & raw)", "Neither has been trained on this corpus and neither holds any written policy", "exam_zeroshot_all_tracks.js")
+_both("zero-shot knowledge clause verbatim", "own knowledge of Arabic and from the text", "exam_zeroshot_all_tracks.js")
+_both("NoPnx-NP format clause fragment", "plain words only. The final", "exam_doctrine_nonp.js")
+_both("Pnx-NP format clause fragment", "There are NO <NL> tokens in this track", "exam_doctrine_np_shipped.js")
+_both("NoPnx-PA format clause fragment", "Everything inside paragraphs is yours to judge", "exam_doctrine_nopa_d.js")
+_both("Pnx-PA format clause fragment", "usually ends ON its mark", "exam_doctrine_pa_resume.js")
+_both("retrain3 trainer fragment", "everything you will ever know comes from your", "train_nonp_retrain3.js")
+_both("pnx phase-1 trainer fragment", "depth is the entire point", "train_pnx_02_np_juror_wide.js")
+_both("TRACK NOTE bridge fragment", "you trained on the DE-PUNCTUATED form", "exam_blind_pa_competition.js")
+_both("cheat-sheet clause shared", "UNRELIABLE CHEAT SHEET", "exam_zeroshot_all_tracks.js")
+
 # ---------------------------------------------------------------- summary
 fails = [r for r in results if not r[0]]
 print("\n" + "=" * 62)

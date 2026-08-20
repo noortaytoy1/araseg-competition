@@ -1,0 +1,32 @@
+export const meta = {
+  name: 'retrain3-train-nonp',
+  description: 'Phase 1 training, track nonp: two fresh juries learn from graded attempts on train documents only.',
+  phases: [{ title: 'Train', detail: 'jury 0 (20 docs) and jury 1 (19 docs) in parallel', model: 'opus' }],
+}
+const J0 = `You are Jury 0, a brand-new Arabic sentence-segmentation judge. You start with zero knowledge of this corpus's conventions — everything you will ever know comes from your own graded attempts on TRAINING documents. Work in C:\\Users\\pc\\Downloads\\evolving-vlm-46\\arabic-sentence-segmentation.
+The ONLY files you may touch: the practice documents listed below, your own answer files, the grader's mistakes file named below, and your own doctrine file scratch_exo/retrain3/nonp/doctrine_j0.md. Touching ANY other file voids the training — answer keys exist elsewhere in this repository.
+FORMAT: Punctuation REMOVED and paragraph marks REMOVED — plain words only. The final token of a document always ends a sentence. ⟨i⟩ means the next token is token number i (an index anchor, not part of the text).
+YOUR DOCUMENTS, in batches of five, in this order: doc_3f6c5f1e305a, doc_44ee993e046e, doc_66c98646b9a9, doc_1d513dc2c22a, doc_c567a2257203, doc_47764cf032d7, doc_226fc860e550, doc_eb278f2980be, doc_54f919517225, doc_405d5fba81e0, doc_5b0751f40176, doc_7bc0656a48ce, doc_32908af53b40, doc_501500835788, doc_70d28c9dfebb, doc_c188bbc9702e, doc_86d3b22a1be5, doc_1fa12697d487, doc_e1435023282b, doc_9e0419ed749d
+PER BATCH:
+1. SEGMENT strictly one document at a time from scratch_exo/retrain3/nonp/train_docs/<doc_id>.json. No limit on your reasoning — first work out what the text IS (genre, register, structure) and what its natural sentence unit is, then walk it and argue every uncertain site in writing. Write your answer to scratch_exo/retrain3/nonp/ans/j0/<doc_id>.json as {"doc_id":"...","identity":"what this text is","law":"its sentence law as you read it","reasoning":"your argument at the hard sites","boundaries":[{"i":<index of the LAST token of a sentence>,"w":"<that token copied from the text>","c":"hi|med|lo"}]} the moment it is done, before opening the next document.
+2. GRADE: run  python scratch_exo/retrain3/grade3.py --track nonp --juror 0 --only <the five ids comma-separated>  and read scratch_exo/retrain3/nonp/mistakes_j0.txt in full.
+3. LEARN: for every FALSE CUT and every MISSED, find the RULE behind it — what do these annotators actually do — and write it into your doctrine file in your own words, filed by text type, with your own error as the example. When a new correction contradicts an earlier entry, fix the earlier entry and say so. The doctrine is cumulative — never delete knowledge.
+4. Take your updated doctrine into the next batch.
+If you hit a usage limit or crash, everything is already saved; on restart, skip documents whose answer file exists. When all four batches are graded and absorbed, return your per-batch mean F1 and 4 sentences on your doctrine's core laws. No web. No PowerShell except the grader command given above.`
+const J1 = `You are Jury 1, a brand-new Arabic sentence-segmentation judge. You start with zero knowledge of this corpus's conventions — everything you will ever know comes from your own graded attempts on TRAINING documents. Work in C:\\Users\\pc\\Downloads\\evolving-vlm-46\\arabic-sentence-segmentation.
+The ONLY files you may touch: the practice documents listed below, your own answer files, the grader's mistakes file named below, and your own doctrine file scratch_exo/retrain3/nonp/doctrine_j1.md. Touching ANY other file voids the training — answer keys exist elsewhere in this repository.
+FORMAT: Punctuation REMOVED and paragraph marks REMOVED — plain words only. The final token of a document always ends a sentence. ⟨i⟩ means the next token is token number i (an index anchor, not part of the text).
+YOUR DOCUMENTS, in batches of five, in this order: doc_8b2d52902b9b, doc_201b37ae8a22, doc_de12d5da4854, doc_16f2b3eccb91, doc_3272f207e8c9, doc_32b866eb5dc4, doc_5e12ebe2976f, doc_9d15d9d5d637, doc_8921b794ce19, doc_56781db1019f, doc_0a957c052364, doc_099def456da2, doc_51fccce927eb, doc_20dcf69f9905, doc_25ed373f8aeb, doc_cb57e21e8421, doc_b9371c2fbb78, doc_27a114d4e376, doc_361233315d24
+PER BATCH:
+1. SEGMENT strictly one document at a time from scratch_exo/retrain3/nonp/train_docs/<doc_id>.json. No limit on your reasoning — first work out what the text IS (genre, register, structure) and what its natural sentence unit is, then walk it and argue every uncertain site in writing. Write your answer to scratch_exo/retrain3/nonp/ans/j1/<doc_id>.json as {"doc_id":"...","identity":"what this text is","law":"its sentence law as you read it","reasoning":"your argument at the hard sites","boundaries":[{"i":<index of the LAST token of a sentence>,"w":"<that token copied from the text>","c":"hi|med|lo"}]} the moment it is done, before opening the next document.
+2. GRADE: run  python scratch_exo/retrain3/grade3.py --track nonp --juror 1 --only <the five ids comma-separated>  and read scratch_exo/retrain3/nonp/mistakes_j1.txt in full.
+3. LEARN: for every FALSE CUT and every MISSED, find the RULE behind it — what do these annotators actually do — and write it into your doctrine file in your own words, filed by text type, with your own error as the example. When a new correction contradicts an earlier entry, fix the earlier entry and say so. The doctrine is cumulative — never delete knowledge.
+4. Take your updated doctrine into the next batch.
+If you hit a usage limit or crash, everything is already saved; on restart, skip documents whose answer file exists. When all four batches are graded and absorbed, return your per-batch mean F1 and 4 sentences on your doctrine's core laws. No web. No PowerShell except the grader command given above.`
+phase('Train')
+const res = await parallel([
+  () => agent(J0, { label: 'nonp jury 0 (20 docs)', phase: 'Train', model: 'opus', effort: 'max' }),
+  () => agent(J1, { label: 'nonp jury 1 (19 docs)', phase: 'Train', model: 'opus', effort: 'max' }),
+])
+if (!res[0] || !res[1]) log('WARNING: a training agent returned null - relaunch this workflow to resume from banked answer files')
+return { jury0: res[0], jury1: res[1] }

@@ -176,7 +176,8 @@ We apply no text normalization: alef and ya variants, ta marbuta, diacritics, an
 tatweel are preserved, since the token sequence is the label space. Each encoder
 applies its own subword tokenizer over the organizer-provided whitespace tokens, the
 word-level label riding the last subword. Training and inference
-use PyTorch 2.5.1 and Hugging Face Transformers 4.57.3, pinned; no Farasa or CAMeL
+use Python 3.13.3, PyTorch 2.11.0+cu128 and Hugging Face Transformers 4.55.0, the
+version recorded inside every released checkpoint; no Farasa or CAMeL
 Tools preprocessing. All jury prompts are in English over the Arabic documents;
 we did not try Arabic-language prompts.
 
@@ -337,6 +338,17 @@ rate $2{\times}10^{-5}$ and batch size 4; \texttt{nat\_arabertv02\_base} is
 AraBERTv0.2-base and \texttt{nat\_asafaya\_large} is Arabic-BERT-large, both at defaults.
 Checkpoints are selected on the development split. For Pnx-PA a tuned three-voter subset
 with $\beta = 0.6$ was used at submission.
+The four base checkpoints, pinned to the exact Hugging Face revisions our fine-tunes
+downloaded, are \texttt{aubmindlab/bert-base-arabertv02} (revision \texttt{016fb9d6}),
+\texttt{aubmindlab/bert-large-arabertv02} (\texttt{12c9edc7}),
+\texttt{asafaya/bert-large-arabic} (\texttt{a000d4b3}) and
+\texttt{FacebookAI/xlm-roberta-large} (\texttt{c23d21b0}). Optimization is AdamW with
+weight decay 0.01, warmup ratio 0.1 and linear decay, fp16 mixed precision, seed 42,
+maximum sequence length 512, batch size 16 and learning rate $5{\times}10^{-5}$ except
+where a recipe above overrides them; the epoch checkpoint with the best development
+$F_1$ is kept. The training entry point and the exact five launch commands are released
+(\texttt{src/train\_encoder.py}, \texttt{scripts/train\_pnx\_voters.sh}).
+
 \paragraph{Corpus statistics.} Training boundary rate is 0.104 (NoPnx-NP), 0.101
 (NoPnx-PA), 0.086 (NP) and 0.083 (PA), over 98{,}457, 101{,}784, 124{,}444 and 128{,}173
 tokens respectively.
@@ -345,8 +357,9 @@ Documents are used exactly as distributed: no normalization of alef or ya forms,
 marbuta, diacritics or tatweel, since the token sequence is the label space and must be
 preserved. Each encoder uses its own subword tokenizer over the organizer-provided
 whitespace tokens, and the word-level boundary label is carried by the last subword of
-each word. Training and inference use PyTorch 2.5.1 and Hugging Face Transformers
-4.57.3, pinned; scoring uses the organizers' evaluation script.
+each word. Training and inference use Python 3.13.3, PyTorch 2.11.0+cu128 and Hugging Face
+Transformers 4.55.0, as recorded in the released checkpoints; scoring uses the
+organizers' evaluation script.
 \paragraph{Hardware and runs.}
 Encoders were fine-tuned on an NVIDIA RTX 5090 (32\,GB), roughly 4 minutes per voter
 per track; each voter is a single run, and no encoder result is an average. Jury
@@ -361,7 +374,15 @@ are higher because errors concentrate in long documents: on test the ensemble sc
 against 92.83 on NP, and 95.76 against 94.56 on PA.
 \paragraph{Execution environment and replication.} The juries execute as agents of the
 Claude Code framework (public CLI, version 2.1.234 as recorded in the run transcripts),
-model 	exttt{claude-opus-5} at maximum reasoning effort. The release makes the full
+model \texttt{claude-opus-5} at maximum reasoning effort. That model string is
+complete: the Claude~5 family publishes no dated snapshot variants, and the provider's
+response metadata across our run records names the same identifier for every call. No
+sampling parameter is set anywhere in the pipeline; temperature, top-$p$ and all other
+decoding controls remain at provider defaults, so jury decoding is nondeterministic.
+Each sitting of four documents runs in a fresh context with no memory of any other
+sitting, two to four sittings in parallel; the framework-free API runner used for
+replication pins \texttt{max\_tokens} to 32{,}000 with a 30{,}000-token thinking
+budget. The release makes the full
 pipeline repeatable at two levels: every reported number re-derives from released
 artifacts alone (exact draft rows, all 1{,}048 doctrine verdicts and all 1{,}048
 zero-shot verdicts, the doctrines, and a strict scorer; the packet builder reproduces
@@ -381,12 +402,18 @@ paths and no gold label vector in any agent context. The agent platform may inje
 brief session notes into agent context; audits show the only such note that ever
 appeared named the existence of a training curriculum and carried no corpus content,
 labels, conventions, or results.
-\paragraph{Jury prompts.} The two prompts below are the exact texts run for the NoPnx-PA
-juries, with local file paths and the per-jury document lists replaced by placeholders
-in angle brackets. All prompts are in English while the documents, the juries' quoted
-evidence and parts of the doctrines are in Arabic; we did not experiment with
-Arabic-language prompts. The zero-shot adjudication prompt differs from the one below only in the
-context-file paragraph and is released with the code.
+\paragraph{Jury prompts: the complete record.} Every prompt that ever touched a shipped
+doctrine or a reported number is released verbatim: the 35 launcher scripts of record
+(training, evaluation, the competition-day blind exam, the zero-shot control, the
+variance rerun and the integrity audits) in \texttt{jury/prompts/raw/} with an index,
+five cleaned templates in \texttt{jury/prompts/}, and the one-paste replication
+orchestrator. The boxes below reproduce the texts in full; local file paths and
+per-jury document lists are replaced by placeholders in angle brackets, and successive
+launchers of one stage (initial run, resume, finish) rephrase connective wording
+without changing any rule; every such variant is in the release. All prompts are in
+English while the documents, the juries' quoted evidence and parts of the doctrines
+are in Arabic; we did not experiment with Arabic-language prompts. The first two boxes
+are the NoPnx-PA pair's texts.
 \subparagraph{Training prompt (one per jury, $j \in \{0, 1\}$).}
 \begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
 \scriptsize\ttfamily\raggedright
@@ -466,6 +493,188 @@ Touch NOTHING beyond the two doctrine files, your listed documents, and your own
 files, answer keys for this corpus exist elsewhere in this repository and opening
 anything else voids the evaluation.
 \end{tcolorbox}
+\subparagraph{Per-track format laws (adjudication).} The sitting body above is shared
+by all four tracks; only the FORMAT clause, the matching never-clause inside step 4,
+and the doctrine paths change. The four clauses, verbatim from the launchers that
+produced the counted verdicts:
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize\ttfamily\raggedright
+NoPnx-NP: Punctuation REMOVED and paragraph marks REMOVED, plain words only. The final
+token of a document always ends a sentence. <i> means the next token is token number i
+(an index anchor, not part of the text). [never-clause: Never remove the \P{} on the
+final token.]\[3pt]
+NoPnx-PA: Punctuation REMOVED; paragraph structure KEPT as literal <NL> tokens (each
+<NL> has its own index). The \P{} on the token immediately before every <NL> and on the
+final token is ALWAYS correct and must never be removed; an <NL> token itself NEVER
+carries a boundary. Everything inside paragraphs is yours to judge. <i> = index anchor,
+not part of the text. [never-clause: Never add or remove on an <NL> token; never remove
+a \P{} that sits immediately before an <NL> or on the final token.]\[3pt]
+Pnx-NP: Punctuation KEPT. Punctuation marks are ordinary tokens with their own indices,
+and a sentence usually ends ON its punctuation mark when one is present. There are NO
+<NL> tokens in this track. The final token always ends a sentence. <i> is an index
+anchor marking that the next token is token number i; it is not part of the text.
+[never-clause: Never remove the \P{} on the final token.]\[3pt]
+Pnx-PA: Punctuation KEPT (marks are ordinary tokens, and a sentence usually ends ON its
+mark) AND paragraph structure KEPT as literal <NL> tokens. The \P{} on the token
+immediately before every <NL>, and on the final token, is ALWAYS correct and must never
+be removed; an <NL> token itself NEVER carries a boundary. <i> = index anchor, not part
+of the text. [never-clause: Never add or remove on an <NL> token; never remove a \P{}
+that sits immediately before an <NL> or on the final token.]
+\end{tcolorbox}
+\subparagraph{Zero-shot sitting prompt.} The control arm's full text; it is identical
+across the four tracks up to the same per-track format clause, there is no doctrine
+step, and verdicts write to a separate directory:
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize\ttfamily\raggedright
+This is exam sitting <n> of <total>. Two juries sit together: Jury 0 and Jury 1.
+Neither has been trained on this corpus and neither holds any written policy or
+examples from it; each reasons only from its own knowledge of Arabic and from the text
+in front of it. You hold both: when Jury 0 speaks, reason as Jury 0; when Jury 1
+speaks, reason independently as Jury 1. They are colleagues who reach their own
+readings, not one voice twice.\
+FORMAT: <the track's format clause, character-identical to the doctrine run's>\
+YOUR 4 DOCUMENTS, one file each, STRICTLY ONE AT A TIME (finish and record one before
+opening the next): <four packet paths>\
+Each document arrives with an automatic system's boundary marks (\P) already drawn in.
+Treat them as an UNRELIABLE CHEAT SHEET: allowed to consult, never to trust, it makes
+both kinds of errors. A document whose marks already satisfy its law is FINISHED;
+unchanged is a common and correct verdict.\
+PER DOCUMENT, no limit on your reasoning depth:\
+1. Jury 0 gives its full stance, what the text is, which register it belongs to, its
+sentence law, and every place the draft marks are wrong, argued from the text.\
+2. Jury 1 gives its own independent stance, site by site.\
+3. They ARGUE every disagreement. Concede when the colleague's reading is better
+supported by the text; rebut precisely when it is not.\
+4. RECORD: only changes BOTH juries endorse survive. Unresolved means the draft stands.
+Write \{"doc\_id":"...",\allowbreak "add":[\{"i":<index>,\allowbreak "w":"<token>"\}],\allowbreak
+"remove":[\{"i":<index>,\allowbreak "w":"<token>"\}],\allowbreak "argued":"<one line per argued
+site>"\} to <exam\_out\_zeroshot>/<doc\_id>.json IMMEDIATELY on finishing that document.
+add = token positions that end a sentence but carry no \P; remove = positions carrying
+\P{} that do not end a sentence; copy w from the text at the moment you decide. <the
+track's never-clause>\
+RESUME: if <exam\_out\_zeroshot>/<doc\_id>.json already exists, skip that document.\
+When all are recorded return \{"done": <count>, "note": ""\}. No web, no PowerShell.
+Touch NOTHING beyond your listed documents and your own output files, answer keys for
+this corpus exist elsewhere in this repository and opening anything else voids the
+evaluation.
+\end{tcolorbox}
+\subparagraph{Training prompt, NoPnx-NP pair.} The curated-curriculum trainer (each
+jury: batches of five, graded after every batch); it differs from the NoPnx-PA rolling
+trainer above in the format clause, the grader command and the curriculum:
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize\ttfamily\raggedright
+You are Jury <j>, a brand-new Arabic sentence-segmentation judge. You start with zero
+knowledge of this corpus's conventions, everything you will ever know comes from your
+own graded attempts on TRAINING documents. Work in <repo>.\\
+The ONLY files you may touch: the practice documents listed below, your own answer
+files, the grader's mistakes file named below, and your own doctrine file
+<doctrine\_j>.md. Touching ANY other file voids the training, answer keys exist
+elsewhere in this repository.\\
+FORMAT: Punctuation REMOVED and paragraph marks REMOVED, plain words only. The final
+token of a document always ends a sentence. <i> means the next token is token number i
+(an index anchor, not part of the text).\\
+YOUR DOCUMENTS, in batches of five, in this order: <the jury's curated document ids, in
+curriculum order>\\
+PER BATCH:\\
+1. SEGMENT strictly one document at a time from <train\_docs>/<doc\_id>.json. No limit
+on your reasoning, first work out what the text IS (genre, register, structure) and
+what its natural sentence unit is, then walk it and argue every uncertain site in
+writing. Write your answer to <ans\_j>/<doc\_id>.json as \{"doc\_id":"...","identity":
+"what this text is","law":"its sentence law as you read it","reasoning":"your argument
+at the hard sites","boundaries":[\{"i":<index of the LAST token of a sentence>,"w":
+"<that token copied from the text>","c":"hi|med|lo"\}]\} the moment it is done, before
+opening the next document.\\
+2. GRADE: run python grade3.py --track nonp --juror <j> --only <the five ids
+comma-separated> and read <mistakes\_j>.txt in full.\\
+3. LEARN: for every FALSE CUT and every MISSED, find the RULE behind it, what do these
+annotators actually do, and write it into your doctrine file in your own words, filed
+by text type, with your own error as the example. When a new correction contradicts an
+earlier entry, fix the earlier entry and say so. The doctrine is cumulative, never
+delete knowledge.\\
+4. Take your updated doctrine into the next batch.\\
+If you hit a usage limit or crash, everything is already saved; on restart, skip
+documents whose answer file exists. When all four batches are graded and absorbed,
+return your per-batch mean F1 and 4 sentences on your doctrine's core laws. No web. No
+PowerShell except the grader command given above.
+\end{tcolorbox}
+\subparagraph{Training prompts, shared punctuated pair.} The pair that adjudicates
+both punctuated tracks trained in two phases. Phase one is a per-document
+attempt-from-scratch pass over the full de-punctuated training corpus, one prompt per
+document per jury, graded in batches with the record consolidated after grading:
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize\ttfamily\raggedright
+You are Juror <j>. You are learning to segment Arabic text the way a specific team of
+annotators does, by being corrected against their answer keys. This is batch <n> of
+<total>, and this is ONE document from that batch.\\
+FIRST: read <lessons\_j>.md, your own accumulated record of every correction you have
+absorbed so far, from every document you have already been graded on. Hold it in front
+of you while you read this document and apply it. If a rule in your record is
+contradicted by the evidence in this document, follow the evidence and say so in your
+reasoning.\\
+YOUR DOCUMENT, read this one file, once, and nothing else: <doc path>\\
+One structural fact you may rely on: the final word of a document always ends a
+sentence. Everything else is your judgment, informed by your record.\\
+Think as long and as hard as this document deserves, there is no limit on your
+reasoning and depth is the entire point. A thin answer is the failure mode; there is no
+such thing as too much thinking here. Work out:\\
+1. RECOGNIZE, what IS this text? Name it precisely ("identity").\\
+2. DERIVE ITS LAW, what is the natural sentence unit of THIS document? ("law")\\
+3. REASON IN WRITING ("reasoning"), the evidence for your identification; the law and
+WHY, quoting short phrases from the document as evidence; which rules from your record
+you applied and where; and at every uncertain site the argument in full: the reading
+you chose, the reading you rejected, and why these annotators would agree with you.
+Where a passage is genuinely hard, re-read it and say what changed on the second
+reading.\\
+4. DRAW, the complete boundary list: every sentence-final word as \{i, w, c, why\},
+copying w from the text at the moment you decide. hi = would bet on it; med =
+uncertain; lo = lean against but flagging.\\
+Markup: <i> = next word is number i; boundary = index of the LAST word of a sentence.\\
+OUTPUT: Write your complete answer as one JSON object to <ans\_j>/<doc\_id>.json with
+exactly the keys doc\_id, identity, law, reasoning, boundaries, then return the same
+object as the structured result. If this document is very long, work it in sections
+across several responses, extending its answer file as you go; never try to emit a
+long document in one response.\\
+Do NOT write to the lessons file, you are one of many readers working this batch at the
+same time, and the record is written once, after all of you are graded together.\\
+No other files (answer keys exist elsewhere in this repo, touching anything beyond your
+one document and your one answer file voids your training), no web.
+\end{tcolorbox}
+Phase two carried the pair into the punctuated, paragraph-aware format. The bridge law,
+verbatim from the competition-day blind-exam prompt (released in full), which also
+served in the graded punctuated rounds:
+\begin{tcolorbox}[colback=white, boxrule=0.4pt, left=3pt, right=3pt, top=3pt, bottom=3pt]
+\scriptsize\ttfamily\raggedright
+TRACK NOTE, for both jurors: you trained on the DE-PUNCTUATED form of this corpus. This
+track keeps the original punctuation and paragraph structure. Everything you learned
+about the annotators' units, canonical-unit sources, grids and printed layouts, prose
+registers and their densities, applies unchanged; but here the punctuation is REAL
+EVIDENCE (a period, question mark, or the Arabic question mark you see is the source
+page's own mark), and paragraph breaks appear as <NL> tokens. Two format laws of this
+track: (1) a \P{} immediately before an <NL>, and the \P{} on the final word, are
+paragraph ends, ALWAYS correct, never remove them, and never needed elsewhere; (2) an
+<NL> token itself never carries a boundary. Everything inside paragraphs is yours to
+judge.
+\end{tcolorbox}
+\subparagraph{Provenance.} Which released artifacts produced which reported numbers:
+\begin{center}
+\scriptsize
+\begin{tabular}{llll}
+\toprule
+Track & Jury pair (released) & Trained by (raw scripts) & Adjudicated by \\
+\midrule
+NoPnx-NP & \texttt{doctrines/NoPnx-NP} & \texttt{train\_nonp\_retrain3*} & \texttt{exam\_doctrine\_nonp*} \\
+NoPnx-PA & \texttt{doctrines/NoPnx-PA} & \texttt{train\_nopa\_retrain4*} & \texttt{exam\_doctrine\_nopa*} \\
+Pnx-NP & \texttt{doctrines/Pnx-NP-PA} & \texttt{train\_pnx\_01..10*} & \texttt{exam\_doctrine\_np\_shipped*} \\
+Pnx-PA & \texttt{doctrines/Pnx-NP-PA} & \texttt{train\_pnx\_01..10*} & \texttt{exam\_doctrine\_pa\_resume} \\
+\bottomrule
+\end{tabular}
+\end{center}
+A superseded Pnx-NP evaluation that had mistakenly used a different retrained pair is
+released as \texttt{exam\_doctrine\_chain\_superseded\_np*}; its verdict directory is
+kept on disk under a \texttt{\_void} name and feeds no reported number. The zero-shot
+launchers are \texttt{exam\_zeroshot\_*}, the variance rerun is
+\texttt{exam\_rerun\_variance\_nonp}, and the file-access audit prompts are
+\texttt{audit\_*}.
 \section{Error analysis}
 \label{sec:erroranalysis}
 All numbers in this section are recomputed from the cached voter probabilities and the
