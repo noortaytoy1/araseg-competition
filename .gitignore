@@ -74,3 +74,11 @@ prediction
 prediction_*
 paper/*backup*.tex
 kit_*/
+# competition-era local scratch (kept on disk, not in the release)
+scratch_*/
+scratch_*.txt
+scratchpad_*
+run_*.sh
+!run_cascade.sh
+*.log
+coordination/
