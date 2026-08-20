@@ -1,0 +1,36 @@
+You are running a jury adjudication exam in this folder. Everything you need is here; do exactly this and nothing else.
+
+FOLDER LAYOUT (verify first): doctrines/doctrine_j0.md and doctrines/doctrine_j1.md (READ-ONLY), docs/<doc_id>.json packets, manifest.json ({"track": ..., "docs": [...], "sittings": [[4 ids], ...]}), out/ for verdicts.
+
+YOUR JOB: for every sitting in manifest.json whose 4 documents do not all have a verdict file in out/, run one exam sitting as a subagent (your Task/Agent tool), up to 4 sittings in parallel, model Opus at MAXIMUM reasoning effort, until out/ holds one JSON per document. If any sitting dies, relaunch it; verdicts bank per document, so nothing is ever lost. Do not read the packets or doctrines yourself; do not summarize them; only orchestrate.
+
+THE SITTING PROMPT (give it to each subagent VERBATIM, filling <n>, <total>, the four packet paths, and the absolute doctrine/out paths):
+
+---BEGIN SITTING PROMPT---
+This is exam sitting <n> of <total>. Two TRAINED juries sit together: Jury 0 and Jury 1. Each trained separately on this annotation team's training documents and wrote its own doctrine from its own graded mistakes. You hold both: when Jury 0 speaks, reason strictly from doctrine 0; when Jury 1 speaks, strictly from doctrine 1. They are colleagues with different training histories, not one voice twice.
+
+FIRST read both doctrines ONCE:
+  Jury 0: <abs path>/doctrines/doctrine_j0.md
+  Jury 1: <abs path>/doctrines/doctrine_j1.md
+
+FORMAT: Punctuation REMOVED and paragraph marks REMOVED, plain words only. The final token of a document always ends a sentence. ⟨i⟩ means the next token is token number i (an index anchor, not part of the text).
+
+YOUR 4 DOCUMENTS, one file each, STRICTLY ONE AT A TIME (finish and record one before opening the next):
+1. <abs path>/docs/<doc_id_1>.json
+2. <abs path>/docs/<doc_id_2>.json
+3. <abs path>/docs/<doc_id_3>.json
+4. <abs path>/docs/<doc_id_4>.json
+
+Each document arrives with an automatic system's boundary marks (¶) already drawn in. Treat them as an UNRELIABLE CHEAT SHEET: allowed to consult, never to trust, it makes both kinds of errors. A document whose marks already satisfy its law is FINISHED; unchanged is a common and correct verdict.
+
+PER DOCUMENT, no limit on your reasoning depth:
+1. Jury 0 gives its full stance from doctrine 0, what the text is, which register it belongs to, its sentence law, and every place the draft marks are wrong, argued from the text.
+2. Jury 1 gives its own independent stance from doctrine 1, site by site.
+3. They ARGUE every disagreement. Concede when the colleague's reading matches the annotators' policy better; rebut precisely when it does not. Where a doctrine carries a law earned from a graded mistake in THIS register, that law outranks instinct.
+4. RECORD: only changes BOTH juries endorse survive. Unresolved means the draft stands. Write {"doc_id":"...","add":[{"i":<index>,"w":"<token>"}],"remove":[{"i":<index>,"w":"<token>"}],"argued":"<one line per argued site>"} to <abs path>/out/<doc_id>.json IMMEDIATELY on finishing that document. add = token positions that end a sentence but carry no ¶; remove = positions carrying ¶ that do not end a sentence; copy w from the text at the moment you decide. Never remove the ¶ on the final token.
+
+RESUME: if <abs path>/out/<doc_id>.json already exists, skip that document.
+When all are recorded return {"done": <count>, "note": ""}. No web, no PowerShell. Touch NOTHING beyond the two doctrine files, your listed documents, and your own output files, answer keys for this corpus exist elsewhere and opening anything else voids the evaluation.
+---END SITTING PROMPT---
+
+WHEN out/ IS COMPLETE: report the file count and stop. Do not score anything; scoring happens on the original machine.
