@@ -1,4 +1,22 @@
-# Replicating the jury stage
+# Replicating ENSAR end to end
+
+The full pipeline is driven by the repository Makefile:
+
+    make data        # fetch the public AraSeg corpus (four tracks)
+    make voters      # fine-tune the five encoder voters (GPU; ~4 min/voter/track on an RTX 5090)
+    make probs       # cache per-voter probabilities
+    make packets TRACK=NoPnx-NP    # build the sealed jury packets from public text
+                                   # + the RELEASED exact draft rows (byte-identical
+                                   # to the paper's; verified by build_packets.py)
+    make jury  TRACK=NoPnx-NP      # prints the two ways to run the jury stage (below)
+    make score TRACK=NoPnx-NP      # strict-scores kit verdicts against public test gold
+
+`make voters`/`make probs` reproduce the encoder METHOD from scratch; to reproduce the
+paper's NUMBERS exactly, skip them and use the released draft rows (the default for
+`make packets`). The scorer on the paper's own verdicts reproduces 84.64 -> 89.49 on
+NoPnx-NP exactly.
+
+## The jury stage itself
 
 The jury stage was executed with **Claude Code** (Anthropic's agent CLI; public product), version 2.1.234,
 model `claude-opus-5` at **maximum reasoning effort**, provider-default sampling. Replicating as-performed
