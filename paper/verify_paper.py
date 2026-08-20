@@ -162,8 +162,8 @@ def score(track):
 claims = {
     "NoPnx-NP": dict(ens=84.64, jur=89.49, delta=4.85, micro=86.23, up=186, dn=28, same=48,
                      adds=923, rms=417, ci=(3.63, 6.08), ratio=6.6, pmax=1e-12, bestmin=65),
-    "NoPnx-PA": dict(ens=87.05, jur=92.28, delta=5.23, micro=89.30, up=164, dn=35, same=63,
-                     adds=554, rms=702, ci=(3.87, 6.59), ratio=4.7, pmax=1e-12, bestmin=65),
+    "NoPnx-PA": dict(ens=87.05, jur=92.59, delta=5.54, micro=89.30, up=166, dn=35, same=61,
+                     adds=547, rms=722, ci=(4.09, 6.99), ratio=4.7, pmax=1e-12, bestmin=65),
     "NP":       dict(ens=92.83, jur=93.61, delta=0.77, micro=93.76, up=80, dn=38, same=144,
                      adds=192, rms=203, ci=(0.38, 1.17), ratio=2.1, pmax=1e-3, bestmin=25),
     "PA":       dict(ens=94.56, jur=94.92, delta=0.36, micro=95.76, up=58, dn=44, same=160,
@@ -195,7 +195,7 @@ for track, c in claims.items():
 check("prose: NP total edits 395", 395, edit_totals["NP"])
 check("prose: PA total edits 254", 254, edit_totals["PA"])
 check("prose: NoPnx-NP total edits 1340", 1340, edit_totals["NoPnx-NP"])
-check("prose: NoPnx-PA total edits 1256", 1256, edit_totals["NoPnx-PA"])
+check("prose: NoPnx-PA total edits 1269", 1269, edit_totals["NoPnx-PA"])
 
 # ---------------------------------------------------------------- 5b. intro error analysis
 print("\n=== 5b. Intro error analysis (NoPnx-NP dev, threshold 0.5) ===")
@@ -477,7 +477,7 @@ note("tex states 32,000 / 30,000", "32{,}000" in tex9 and "30{,}000" in tex9)
 note("tex names claude-opus-5 + max effort", "claude-opus-5" in tex9 and "maximum reasoning effort" in tex9)
 # the raw prompt release
 _raw = sorted(f for f in os.listdir("jury/prompts/raw") if f.endswith(".js"))
-check("raw launcher scripts released", 35, len(_raw))
+check("raw launcher scripts released", 36, len(_raw))
 note("raw INDEX.md present", os.path.exists("jury/prompts/raw/INDEX.md"))
 _texflat = " ".join(tex9.split())
 def _both(label, frag, rawfile):

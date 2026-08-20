@@ -156,7 +156,7 @@ differ, rules earned from graded errors in the register outranking unsupported
 intuition. Only edits both juries endorse
 apply; unresolved disagreements leave the draft, and an unchanged document is
 admissible. Application is strict, an edit landing only
-where the stated index holds exactly the stated token (met by 3{,}245 of 3{,}245
+where the stated index holds exactly the stated token (met by 3{,}258 of 3{,}258
 evaluation edits), and all reported $F_1$ comes from the organizers' script. Training and inference deliberately differ: the jury trains from scratch, since one
 that only corrected drafts could learn to defer to them, and the learned statement of
 where sentences end applies to writing and judging alike; Table~\ref{tab:ablation}
@@ -216,18 +216,18 @@ affects the sign or significance of the differences.
 \midrule
 Ensemble                     & 84.64 & 87.05 & 92.83 & 94.56 \\
 + juries, zero-shot          & 87.59 & 88.71 & 91.42 & 92.18 \\
-+ juries, doctrine           & \textbf{89.49} & \textbf{92.28} & \textbf{93.61} & \textbf{94.92} \\
-$\Delta$ doc.$-$ens.   & +4.85 & +5.23 & +0.77 & +0.36 \\
++ juries, doctrine           & \textbf{89.49} & \textbf{92.59} & \textbf{93.61} & \textbf{94.92} \\
+$\Delta$ doc.$-$ens.   & +4.85 & +5.54 & +0.77 & +0.36 \\
 $\Delta$ 0-shot$-$ens.  & +2.96 & +1.66 & $-$1.42 & $-$2.38 \\
-$\Delta$ doc.$-$0-shot  & +1.89 & +3.57 & +2.19 & +2.73 \\
+$\Delta$ doc.$-$0-shot  & +1.89 & +3.88 & +2.19 & +2.73 \\
 \midrule
-Docs $+/-/=$ (doc.)   & 186/28/48 & 164/35/63 & 80/38/144 & 58/44/160 \\
-Bounds $+/-$ (doc.)   & 923/417 & 554/702 & 192/203 & 141/113 \\
+Docs $+/-/=$ (doc.)   & 186/28/48 & 166/35/61 & 80/38/144 & 58/44/160 \\
+Bounds $+/-$ (doc.)   & 923/417 & 547/722 & 192/203 & 141/113 \\
 \midrule
-Paired $t$, $p$ (doc.$-$ens.) & $1.5{\times}10^{-13}$ & $6.1{\times}10^{-13}$ & $1.4{\times}10^{-4}$ & $.024$ \\
-95\% CI (doc.$-$ens.)         & [3.6, 6.1] & [3.9, 6.6] & [0.4, 1.2] & [.05, .67] \\
-Paired $t$, $p$ (doc.$-$0-shot) & $9.5{\times}10^{-4}$ & $3.1{\times}10^{-7}$ & $2.3{\times}10^{-6}$ & $8.3{\times}10^{-8}$ \\
-Wilcoxon, $p$ (doc.$-$0-shot)   & $1.1{\times}10^{-2}$ & $1.1{\times}10^{-3}$ & $2.7{\times}10^{-6}$ & $1.0{\times}10^{-8}$ \\
+Paired $t$, $p$ (doc.$-$ens.) & $1.5{\times}10^{-13}$ & $8.2{\times}10^{-13}$ & $1.4{\times}10^{-4}$ & $.024$ \\
+95\% CI (doc.$-$ens.)         & [3.6, 6.1] & [4.1, 7.0] & [0.4, 1.2] & [.05, .67] \\
+Paired $t$, $p$ (doc.$-$0-shot) & $9.5{\times}10^{-4}$ & $2.4{\times}10^{-7}$ & $2.3{\times}10^{-6}$ & $8.3{\times}10^{-8}$ \\
+Wilcoxon, $p$ (doc.$-$0-shot)   & $1.1{\times}10^{-2}$ & $7.0{\times}10^{-4}$ & $2.7{\times}10^{-6}$ & $1.0{\times}10^{-8}$ \\
 \bottomrule
 \end{tabular}%
 }
@@ -242,13 +242,13 @@ is a post-deadline retrain.}
 \label{sec:analysis}
 \paragraph{A policy, not a threshold.}
 The most diagnostic numbers in Table~\ref{tab:ablation} are the edit directions:
-NoPnx-NP adds 923 boundaries and removes 417; NoPnx-PA adds 554 and removes 702. The ensemble under-segments when punctuation and paragraph structure are
+NoPnx-NP adds 923 boundaries and removes 417; NoPnx-PA adds 547 and removes 722. The ensemble under-segments when punctuation and paragraph structure are
 both absent and over-segments when paragraph tokens are present, and the juries
 correct each; no threshold, temperature, or decoding penalty yields opposite
 corrections from one system, so the layer conditions on what the document is, a
 policy rather than a confidence adjustment.
 On the punctuated tracks the doctrine juries make a fraction of the edits (395 and
-254 against 1{,}340 and 1{,}256), leave more than half of documents untouched (144
+254 against 1{,}340 and 1{,}269), leave more than half of documents untouched (144
 and 160 of 262), and the gain falls to under one point, still positive: the policy
 substitutes for missing punctuation rather than duplicating it. Degradations concentrate where both juries shared a reading the
 annotators did not: unanimity filters disagreement, not shared error, which bounds
@@ -256,7 +256,7 @@ what this design can fix.
 \paragraph{Scaffolding versus policy.} The zero-shot arm decomposes the doctrine
 gain: on NoPnx-NP, +2.96 of the +4.85 is the model-and-debate scaffolding alone, the
 remaining +1.89 the learned policy, whose margin over zero-shot is positive on all
-four tracks (+1.89 to +3.57).
+four tracks (+1.89 to +3.88).
 On the punctuated tracks zero-shot is actively harmful ($-$1.42 NP, $-$2.38 PA), and
 the edit counts show why: 780 and 760 edits against the doctrine's 395 and 254 on
 already-strong drafts. The learned policy teaches restraint as much as action; the arm

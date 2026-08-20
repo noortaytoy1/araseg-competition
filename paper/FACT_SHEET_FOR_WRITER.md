@@ -76,7 +76,7 @@ Per batch of FIVE training documents:
 - Each jury argues from its own doctrine; a rule earned from a graded error in this register outranks
   unsupported intuition; only unanimous edits apply; unresolved -> draft stands; "unchanged" is admissible.
 - STRICT application: an edit applies only if the stated index holds exactly the stated token.
-  3,245 of 3,245 evaluation edits met this (zero snapped, zero rejected). All F1 from the organizers' script.
+  3,258 of 3,258 evaluation edits met this (zero snapped, zero rejected). All F1 from the organizers' script.
 - Train-from-scratch vs edit-at-inference asymmetry is deliberate: a jury that only ever corrected drafts
   could learn to defer to them; the learned object (where sentences end in each kind of text) applies to
   writing and judging alike; transfer is empirical (Table 1 shows it transfers).
@@ -107,11 +107,11 @@ Macro F1, n=262 per track, released test split, organizers' script, strict exact
 | track    | ensemble | + doctrine juries | delta | docs +/-/= | bounds +/- | paired t p | 95% CI     |
 |----------|----------|-------------------|-------|------------|------------|------------|------------|
 | NoPnx-NP | 84.64    | 89.49             | +4.85 | 186/28/48  | 923/417    | 1.5e-13    | [3.6, 6.1] |
-| NoPnx-PA | 87.05    | 92.28             | +5.23 | 164/35/63  | 554/702    | 6.1e-13    | [3.9, 6.6] |
+| NoPnx-PA | 87.05    | 92.59             | +5.54 | 166/35/61  | 547/722    | 8.2e-13    | [4.1, 7.0] |
 | NP       | 92.83    | 93.61             | +0.77 | 80/38/144  | 192/203    | 1.4e-04    | [0.4, 1.2] |
 | PA       | 94.56    | 94.92             | +0.36 | 58/44/160  | 141/113    | 0.024      | [.05, .67] |
 
-Average delta = +2.80. Total edits: 1,340 / 1,256 / 395 / 254.
+Average delta = +2.88. Total edits: 1,340 / 1,269 / 395 / 254.
 Caveats to state: NoPnx-PA doctrine row = juries retrained on the full 174 after the deadline (the
 submitted pair had 60/174); the ablation baseline = a thresholded average, ~0.5 below the submitted
 length-aware decode on the NoPnx tracks; neither affects sign or significance.
@@ -152,7 +152,7 @@ concentrate in long docs). The paper reports macro = the official metric.
   ALL FOUR TRACKS DONE (strict scoring, n=262 each):
     | track    | ensemble | zero-shot        | doctrine | doctrine-zeroshot (paired t / Wilcoxon) |
     | NoPnx-NP | 84.64    | 87.59 (+2.96)    | 89.49    | +1.89 (p=9.5e-04 / 1.1e-02) |
-    | NoPnx-PA | 87.05    | 88.71 (+1.66)    | 92.28    | +3.57 (p=3.1e-07 / 1.1e-03) |
+    | NoPnx-PA | 87.05    | 88.71 (+1.66)    | 92.59    | +3.88 (p=2.4e-07 / 7.0e-04) |
     | NP       | 92.83    | 91.42 (-1.42)    | 93.61    | +2.19 (p=2.3e-06 / 2.7e-06) |
     | PA       | 94.56    | 92.18 (-2.38)    | 94.92    | +2.73 (p=8.3e-08 / 1.0e-08) |
   Zero-shot edits: 1104/867/780/760 (all exact, 0 rejected). HEADLINE: zero-shot juries HURT the two
@@ -208,11 +208,11 @@ concentrate in long docs). The paper reports macro = the official metric.
   and batch 13 on written rules (Appendix C).
 
 ## J. Edit-direction analysis (6.3) — exact
-- NoPnx-NP: +923 added / -417 removed. NoPnx-PA: +554 / -702. The ensemble under-segments with nothing and
+- NoPnx-NP: +923 added / -417 removed. NoPnx-PA: +547 / -722. The ensemble under-segments with nothing and
   over-segments with paragraph tokens; the juries correct each. No threshold/temperature/penalty change
   produces opposite corrections on two tracks from one system -> the layer conditions on what the document
   is.
-- Punctuated tracks: 395 (NP) / 254 (PA) edits vs 1,340 / 1,256; more than half of docs untouched
+- Punctuated tracks: 395 (NP) / 254 (PA) edits vs 1,340 / 1,269; more than half of docs untouched
   (144/262, 160/262); gain ~5 -> <1. The policy substitutes for missing punctuation rather than
   duplicating it.
 - Failure mode: degradations concentrate where BOTH juries shared a wrong reading; unanimity filters
@@ -284,7 +284,7 @@ attempts, verdicts, ablation results, scorer; paper/ = tex + verifier). No data,
 ## Q. Things that must NOT be in the paper
 - "first on all four"; any number not in this sheet; the word "significantly" without its test;
   "collapses" for Read 2012; any claim that zero-shot is weak or strong before Exp 1 exists; haiku anywhere
-  (there is none); any ±2 tolerance language for the evaluation (it was strict: 3,245/3,245 exact).
+  (there is none); any ±2 tolerance language for the evaluation (it was strict: 3,258/3,258 exact).
 
 
 ## R. Adjudication traces (Noor's request: show the juries solving a document step by step)
@@ -409,3 +409,14 @@ proposed, endorsed by two laws, rejected against a third, relocated one token, a
 Note for the writer: these are internal reasoning, so label them as such and keep the RECORDED arguments
 of section R as the primary exhibit; the raw excerpts corroborate that the recorded arguments reflect the
 actual process rather than post-hoc summaries.
+
+## T. NoPnx-PA provenance repair (2026-08-20)
+26 of 262 NoPnx-PA released-test verdicts had been written on Aug 5 by launchers pointing at the
+pre-retrain (retrain3) pair, before the final retrain4 doctrines existed; the Aug 9-10 exam's RESUME
+clause kept them. Those 26 were voided (exam_out_void_retrain3pair/) and re-adjudicated with the
+released retrain4 pair (launcher released: exam_doctrine_nopa_redo26.js). Corrected row:
+87.05 -> 92.59, delta +5.54 (was 92.28/+5.23); docs 166/35/61; bounds +547/-722; edits 1,269
+(0 rejected); t p=8.2e-13, CI [4.1, 7.0]; doc-0shot +3.88 (t 2.4e-07, Wilcoxon 7.0e-04).
+Grand strict-edit total across tracks: 3,258/3,258 exact. All other tracks verified clean
+(hash + timestamp + script-path evidence). Under the old pair the 26 docs scored +4.27; under the
+released pair the full-262 delta ROSE. Every number above is enforced by verify_paper.py (200 checks).
