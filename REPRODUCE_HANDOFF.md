@@ -12,7 +12,7 @@ Report results as a table: check | expected | got | PASS/FAIL.
 
 ## Step 1 — the full verifier (everything at once)
     python paper/verify_paper.py
-Expected: **229/224 checks PASSED**. This recomputes, from data: corpus statistics,
+Expected: **224/224 checks PASSED**. This recomputes, from data: corpus statistics,
 training hyperparameters (from code), the complete 2x2 ablation for all four tracks,
 error analysis, prompt-record integrity, jury training purity, and released==counted
 verdict identity. If ANY check fails, stop and report the exact FAIL lines.
