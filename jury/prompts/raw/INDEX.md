@@ -58,3 +58,8 @@ punctuated paragraph-aware rounds (the TRACK NOTE bridge law).
 | exam_zeroshot_all_tracks.js / _resume.js | zero-shot control, all four tracks (no doctrine step) |
 | exam_rerun_variance_nonp.js | 50-doc doctrine rerun (variance) + the killed gold-examples arm's chain (that arm reported nothing) |
 | audit_compliance.js / audit_nonp_purity.js / audit_pnxpa_purity.js | file-access & purity audit prompts |
+
+## Deadline-morning brief (the submission-day orchestrator)
+| file | role |
+|---|---|
+| deadline_morning_brief.md | the verbatim Aug-4 pipeline brief (three clean-room tracks, sealed probes, ship gates). CORRECTION OF RECORD: its clause "census-balanced from TRAIN metadata only" is inaccurate — genre labels came from train metadata, but the census targets came from a classification of the BLIND documents' input texts (no labels involved); see the paper's Limitations and CONTAMINATION_MAP.md §5. Its per-jury lists (19–20 docs) are the shipped curricula; the user's standing order that night was full-corpus training — the full-corpus launches died (see exam/train records above). |

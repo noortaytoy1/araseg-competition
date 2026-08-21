@@ -70,6 +70,9 @@ document into `out/` and resuming from `out/` if anything dies; or **(B) via the
 Decoding is non-deterministic: expect scores within ~0.5 F1 of the paper's (a second full 50-document
 run differed by 0.48; the jury gain is an order of magnitude larger). Details: `jury/REPLICATION.md`.
 
+The complete data-lineage and contamination audit is [CONTAMINATION_MAP.md](CONTAMINATION_MAP.md);
+an independent re-derivation script for a fresh session is [REPRODUCE_HANDOFF.md](REPRODUCE_HANDOFF.md).
+
 Every prompt of record is released verbatim: `jury/prompts/raw/` holds the 35 launcher
 scripts exactly as invoked (training, evaluation, the competition-day blind exam, the
 zero-shot control, the variance rerun, the integrity audits) with an `INDEX.md`;
