@@ -34,52 +34,84 @@ NP / PA).
 
 ## Reproducing the paper's numbers, from scratch
 
-Everything needed is in this repository plus the public corpus. Two levels of reproduction:
+The whole pipeline, in order. Step 5 is a single prompt you paste into Claude Code;
+it specifies the entire jury workflow (sittings of 4 documents, at most 4 concurrent
+agents, per-document banking, resume, exact completion report) — you brief nothing.
 
-**Level 1 — verify every number from released artifacts (no GPU, no LLM calls, minutes).**
-All jury verdicts, draft rows, doctrines and the scorer are released. From the repo root:
-
+**1. Clone and set up.**
 ```
+git clone https://github.com/noortaytoy1/araseg-competition.git
+cd araseg-competition
 pip install -r requirements.txt
-make data                       # fetch the public AraSeg corpus (four tracks)
-make packets TRACK=NoPnx-NP     # rebuild the sealed exam packets: byte-identical to the paper's
-python jury/score/score_kit.py --track NoPnx-NP --kit kit_NoPnx-NP     --gold data/NoPnx-NP_test.jsonl --draft jury/draft_rows/NoPnx-NP.json
 ```
 
-after copying the released verdicts `jury/verdicts_test/NoPnx-NP/*.json` into `kit_NoPnx-NP/out/`.
-Expected output, exactly: ensemble 84.64, + juries 89.49, delta +4.85, 1,340 edits applied, 0 rejected,
-186/28/48 improved/degraded/unchanged. Repeat with TRACK=NoPnx-PA (87.05 -> 92.28), NP (92.83 -> 93.61),
-PA (94.56 -> 94.92). `python paper/verify_paper.py` re-derives every number in the paper the same way.
-
-**Level 2 — re-run the pipeline yourself.**
-
+**2. Fetch the corpus.**
 ```
-make voters     # fine-tune the 5 encoders per track (GPU; ~4 min/voter/track on an RTX 5090)
-make probs      # cache per-voter probabilities
-make drafts     # notes on regenerating drafts (the exact paper drafts are released in jury/draft_rows/)
+make data
+```
+
+**3. Run the ensemble stage.** Two options:
+- *Exact reproduction (default):* the paper's exact draft rows are released in
+  `jury/draft_rows/<track>.json` — nothing to run.
+- *Retrain it yourself (GPU):* `make voters && make probs` (~4 min/voter/track on an
+  RTX 5090; exact base-checkpoint revisions are pinned in the paper's appendix and
+  `scripts/train_pnx_voters.sh`). `make drafts` explains why regenerated drafts can
+  differ slightly (dev-tuned threshold) — the released rows are the paper's.
+
+**4. Build the sealed exam kit for a track.**
+```
 make packets TRACK=NoPnx-NP
-make jury  TRACK=NoPnx-NP       # prints the two ways to run the jury stage:
 ```
+This writes `kit_NoPnx-NP/` containing `docs/` (packets: text + draft marks, byte-identical
+to the paper's, zero labels), `doctrines/` (that track's released jury pair), `manifest.json`
+(the sittings), and an empty `out/`. Tracks: NoPnx-NP, NoPnx-PA, NP, PA.
 
-The jury stage runs either **(A) inside Claude Code** (public CLI; zero further setup): open a terminal
-in `kit_NoPnx-NP/`, run `claude`, and paste the entire contents of `jury/orchestrator_prompt.txt` as one
-message — the session runs 66 sittings of 4 documents (one agent per sitting holding both juries, each
-arguing strictly from its own doctrine), Opus 5 at maximum reasoning effort, banking one verdict per
-document into `out/` and resuming from `out/` if anything dies; or **(B) via the API**:
-`pip install anthropic && python jury/run_exam.py kit_NoPnx-NP`. Then `make score TRACK=NoPnx-NP`.
-Decoding is non-deterministic: expect scores within ~0.5 F1 of the paper's (a second full 50-document
-run differed by 0.48; the jury gain is an order of magnitude larger). Details: `jury/REPLICATION.md`.
+**5. Run the juries — paste one prompt into Claude Code.**
+```
+cd kit_NoPnx-NP
+claude
+```
+Paste the ENTIRE contents of `jury/orchestrator_prompt.txt` as one message. It is
+self-contained for all four tracks (the kit's manifest tells it the track): the session
+works the manifest's sittings in order, 4 documents per sitting, one isolated Opus
+(claude-opus-5, maximum reasoning effort) agent per sitting holding both juries, at
+most 4 sittings at a time, banking every verdict to `out/` the moment its document
+finishes, relaunching a dead sitting once, and reporting exactly
+`COMPLETE: N of M verdicts in out/` (or `PARTIAL: ...` — paste the same prompt in a
+new session to resume; banked verdicts are never redone).
+Alternative without Claude Code: `pip install anthropic && python jury/run_exam.py kit_NoPnx-NP`.
+
+**6. Score.**
+```
+make score TRACK=NoPnx-NP
+```
+Jury decoding is non-deterministic (no sampling parameters are set): expect within
+~0.5 F1 of the paper (a second full 50-document run differed by 0.48; the jury gain
+is an order of magnitude larger).
+
+**Exact-number verification without any LLM calls (minutes):** copy the released
+verdicts `jury/verdicts_test/<track>/*.json` into `kit_<track>/out/` and run step 6.
+Expected, exactly:
+
+| track | ensemble | + juries | delta |
+|---|---|---|---|
+| NoPnx-NP | 84.64 | 89.49 | +4.85 |
+| NoPnx-PA | 87.05 | 92.59 | +5.54 |
+| NP | 92.83 | 93.61 | +0.77 |
+| PA | 94.56 | 94.92 | +0.36 |
+
+`python paper/verify_paper.py` re-derives every number in the paper the same way
+(224 checks). Details: `jury/REPLICATION.md`.
 
 The complete data-lineage and contamination audit is [CONTAMINATION_MAP.md](CONTAMINATION_MAP.md);
 an independent re-derivation script for a fresh session is [REPRODUCE_HANDOFF.md](REPRODUCE_HANDOFF.md).
 
-Every prompt of record is released verbatim: `jury/prompts/raw/` holds the 35 launcher
+Every prompt of record is released verbatim: `jury/prompts/raw/` holds the launcher
 scripts exactly as invoked (training, evaluation, the competition-day blind exam, the
 zero-shot control, the variance rerun, the integrity audits) with an `INDEX.md`;
 `jury/prompts/` holds cleaned path-parameterized templates. Model: `claude-opus-5`
 (no dated variant exists), maximum reasoning effort, no sampling parameters set.
-Voter stack: Python 3.13.3, PyTorch 2.11.0+cu128, Transformers 4.55.0; exact base-checkpoint
-revisions are pinned in the paper's appendix and the launch script is `scripts/train_pnx_voters.sh`.
+Voter stack: Python 3.13.3, PyTorch 2.11.0+cu128, Transformers 4.55.0.
 
 Everything below this section describes the encoder ensemble stage.
 

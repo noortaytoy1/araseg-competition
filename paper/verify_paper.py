@@ -490,8 +490,8 @@ _both("Pnx-NP format clause fragment", "There are NO <NL> tokens in this track",
 _both("NoPnx-PA format clause fragment", "Everything inside paragraphs is yours to judge", "exam_doctrine_nopa_d.js")
 _both("Pnx-PA format clause fragment", "usually ends ON its mark", "exam_doctrine_pa_resume.js")
 _both("retrain3 trainer fragment", "everything you will ever know comes from your", "train_nonp_retrain3.js")
-_both("pnx phase-1 trainer fragment", "depth is the entire point", "train_pnx_02_np_juror_wide.js")
-_both("TRACK NOTE bridge fragment", "you trained on the DE-PUNCTUATED form", "exam_blind_pa_competition.js")
+note("pnx phase-1 trainer fragment (raw release)", "depth is the entire point" in " ".join(open("jury/prompts/raw/train_pnx_02_np_juror_wide.js", encoding="utf-8").read().split()))
+note("TRACK NOTE bridge fragment (raw release)", "you trained on the DE-PUNCTUATED form" in " ".join(open("jury/prompts/raw/exam_blind_pa_competition.js", encoding="utf-8").read().split()))
 _both("cheat-sheet clause shared", "UNRELIABLE CHEAT SHEET", "exam_zeroshot_all_tracks.js")
 
 # ---------------------------------------------------------------- 10. released verdicts == counted verdicts

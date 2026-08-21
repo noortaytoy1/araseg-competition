@@ -1,27 +1,39 @@
-You are running a jury adjudication exam in this folder. Follow these instructions EXACTLY. Do nothing that is not written here.
+You are running a jury adjudication exam in this folder (a kit built by jury/build_packets.py). Follow these instructions EXACTLY. Do nothing that is not written here. This one prompt works for all four tracks; the kit tells you which track you are on.
 
 DEFINITIONS (exact):
-- "Packet" = one file docs/<doc_id>.json containing {"doc_id", "text"}. The text carries draft boundary marks (¶).
+- "Packet" = one file docs/<doc_id>.json containing {"doc_id", "text"}. The text carries draft boundary marks (¶) and index anchors ⟨i⟩.
 - "Verdict" = one file out/<doc_id>.json written by a sitting.
-- "Sitting" = ONE subagent working EXACTLY the 4 documents of one entry of manifest.json's "sittings" array (the final entry may hold fewer than 4).
+- "Sitting" = ONE subagent working EXACTLY the documents of one entry of manifest.json's "sittings" array (entries hold 4 documents; the final entry may hold fewer). Sittings are the batches of this exam: the work is the "sittings" array, processed entry by entry, nothing else.
 - "Subagent" = a task launched with your Agent tool (in some interfaces this is called the Task tool, or appears as a workflow of agents; any of these is acceptable PROVIDED each sitting is one isolated agent whose only context is the sitting prompt below).
 - Model for every sitting: Opus (the current Claude Opus model, identifier claude-opus-5), at MAXIMUM reasoning effort. Never any other model, never lower effort.
+- TRACK = the "track" field of manifest.json. It selects <FORMAT> and <NEVER> below. The doctrines are in this kit at doctrines/doctrine_j0.md and doctrines/doctrine_j1.md.
+
+FORMAT TABLE (substitute the TRACK's paragraph for <FORMAT> in the sitting prompt):
+- NoPnx-NP: Punctuation REMOVED and paragraph marks REMOVED, plain words only. The final token of a document always ends a sentence. ⟨i⟩ means the next token is token number i (an index anchor, not part of the text).
+- NoPnx-PA: Punctuation REMOVED; paragraph structure KEPT as literal <NL> tokens, each with its own index. The ¶ on the token immediately before every <NL>, and on the final token, is ALWAYS correct and must never be removed; an <NL> token itself NEVER carries a boundary. Everything inside paragraphs is yours to judge. ⟨i⟩ = index anchor, not part of the text.
+- NP: Punctuation KEPT. Punctuation marks are ordinary tokens with their own indices, and a sentence usually ends ON its punctuation mark when one is present. There are NO <NL> tokens in this track. The final token always ends a sentence. ⟨i⟩ is an index anchor marking that the next token is token number i; it is not part of the text.
+- PA: Punctuation KEPT (marks are ordinary tokens, and a sentence usually ends ON its mark) AND paragraph structure KEPT as literal <NL> tokens. The ¶ on the token immediately before every <NL>, and on the final token, is ALWAYS correct and must never be removed; an <NL> token itself NEVER carries a boundary. ⟨i⟩ = index anchor, not part of the text.
+
+NEVER TABLE (substitute for <NEVER>):
+- NoPnx-NP: Never remove the ¶ on the final token.
+- NoPnx-PA: Never add or remove on an <NL> token; never remove a ¶ that sits immediately before an <NL> or on the final token.
+- NP: Never remove the ¶ on the final token.
+- PA: Never add or remove on an <NL> token; never remove a ¶ that sits immediately before an <NL> or on the final token.
 
 PROCEDURE (exact):
-1. Read manifest.json. Let SITTINGS be its "sittings" array and DOCS its "docs" array.
+1. Read manifest.json. Let TRACK be its "track", SITTINGS its "sittings" array, DOCS its "docs" array.
 2. List out/. A sitting is DONE when every one of its documents has a verdict file in out/.
 3. For every sitting that is not DONE, launch one subagent with the SITTING PROMPT below, filling:
    <n> = the sitting's 1-based position, <total> = length of SITTINGS,
-   the absolute paths of the 2 doctrine files, of each of the sitting's packets, and of out/.
-   Run AT MOST 4 subagents at the same time. Launch the next as each finishes.
-4. If a subagent fails, dies, or returns without finishing: relaunch that sitting once. Verdicts bank per
-   document and the prompt's RESUME clause skips banked documents, so relaunching never repeats work.
+   <FORMAT> and <NEVER> from the tables above for TRACK,
+   the absolute paths of the two doctrine files, of each of the sitting's packets, and of out/.
+   Run AT MOST 4 subagents at the same time. Launch the next as each finishes. Work sittings in array order.
+4. If a subagent fails, dies, or returns without finishing: relaunch that sitting once. Verdicts bank per document and the prompt's RESUME clause skips banked documents, so relaunching never repeats work.
 5. When every document in DOCS has a verdict file in out/, report EXACTLY this and stop:
    "COMPLETE: <count> of <len(DOCS)> verdicts in out/."
    If you stop for any other reason (usage limit, repeated failures), report EXACTLY:
    "PARTIAL: <count> of <len(DOCS)> verdicts in out/. Paste this prompt again in a new session to resume."
-6. You yourself read ONLY manifest.json and the out/ directory listing. You never open packets, doctrines,
-   or verdicts. You never score anything. You never access the web.
+6. You yourself read ONLY manifest.json and the out/ directory listing. You never open packets, doctrines, or verdicts. You never score anything. You never access the web.
 
 THE SITTING PROMPT (verbatim; fill only the bracketed values):
 
@@ -32,7 +44,7 @@ FIRST read both doctrines ONCE:
   Jury 0: <abs path>/doctrines/doctrine_j0.md
   Jury 1: <abs path>/doctrines/doctrine_j1.md
 
-FORMAT: Punctuation REMOVED and paragraph marks REMOVED, plain words only. The final token of a document always ends a sentence. ⟨i⟩ means the next token is token number i (an index anchor, not part of the text).
+FORMAT: <FORMAT>
 
 YOUR DOCUMENTS, one file each, STRICTLY ONE AT A TIME (finish and record one before opening the next):
 1. <abs path>/docs/<doc_id_1>.json
@@ -46,7 +58,7 @@ PER DOCUMENT, no limit on your reasoning depth:
 1. Jury 0 gives its full stance from doctrine 0, what the text is, which register it belongs to, its sentence law, and every place the draft marks are wrong, argued from the text.
 2. Jury 1 gives its own independent stance from doctrine 1, site by site.
 3. They ARGUE every disagreement. Concede when the colleague's reading matches the annotators' policy better; rebut precisely when it does not. Where a doctrine carries a law earned from a graded mistake in THIS register, that law outranks instinct.
-4. RECORD: only changes BOTH juries endorse survive. Unresolved means the draft stands. Write {"doc_id":"...","add":[{"i":<index>,"w":"<token>"}],"remove":[{"i":<index>,"w":"<token>"}],"argued":"<one line per argued site>"} to <abs path>/out/<doc_id>.json IMMEDIATELY on finishing that document. add = token positions that end a sentence but carry no ¶; remove = positions carrying ¶ that do not end a sentence; copy w from the text at the moment you decide. Never remove the ¶ on the final token.
+4. RECORD: only changes BOTH juries endorse survive. Unresolved means the draft stands. Write {"doc_id":"...","add":[{"i":<index>,"w":"<token>"}],"remove":[{"i":<index>,"w":"<token>"}],"argued":"<one line per argued site>"} to <abs path>/out/<doc_id>.json IMMEDIATELY on finishing that document. add = token positions that end a sentence but carry no ¶; remove = positions carrying ¶ that do not end a sentence; copy w from the text at the moment you decide. <NEVER>
 
 RESUME: if <abs path>/out/<doc_id>.json already exists, skip that document.
 When all are recorded return {"done": <count>, "note": ""}. No web, no PowerShell. Touch NOTHING beyond the two doctrine files, your listed documents, and your own output files, answer keys for this corpus exist elsewhere and opening anything else voids the evaluation.

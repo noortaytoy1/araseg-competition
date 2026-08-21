@@ -34,6 +34,14 @@ def main():
     rows = json.load(open(a.draft, encoding="utf-8"))["rows"]
     os.makedirs(os.path.join(a.out, "docs"), exist_ok=True)
     os.makedirs(os.path.join(a.out, "out"), exist_ok=True)
+    # the kit carries its own doctrine pair so the orchestrator prompt is self-contained
+    pair_dir = {"NoPnx-NP": "NoPnx-NP", "NoPnx-PA": "NoPnx-PA", "NP": "Pnx-NP-PA", "PA": "Pnx-NP-PA"}[a.track]
+    os.makedirs(os.path.join(a.out, "doctrines"), exist_ok=True)
+    import shutil
+    here = os.path.dirname(os.path.abspath(__file__))
+    for j in (0, 1):
+        src = os.path.join(here, "doctrines", pair_dir, f"doctrine_jury{j}.md")
+        shutil.copyfile(src, os.path.join(a.out, "doctrines", f"doctrine_j{j}.md"))
     order = []
     for line in open(a.data, encoding="utf-8"):
         if not line.strip():
