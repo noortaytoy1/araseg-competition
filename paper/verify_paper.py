@@ -562,6 +562,23 @@ for _dp11 in sorted(_gl11.glob("jury/doctrines/*/doctrine_jury*.md")):
     _badq11 += len((_dg11 & _dtg11) - _trg11)
 check("doctrine citations outside train split", 0, _badc11)
 check("doctrine Arabic 8-grams found only in dev/test", 0, _badq11)
+# training attempts were from-scratch: packets carry no draft marks, answers are boundary lists
+_mk11 = 0
+for _pat11 in ("scratch_exo/retrain3/nonp/train_docs/*.json", "scratch_exo/retrain3/nopa/train_docs/*.json",
+               "scratch_exo/np_docs/*.json"):
+    for _x11 in _gl11.glob(_pat11):
+        if chr(182) in open(_x11, encoding="utf-8").read(): _mk11 += 1
+check("training packets containing draft marks", 0, _mk11)
+_ed11 = _bd11 = 0
+for _pat11 in ("scratch_exo/retrain3/nonp/ans/**/*.json", "scratch_exo/retrain4/nopa/ans/**/*.json",
+               "scratch_exo/np_train_work/ans*/**/*.json"):
+    for _x11 in _gl11.glob(_pat11, recursive=True):
+        try: _a11 = json.load(open(_x11, encoding="utf-8"))
+        except Exception: continue
+        if "boundaries" in _a11: _bd11 += 1
+        if "add" in _a11 or "remove" in _a11: _ed11 += 1
+check("training attempts containing draft edits (add/remove)", 0, _ed11)
+note(f"training attempts with from-scratch boundary lists: {_bd11}", _bd11 >= 350)
 
 # ---------------------------------------------------------------- summary
 fails = [r for r in results if not r[0]]
