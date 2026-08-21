@@ -102,8 +102,9 @@ the punctuated pair.
   the killed gold-examples arm's `examples_j0.md` contains the Hindawi publisher
   colophon with gold boundaries; the identical span (43 Arabic tokens, 10 boundaries)
   recurs verbatim in test doc `doc_92e8c7876890`. The arm was killed 2026-08-19 and
-  reports nothing; no verdict for the affected doc exists; the file is unreleased
-  scratch, now marked VOID on disk. Build-time leak checks verified doc ids, not
+  reports nothing; no verdict for the affected doc exists; the files were unreleased
+  scratch; the entire arm (examples files and its 60 abandoned verdicts) was DELETED
+  at the user's order on 2026-08-21, after this finding was recorded. Build-time leak checks verified doc ids, not
   shared boilerplate content — future example-based arms must also shingle-check text.
 - **Design weaknesses acknowledged** (real, none crossing a gold wall): agent
   containment was honor-system prompts plus a late-added guard hook rather than the
