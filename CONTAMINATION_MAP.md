@@ -95,3 +95,22 @@ writing any doctrine; their run records are preserved and released. One temp
 scratchpad (npnpR session) was cleaned by the platform, empty of finished artifacts.
 The wave-era full-corpus training's products are intact, cleansed, and released as
 the punctuated pair.
+
+## 8. Post-release audit findings (2026-08-21, independent fresh-session audit)
+
+- **Exp-2 examples file colophon overlap (confirmed, zero impact on reported numbers):**
+  the killed gold-examples arm's `examples_j0.md` contains the Hindawi publisher
+  colophon with gold boundaries; the identical span (43 Arabic tokens, 10 boundaries)
+  recurs verbatim in test doc `doc_92e8c7876890`. The arm was killed 2026-08-19 and
+  reports nothing; no verdict for the affected doc exists; the file is unreleased
+  scratch, now marked VOID on disk. Build-time leak checks verified doc ids, not
+  shared boilerplate content — future example-based arms must also shingle-check text.
+- **Design weaknesses acknowledged** (real, none crossing a gold wall): agent
+  containment was honor-system prompts plus a late-added guard hook rather than the
+  API runner's structural allowlist from day one; the containment clause "answer keys
+  exist elsewhere in this repository" advertises the keys' existence; some
+  gold-derived score files landed mid-run in directories agents could name; the
+  `exam_out_shipped/` -> `exam_out/` rename left a provenance hole (reconstructed in
+  this map); drafts are dev-tuned (disclosed in the paper).
+- One fresh-session claim was wrong: the paper's Limitations DOES disclose the shared
+  punctuated-track jury pair ("one shared jury pair ... correlated measurements").
