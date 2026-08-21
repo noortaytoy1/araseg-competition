@@ -132,20 +132,30 @@ macro $F_1$ 80.74--84.56 against 85.62 on NoPnx-NP development).
 \subsection{Learning a policy from graded errors}
 \label{sec:loop}
 A jury is defined entirely by one text file, which it writes itself; training
-proceeds in batches of five documents. \textbf{Attempt:} the jury reads its
-current policy and segments each document from scratch, recording each boundary as a
-token index plus the token. \textbf{Reward:} the attempt is scored against the
-training gold, and then
+proceeds in batches of five documents. \textbf{Attempt:} the jury reads its current
+policy and segments each document from scratch, and it tries to predict the
+boundaries based on its initial written policy. \textbf{Experiment:} the attempt is
+scored against the training gold, and then the training gold will tell the jury on
+each set of boundary classification whether it is right or wrong, then
 \textbf{Diagnosis:} every false cut and miss is returned in context, the jury's
-answer beside the annotator's at the same place in the text. \textbf{Policy update:}
-the jury writes the rule behind each error into its file, its own failure as the
-worked example; contradicted entries are revised in place. \textbf{Reset:} the
-documents are discarded, and the next batch begins from the updated policy with no
-other memory. Nothing else survives between batches: whatever the jury learns must be written
-down, forcing the policy to be explicit and inspectable. We train two juries on disjoint halves of the corpus, 87 documents each,
-so their policies genuinely differ; the NoPnx-PA files run 1{,}398 and 2{,}098 lines.
-Superseded rules are struck through, not deleted, and every revision names the errors
-that forced it (one update and two full arcs verbatim in
+answer beside the annotator's at the same place in the text so that the jury already
+understands what it did wrong and writes it into the policy file. \textbf{Policy
+update:} the jury writes the rule behind each error into its file, its own failure as
+the worked example; contradicted entries are revised in place, and then the policy
+file is updated and given in the next batch. \textbf{Reset:} the documents are
+discarded, and the next batch begins from the updated policy. As a design decision,
+we also periodically despawn the agent responsible for writing down the policy,
+after a batch or a short run of batches, and then spawn a new agent that receives
+only the policy file and the banked answers and repeats the loop. We do it because
+we found out that having the same agent doing the training loop on all batches may
+inflict very heavy usage credits because of context carriage, and a bigger risk for
+hallucination problems. We train two juries on disjoint splits of the corpus, 87
+documents each for the NoPnx-PA pair (the punctuated pair trained on halves of the
+full corpus, and the NoPnx-NP pair on a curated 39-document curriculum of 20 and
+19), so their policies genuinely differ; the NoPnx-PA files run 1{,}398 and 2{,}098
+lines. Superseded rules are struck through, not deleted so that the agent that looks
+at the new policy understands what previous mistakes have been done, and every
+revision names the errors that forced it (one update and two full arcs verbatim in
 Appendix~\ref{sec:learning}, Figure~\ref{fig:update}).
 \subsection{Adjudication: only edits both juries endorse}
 \label{sec:adj}
@@ -192,7 +202,13 @@ file-access transcripts of every run (Appendix~\ref{sec:appendix}).
 \paragraph{Official results.}
 Our system achieved first place on the official leaderboards of Pnx-PA, Pnx-NP, and
 NoPnx-NP, closed and open, with blind $F_1$ of 95.30, 92.0, and 89.1. On NoPnx-PA it scored 90.0 and did not place first, its
-juries rebuilt in the final hours on 60 of 174 training documents.
+juries rebuilt in the final hours on 60 of 174 training documents. Furthermore, we
+wanted to disclose the fact that the no pnx np training was not done fully on the
+araseg corpus, rather we only used a curated list of 39 documents of the dataset due
+to usage limits. Extending it to the entire corpus may give more F1 gains.
+Nevertheless, the curated list of 39 documents of the araseg corpus still yields
+huge gains on No Pnx NP track, which heavily motivates extensive future work for
+reasoning models in sentence segmentation in general.
 \paragraph{Ablation setup.}
 The leaderboard cannot separate the two stages, so we compare arms on the released
 test split: identical documents, gold, draft, prompts, unanimity rule, and model,
