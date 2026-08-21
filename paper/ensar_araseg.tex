@@ -401,7 +401,7 @@ read in memory by the scoring loop only. Transcript audits of every evaluation r
 paths and no gold label vector in any agent context. The agent platform may inject
 brief session notes into agent context; audits show the only such note that ever
 appeared named the existence of a training curriculum and carried no corpus content,
-labels, conventions, or results.
+labels, conventions, or results. The juries' learned files are themselves auditable text: every document id cited and every Arabic 8-gram quoted in any released doctrine occurs in the training split, and none occurs only in the development or test data; every graded training attempt on disk is a training-split document (machine-checked on every build).
 \paragraph{Jury prompts: the complete record.} Every prompt that ever touched a shipped
 doctrine or a reported number is released verbatim: the 35 launcher scripts of record
 (training, evaluation, the competition-day blind exam, the zero-shot control, the

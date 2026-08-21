@@ -516,6 +516,53 @@ for _tr10 in ("NoPnx-NP", "NoPnx-PA", "NP", "PA"):
     check(f"{_tr10} released ablation_result jury", _cl10["jur"], round(_ab10["jury"], 2))
     check(f"{_tr10} released ablation_result delta", _cl10["delta"], round(_ab10["delta"], 2))
 
+# ---------------------------------------------------------------- 11. jury training purity
+print("\n=== 11. Jury training purity (attempts, citations, quotations are train-only) ===")
+_tr11 = {json.loads(_l)["doc_id"] for _l in open("data/NoPnx-NP_train.jsonl", encoding="utf-8") if _l.strip()}
+_dv11 = set(); _ts11 = set()
+for _t11 in ("NoPnx-NP", "NoPnx-PA", "NP", "PA"):
+    for _sp11, _acc in (("dev", _dv11), ("test", _ts11)):
+        for _l in Z.read(f"heldout_data/{_t11}_{_sp11}.jsonl").decode("utf-8").split(chr(10)):
+            if _l.strip(): _acc.add(json.loads(_l)["doc_id"])
+import glob as _gl11
+def _coll11(pat):
+    _o = set()
+    for _x in _gl11.glob(pat, recursive=True):
+        _m = re.match(r"(doc_[0-9a-f]{12})", os.path.basename(_x))
+        if _m: _o.add(_m.group(1))
+    return _o
+_att11 = (_coll11("scratch_exo/retrain3/nonp/ans/**/*") | _coll11("scratch_exo/retrain4/nopa/ans/**/*")
+          | _coll11("scratch_exo/retrain3/pnxnp/ans/**/*"))
+for _d11 in ("ans", "ans_v2", "ans_np2", "ans_pa", "ans_pa_v2"):
+    _att11 |= _coll11(f"scratch_exo/np_train_work/{_d11}/**/*")
+check("graded jury attempts outside train split", 0, len(_att11 - _tr11))
+check("graded jury attempts in dev", 0, len(_att11 & _dv11))
+check("graded jury attempts in test", 0, len(_att11 & _ts11))
+_AR11 = re.compile("[" + chr(92) + "u0600-" + chr(92) + "u06FF" + chr(92) + "u0750-" + chr(92) + "u077F]+")
+def _grams11(_toks, n=8):
+    _t = [_w for _w in _toks if _AR11.fullmatch(_w)]
+    return {" ".join(_t[_i:_i+n]) for _i in range(len(_t)-n+1)}
+_trg11 = set()
+for _l in open("data/NoPnx-NP_train.jsonl", encoding="utf-8"):
+    if _l.strip(): _trg11 |= _grams11(json.loads(_l)["tokens"])
+for _l in open("data/NP_train.jsonl", encoding="utf-8"):
+    if _l.strip(): _trg11 |= _grams11(json.loads(_l)["tokens"])
+_dtg11 = set()
+for _t11 in ("NoPnx-NP", "NP"):
+    for _sp11 in ("dev", "test"):
+        for _l in Z.read(f"heldout_data/{_t11}_{_sp11}.jsonl").decode("utf-8").split(chr(10)):
+            if _l.strip(): _dtg11 |= _grams11(json.loads(_l)["tokens"])
+_badc11 = _badq11 = 0
+for _dp11 in sorted(_gl11.glob("jury/doctrines/*/doctrine_jury*.md")):
+    _txt11 = open(_dp11, encoding="utf-8").read()
+    _cited11 = set(re.findall(r"doc_[0-9a-f]{12}", _txt11))
+    _badc11 += len(_cited11 - _tr11)
+    _tk11 = _AR11.findall(_txt11)
+    _dg11 = {" ".join(_tk11[_i:_i+8]) for _i in range(len(_tk11)-7)}
+    _badq11 += len((_dg11 & _dtg11) - _trg11)
+check("doctrine citations outside train split", 0, _badc11)
+check("doctrine Arabic 8-grams found only in dev/test", 0, _badq11)
+
 # ---------------------------------------------------------------- summary
 fails = [r for r in results if not r[0]]
 print("\n" + "=" * 62)
