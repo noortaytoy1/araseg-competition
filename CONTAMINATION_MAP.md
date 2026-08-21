@@ -80,8 +80,9 @@ it and treat the two rows as correlated measurements.
 
 ## 6. Standing corrections still owed to the paper (author's hand)
 
-1. §4.2 line ~145: "87 documents each" → true only for the NoPnx-PA ablation pair;
-   NoPnx-NP pair = curated 39 (20+19); punctuated pair = wave-era corpus halves.
+1. RESOLVED 2026-08-21: §4.2 rewritten by the author (per-pair training counts, the
+   despawn design, the Reset wording); the 39-document curriculum is disclosed in the
+   Official-results paragraph.
 2. Ablation-setup caveat: "the NP, PA, and NoPnx-NP doctrine rows use the submitted
    juries" → NP's blind submission carried no jury; its row evaluates the shared pair
    on released test only.
