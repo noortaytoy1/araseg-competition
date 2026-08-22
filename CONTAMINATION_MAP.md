@@ -34,7 +34,7 @@ on every build) or carries its evidence pointer.
 | Track | Official | Submission artifact | System | Jury training data |
 |---|---|---|---|---|
 | Pnx-PA | **95.30, 1st** | shipped Aug 2 (pa-group-exam sittings) | ensemble draft + shared jury pair | de-punctuated train corpus (wave era, cleansed Aug 3) + punctuated bridge rounds; train split only |
-| Pnx-NP | **92.0, 1st** | `subs_blind/prediction_NP.zip` (Jul 21) | **ensemble draft alone — no jury ever touched this submission** (the deadline pnxnp jury exam produced 0 gated verdicts) | n/a |
+| Pnx-NP | **92.0, 1st** | ensemble zip Jul 21, then jury-refined RESUBMISSION Aug 3 night (`npnp-agent-exam` runs, by user order) | ensemble draft + the shared (cleansed) jury pair, punctuation-bridge framing | de-punctuated train corpus (cleansed) |
 | NoPnx-NP | **89.1, 1st** | `prediction_NoPnx-NP.retrain3.zip` (Aug 4 12:50) | ensemble draft + clean-room jury pair | curated 39 train docs (20+19), census matched to blind input genres; train split only |
 | NoPnx-PA | 90.0, not 1st | retrain3/nopa zips (Aug 4 14:54) | ensemble draft + clean-room jury pair | ~60 train docs, rebuilt in the final hours; train split only |
 
@@ -83,9 +83,11 @@ it and treat the two rows as correlated measurements.
 1. RESOLVED 2026-08-21: §4.2 rewritten by the author (per-pair training counts, the
    despawn design, the Reset wording); the 39-document curriculum is disclosed in the
    Official-results paragraph.
-2. Ablation-setup caveat: "the NP, PA, and NoPnx-NP doctrine rows use the submitted
-   juries" → NP's blind submission carried no jury; its row evaluates the shared pair
-   on released test only.
+2. RESOLVED 2026-08-22: the earlier claim here that "NP's blind submission carried
+   no jury" was WRONG — the Aug-3-night `npnp-agent-exam` runs (user-ordered) made a
+   jury-refined Pnx-NP resubmission with the shared cleansed pair; the paper's
+   "submitted juries" caveat was correct as written. (A deadline-morning
+   Pnx-NP-format retrain pair also exists in scratch, trained but never used.)
 3. Limitations: one sentence on the blind-input-genre-matched curriculum (§5 above).
 
 ## 7. What was lost, for completeness
