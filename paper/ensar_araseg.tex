@@ -149,10 +149,11 @@ after a batch or a short run of batches, and then spawn a new agent that receive
 only the policy file and the banked answers and repeats the loop. We do it because
 we found out that having the same agent doing the training loop on all batches may
 inflict very heavy usage credits because of context carriage, and a bigger risk for
-hallucination problems. We train two juries on disjoint splits of the corpus, 87
-documents each for the NoPnx-PA pair (the punctuated pair trained on halves of the
-full corpus, and the NoPnx-NP pair on a curated 39-document curriculum of 20 and
-19), so their policies genuinely differ; the NoPnx-PA files run 1{,}398 and 2{,}098
+hallucination problems. We train two juries per track on separate splits of the corpus: disjoint for
+the NoPnx pairs (87 documents each for NoPnx-PA; a curated 39-document curriculum of
+20 and 19 for NoPnx-NP), while the shared punctuated pair's two jurors accumulated
+141 and 123 graded documents over the corpus with partial overlap, so their policies
+genuinely differ; the NoPnx-PA files run 1{,}398 and 2{,}098
 lines. Superseded rules are struck through, not deleted so that the agent that looks
 at the new policy understands what previous mistakes have been done, and every
 revision names the errors that forced it (one update and two full arcs verbatim in
@@ -398,7 +399,7 @@ decoding controls remain at provider defaults, so jury decoding is nondeterminis
 Each sitting of four documents runs in a fresh context with no memory of any other
 sitting, two to four sittings in parallel; the framework-free API runner used for
 replication pins \texttt{max\_tokens} to 32{,}000 with a 30{,}000-token thinking
-budget. The six complete doctrines, 675\,KB of policy text
+budget. The six complete doctrines and the shared pair's two lessons records, some 980\,KB of policy text
 containing extensive Arabic that this template cannot typeset, accompany the paper
 verbatim as supplementary material and in the release; every excerpt printed in this
 paper is machine-checked against them on each build. The release makes the full

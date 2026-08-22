@@ -116,3 +116,17 @@ the punctuated pair.
   this map); drafts are dev-tuned (disclosed in the paper).
 - One fresh-session claim was wrong: the paper's Limitations DOES disclose the shared
   punctuated-track jury pair ("one shared jury pair ... correlated measurements").
+
+## 9. The naming trap (root cause of repeated confusion; resolved 2026-08-22)
+
+The shared punctuated pair's doctrines carry internal headers naming "NoPnx-NP" and
+cumulative counts "10 batches, 141 docs" / "123 graded documents": that pair's first
+phase trained on the DE-PUNCTUATED form and the jurors titled their own files by the
+format, not the track. Two different pairs therefore answer to the name "NoPnx-NP":
+the wave-trained shared pair (internal header; 133/121 distinct docs on disk, 85
+overlapping — NOT disjoint halves) and the track-folder pair (curated 39, the 89.1
+submission). Consequences applied: the paper's 4.2 counts now state 141/123 with
+partial overlap for the shared pair (disjointness holds only for the NoPnx pairs);
+the supplementary README carries the naming note; the lessons records the shared
+pair's doctrines cite are included in the supplementary zip. Doctrine files remain
+byte-untouched — they are the juries' writing and the release's evidence.
